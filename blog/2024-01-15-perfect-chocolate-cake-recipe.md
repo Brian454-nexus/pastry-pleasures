@@ -8,7 +8,7 @@ excerpt: >
   Black Forest Cake
 
   I’ve recently been experimenting with my Black Forest Cake recipe, and have landed on this awesome version whereby I have modified my Strawberry & Cream Sponge cake recipe for a chocolaty, moist, light and gorgeous version. The instructions may appear lengthy, it is only because they are detailed which will help guide you through each step so you end up with a moist perfect cake.
-draft: true
+draft: false
 ---
 ### Delectable Strawberry Layer Cake Recipe
 
