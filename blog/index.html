@@ -176,24 +176,16 @@ extraHead: |
 <div class="container">
   <div class="blog-filter wow fadeInUp" data-wow-delay="0.1s">
     <div class="blog-search">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search articles..."
-      />
+      <input type="text" id="searchInput" placeholder="Search articles..." />
       <button type="button" id="searchBtn">
         <i class="fa fa-search"></i>
       </button>
     </div>
     <div class="filter-buttons">
-      <button class="filter-btn active" data-category="all">
-        All Posts
-      </button>
+      <button class="filter-btn active" data-category="all">All Posts</button>
       <button class="filter-btn" data-category="recipes">Recipes</button>
       <button class="filter-btn" data-category="tips">Baking Tips</button>
-      <button class="filter-btn" data-category="stories">
-        Sweet Stories
-      </button>
+      <button class="filter-btn" data-category="stories">Sweet Stories</button>
       <button class="filter-btn" data-category="events">Events</button>
     </div>
   </div>
@@ -205,9 +197,13 @@ extraHead: |
   <div class="container">
     <div class="row g-4" id="blogGrid">
       {% for post in collections.posts | reverse %}
-      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" data-category="{{ post.data.category | lower }}">
+      <div
+        class="col-lg-4 col-md-6 wow fadeInUp"
+        data-wow-delay="0.1s"
+        data-category="{{ post.data.category | downcase }}"
+      >
         <div class="blog-card h-100">
-          <a href="{{ post.url }}" style="text-decoration: none;">
+          <a href="{{ post.url }}" style="text-decoration: none">
             <div class="blog-card-image">
               <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
               <div class="blog-card-category">{{ post.data.category }}</div>
