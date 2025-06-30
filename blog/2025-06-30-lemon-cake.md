@@ -6,50 +6,55 @@ image: /img/blog/lemon-cake.jpg
 category: recipes
 author: Wangechi Kimata
 authorImage: /img/blog/whatsapp-image-2025-06-17-at-11.05.59.jpeg
-excerpt: >-
-  ❄️ **Chilly Days Ahead in Nairobi**❄️
-
-
-  As temperatures dip below **15°C**, the city is bracing for an even **colder July**. While we all yearn for the warmth of January, there’s something special about embracing the cold. ☕️
-
-
-  I must admit, although I prefer cooler weather, keeping warm can be quite the challenge! But here’s a simple yet delightful remedy: **Bake a Cake!** 🍰✨ 
-
-
-  **A lemon cake**, to be precise! Not only will it fill your home with the heavenly scent of citrus, but you’ll also get to enjoy the sweet rewards of your effort. Imagine indulging in a slice while sipping a warm cup of tea or coffee. ☕️🍋
-
-
-  And just to elevate the experience, I’ve added chocolate chips to mine because, well, chocolate makes everything better! 😍 Trust me on this one; it’s the perfect way to cozy up during these cold days. 
-
-
-  Stay warm and happy baking! 🎉
+excerpt: Lemon Zest Cake Recipe
 draft: false
 ---
-**Ingredients:-**
 
-* 250grams butter or margarine
-* 1 plus 1/2 cup white sugar (add or reduce to your liking)
-* 4 Eggs
-* 2 teaspoon lemon zest
-* 2 and 1/2 cups all purpose flour
-* 1 cup milk
-* 1 – 2 teaspoons lemon juice
-* 1 and 1/2 teaspoon baking powder
 
-**Method:-** 
+As temperatures dip below **15°C**, the city is bracing for an even **colder July**. While we all yearn for the warmth of January, there’s something special about embracing the cold. ☕️
 
-1. Pre-heat your oven to 180 degrees Celsius.
-2. Grease and dust your baking tin.
-3. In one bowl, sift together the baking powder and flour. Seiving the flour and the baking powder together is essential as it helps the leavening agent get incorporated into the flour will. Add the lemon zest.
-4. In a jug, mix together the milk and the lemon juice. It will curdle at this point but it’s fine.
-5. In a second bowl, soften your butter or margarine with your mixer or spatula. Add the sugar and mix until well incorporated. The mixture will turn from yellow and heavy, to a pale white and fluffy texture. This step is important as it dictates the texture that your cake will have.
-6. Add your eggs one at a time to the butter mixture and mix well.
-7. Slowly add your flour and milk mixture into the butter and eggs mix. This should be done alternating so as to incorporate air into the batter and make your cake lighter as opposed to dense. Starting and ending with flour.
-8. Once everything is well incorporated, pour the batter into your prepared baking tin and bake for 40-50 minutes.
-9. If making cupcakes, divide into 24 cupcake cases and bake for 18-25 minutes.
+I must admit, although I prefer cooler weather, keeping warm can be quite the challenge! But here’s a simple yet delightful remedy: **Bake a Cake!** 🍰✨ 
 
-**Do not open oven door before time is done.** 
+**A lemon cake**, to be precise! Not only will it fill your home with the heavenly scent of citrus, but you’ll also get to enjoy the sweet rewards of your effort. Imagine indulging in a slice while sipping a warm cup of tea or coffee. ☕️🍋
 
-Decorate cake as desired.
+And just to elevate the experience, I’ve added chocolate chips to mine because, well, chocolate makes everything better! 😍 Trust me on this one; it’s the perfect way to cozy up during these cold days. 
 
-\*serves 8, or one that is too cold
+Stay warm and happy baking! 🎉
+
+### Lemon Zest Cake Recipe
+
+#### Ingredients
+
+* **250 grams** butter or margarine  
+* **1 ½ cups** white sugar (adjust to taste)  
+* **4** eggs  
+* **2 teaspoons** lemon zest  
+* **2 ½ cups** all-purpose flour  
+* **1 cup** milk  
+* **1 - 2 teaspoons** lemon juice  
+* **1 ½ teaspoons** baking powder  
+
+- - -
+
+#### Method
+
+1. **Preheat and Prepare**\
+   Preheat your oven to **180°C** (350°F). Grease and dust your baking tin to prevent sticking.
+2. **Sift Dry Ingredients**\
+   In a large bowl, sift together the **all-purpose flour** and **baking powder**. This step is crucial as it ensures the leavening agent is well incorporated. Add the **lemon zest** to this mixture.
+3. **Curdle the Milk**\
+   In a separate jug, combine the **milk** and **lemon juice**. Allow it to sit for a moment—it will curdle, and that’s completely fine!
+4. **Cream Butter and Sugar**\
+   In another bowl, soften your **butter or margarine** using a mixer or spatula. Add in the **sugar** and mix until the texture transforms from yellow and heavy to a pale, fluffy consistency. This step will significantly affect the final texture of your cake.
+5. **Add Eggs**\
+   Add the **eggs** one at a time to the butter-sugar mixture, mixing well after each addition.
+6. **Combine Mixtures**\
+   Gradually incorporate the flour mixture and the milk mixture into the butter-egg mix. Alternate adding them—beginning and ending with the flour. This helps to incorporate air, resulting in a lighter cake.
+7. **Bake**\
+   Pour the batter into your prepared baking tin and bake for **40-50 minutes**. If you prefer making **cupcakes**, divide the batter into **24 cupcake cases** and bake for **18-25 minutes**.
+8. **Final Touches**\
+   Avoid opening the oven door before the baking time is up. Once baked, let your cake cool and decorate it as desired.
+
+- - -
+
+**Enjoy your delicious lemon zest cake! Serves 8, or one who can't resist a slice!** 🍰✨
