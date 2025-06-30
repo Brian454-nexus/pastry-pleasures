@@ -8,57 +8,11 @@ extraHead: |
       padding: 120px 0 80px 0;
       text-align: center;
     }
-    .blog-filter {
-      padding: 40px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-    .blog-search {
-      display: flex;
-      flex-grow: 1;
-      max-width: 400px;
-    }
-    .blog-search input {
-      width: 100%;
-      border: 1px solid #ddd;
-      padding: 10px 15px;
-      border-radius: 50px 0 0 50px;
-      outline: none;
-    }
-    .blog-search button {
-      border: none;
-      background: var(--primary);
-      color: white;
-      padding: 0 20px;
-      border-radius: 0 50px 50px 0;
-      cursor: pointer;
-    }
-    .filter-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .filter-btn {
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 10px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-    .blog-grid { padding: 40px 0 80px 0; }
+    .blog-grid { padding: 80px 0; }
     .blog-card {
       background: #ffffff;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       transition: all 0.3s ease;
       height: 100%;
@@ -66,7 +20,7 @@ extraHead: |
     }
     .blog-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
     .blog-card-image {
       position: relative;
@@ -101,6 +55,7 @@ extraHead: |
       line-height: 1.3;
       display: -webkit-box;
       -webkit-line-clamp: 2;
+      line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -110,6 +65,7 @@ extraHead: |
       line-height: 1.6;
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -136,18 +92,6 @@ extraHead: |
       color: #999;
       font-size: 14px;
     }
-    .no-results {
-      text-align: center;
-      padding: 80px 40px;
-      border: 2px dashed #eee;
-      border-radius: 20px;
-      width: 100%;
-    }
-    .no-results i {
-      font-size: 3rem;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
   </style>
 ---
 
@@ -172,43 +116,17 @@ extraHead: |
 </div>
 <!-- Blog Hero Section End -->
 
-<!-- Blog Filter Section Start -->
-<div class="container">
-  <div class="blog-filter wow fadeInUp" data-wow-delay="0.1s">
-    <div class="blog-search">
-      <input type="text" id="searchInput" placeholder="Search articles..." />
-      <button type="button" id="searchBtn">
-        <i class="fa fa-search"></i>
-      </button>
-    </div>
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-category="all">All Posts</button>
-      <button class="filter-btn" data-category="recipes">Recipes</button>
-      <button class="filter-btn" data-category="tips">Baking Tips</button>
-      <button class="filter-btn" data-category="stories">Sweet Stories</button>
-      <button class="filter-btn" data-category="events">Events</button>
-    </div>
-  </div>
-</div>
-<!-- Blog Filter Section End -->
-
 <!-- Blog Grid Section Start -->
 <div class="blog-grid">
   <div class="container">
-    <div class="row g-4" id="blogGrid">
-      {% for post in collections.posts | reverse %}
-      <div
-        class="col-lg-4 col-md-6 wow fadeInUp"
-        data-wow-delay="0.1s"
-        data-category="{{ post.data.category | downcase }}"
-      >
+    <div class="row" id="blogGrid">
+      {% for post in collections.posts %}
+      <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
         <div class="blog-card h-100">
-          <a href="{{ post.url }}" style="text-decoration: none">
-            <div class="blog-card-image">
-              <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
-              <div class="blog-card-category">{{ post.data.category }}</div>
-            </div>
-          </a>
+          <div class="blog-card-image">
+            <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
+            <div class="blog-card-category">{{ post.data.category }}</div>
+          </div>
           <div class="blog-card-content d-flex flex-column">
             <h3 class="blog-card-title">
               <a
@@ -233,13 +151,6 @@ extraHead: |
         </div>
       </div>
       {% endfor %}
-    </div>
-
-    <!-- No Results Message -->
-    <div class="no-results" id="noResults" style="display: none">
-      <i class="fa fa-search"></i>
-      <h3>No posts found</h3>
-      <p>Try adjusting your search or filter criteria</p>
     </div>
   </div>
 </div>
