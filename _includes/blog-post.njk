@@ -1,0 +1,48 @@
+---
+layout: layout.njk
+extraHead: |
+  <style>
+    .post-hero-spacer {
+      padding-top: 150px;
+    }
+  </style>
+extraJs: |
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navbar = document.querySelector('.fixed-top');
+      if (navbar) {
+        navbar.classList.add('bg-dark');
+        navbar.style.top = '0';
+      }
+    });
+  </script>
+---
+
+<div class="blog-hero-section post-hero-spacer">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h1 class="display-4 text-primary mb-4 wow fadeInUp" data-wow-delay="0.1s">
+          {{ title }}
+        </h1>
+        <div class="d-flex justify-content-center align-items-center text-muted wow fadeInUp" data-wow-delay="0.3s">
+            <img src="{{ authorImage }}" alt="{{ author }}" class="rounded-circle me-3" style="width: 50px; height: 50px;"/>
+            <span>By {{ author }} on {{ date | postDate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<article class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      {% if image %}
+        <img src="{{ image }}" alt="{{ title }}" class="img-fluid rounded mb-4" />
+      {% endif %}
+      <div class="blog-content">
+        {{ content | safe }}
+      </div>
+    </div>
+  </div>
+</article> 
