@@ -198,6 +198,10 @@ title: Shop & Order
                       reference image or drag and drop
                     </label>
                   </div>
+                  <small class="form-text text-muted mt-2 d-block">
+                    <strong>Please Note:</strong> You will need to manually
+                    attach your reference image in the WhatsApp chat.
+                  </small>
                 </div>
               </div>
               <!-- Submit Button -->
@@ -365,7 +369,7 @@ title: Shop & Order
       if (data.referenceImage && data.referenceImage.name) {
         message += `${String.fromCodePoint(
           0x1f5bc
-        )}️ IMPORTANT: Please attach your reference image to this chat now before sending.\n\n`;
+        )}️ A reference image was selected on the form.\n\n`;
       }
       message += `Thank you, this will be much appreciated!`;
 
