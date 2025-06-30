@@ -42,33 +42,72 @@ class BlogLoader {
     this.currentPosts = [...this.posts];
   }
 
-  // Fetch posts from Netlify Function
+  // Fetch posts from GitHub API Directly
   async fetchPosts() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second timeout
 
+    const GITHUB_API_URL =
+      "https://api.github.com/repos/Brian454-nexus/pastry-pleasures/contents/blog";
+
     try {
-      const response = await fetch("/.netlify/functions/get-posts", {
+      const response = await fetch(GITHUB_API_URL, {
         signal: controller.signal,
+        headers: { Accept: "application/vnd.github.v3+json" },
       });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error(
-          `We couldn't retrieve the posts (Server responded with status ${response.status}).`
+          `Failed to fetch posts list (Server status: ${response.status}).`
         );
       }
 
-      return await response.json();
+      const files = await response.json();
+
+      const postPromises = files
+        .filter((file) => file.name.endsWith(".md"))
+        .map(async (file) => {
+          try {
+            const contentResponse = await fetch(file.download_url);
+            if (!contentResponse.ok) return null;
+
+            const content = await contentResponse.text();
+            const { data, content: body } = this.parseFrontMatter(content);
+
+            return {
+              id: file.sha,
+              title: data.title,
+              excerpt: data.excerpt,
+              category: data.category,
+              author: data.author,
+              authorImage: data.authorImage,
+              date: data.date,
+              image: data.image,
+              slug: file.name.replace(/\.md$/, ""),
+              content: body.trim(),
+              tags: data.tags || [],
+              draft: data.draft || false,
+            };
+          } catch (e) {
+            console.error(`Error processing file ${file.name}:`, e);
+            return null; // Skip this post on error
+          }
+        });
+
+      const posts = (await Promise.all(postPromises))
+        .filter((p) => p !== null && !p.draft)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      return posts;
     } catch (error) {
       clearTimeout(timeoutId);
       if (error.name === "AbortError") {
         throw new Error(
-          "The request for blog posts took too long. Please check your connection and try again."
+          "The request for blog posts took too long. Please try again."
         );
       }
-      // Re-throw other errors to be caught by the init method
       throw error;
     }
   }
@@ -79,22 +118,22 @@ class BlogLoader {
     const matches = content.match(frontMatterRegex);
 
     if (!matches) {
-      throw new Error("Invalid front matter format");
+      // If no front matter, return empty data and use the whole file as content
+      return { data: {}, content: content.trim() };
     }
 
     const [, frontMatter, body] = matches;
     const data = {};
 
-    // Parse YAML front matter
     frontMatter.split("\n").forEach((line) => {
-      const [key, ...values] = line.split(":");
-      if (key && values.length) {
-        let value = values.join(":").trim();
-        // Remove quotes if present
-        if (value.startsWith('"') && value.endsWith('"')) {
-          value = value.slice(1, -1);
-        }
-        data[key.trim()] = value;
+      const separatorIndex = line.indexOf(":");
+      if (separatorIndex > -1) {
+        const key = line.slice(0, separatorIndex).trim();
+        const value = line
+          .slice(separatorIndex + 1)
+          .trim()
+          .replace(/^"(.*)"$/, "$1");
+        data[key] = value;
       }
     });
 
