@@ -12,6 +12,7 @@ class BlogLoader {
     this.postsPerPage = 6;
     this.currentPage = 1;
     this.isLoading = false;
+    this.errorMessage = null; // To hold any error messages
   }
 
   // Initialize the blog loader
@@ -25,6 +26,7 @@ class BlogLoader {
       console.error("Failed to load posts during initialization:", error);
       this.posts = [];
       this.currentPosts = [];
+      this.errorMessage = error.message || "An unknown error occurred.";
     } finally {
       this.isLoading = false;
       this.renderPosts(); // Always render the final state (posts or error message)
@@ -36,24 +38,35 @@ class BlogLoader {
 
   // Load posts from markdown files or API
   async loadPosts() {
-    // isLoading is now handled by the init method
     this.posts = await this.fetchPosts();
     this.currentPosts = [...this.posts];
   }
 
   // Fetch posts from Netlify Function
   async fetchPosts() {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second timeout
+
     try {
-      const response = await fetch("/.netlify/functions/get-posts");
+      const response = await fetch('/.netlify/functions/get-posts', {
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error(`Error fetching posts: ${response.statusText}`);
+        throw new Error(`We couldn't retrieve the posts (Server responded with status ${response.status}).`);
       }
-      const posts = await response.json();
-      return posts;
+      
+      return await response.json();
+
     } catch (error) {
-      console.error("Error fetching posts:", error);
-      // Return empty array on error to prevent site crash
-      return [];
+      clearTimeout(timeoutId);
+      if (error.name === 'AbortError') {
+        throw new Error('The request for blog posts took too long. Please check your connection and try again.');
+      }
+      // Re-throw other errors to be caught by the init method
+      throw error;
     }
   }
 
@@ -147,43 +160,40 @@ class BlogLoader {
     const noResults = document.getElementById("noResults");
     const loadMoreContainer = document.getElementById("loadMoreContainer");
     const loadingIndicator = document.getElementById("loadingIndicator");
+    const errorMessageContainer = document.getElementById("errorMessage");
+    const errorTextElement = document.getElementById("errorText");
 
-    // Guard against missing elements on the page
-    if (!blogGrid || !noResults || !loadMoreContainer || !loadingIndicator) {
-      console.error(
-        "One or more required blog elements are missing from the DOM."
-      );
+    if (!blogGrid || !noResults || !loadMoreContainer || !loadingIndicator || !errorMessageContainer || !errorTextElement) {
+      console.error("One or more required blog elements are missing from the DOM.");
       return;
     }
 
-    // Show loading indicator
+    // Always hide all content containers first
+    loadingIndicator.style.display = "none";
+    blogGrid.style.display = "none";
+    noResults.style.display = "none";
+    errorMessageContainer.style.display = "none";
+    loadMoreContainer.style.display = "none";
+
     if (this.isLoading) {
       loadingIndicator.style.display = "block";
-      blogGrid.style.display = "none";
-      noResults.style.display = "none";
-      loadMoreContainer.style.display = "none";
       return;
     }
 
-    // Hide loading indicator
-    loadingIndicator.style.display = "none";
-
-    // Handle case with no posts
+    if (this.errorMessage) {
+      errorTextElement.textContent = this.errorMessage;
+      errorMessageContainer.style.display = "block";
+      return;
+    }
+    
     if (this.currentPosts.length === 0) {
-      blogGrid.style.display = "none";
       noResults.style.display = "block";
-      loadMoreContainer.style.display = "none";
       return;
     }
 
-    // Display posts
-    noResults.style.display = "none";
-    blogGrid.style.display = "flex"; // Use flex for Bootstrap rows
-
-    const postsToShow = this.currentPosts.slice(
-      0,
-      this.currentPage * this.postsPerPage
-    );
+    // Display posts if everything is fine
+    blogGrid.style.display = "flex";
+    const postsToShow = this.currentPosts.slice(0, this.currentPage * this.postsPerPage);
     const hasMorePosts = postsToShow.length < this.currentPosts.length;
 
     blogGrid.innerHTML = postsToShow
@@ -192,8 +202,6 @@ class BlogLoader {
 
     if (hasMorePosts) {
       loadMoreContainer.style.display = "block";
-    } else {
-      loadMoreContainer.style.display = "none";
     }
   }
 
