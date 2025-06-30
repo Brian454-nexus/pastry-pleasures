@@ -365,9 +365,9 @@ title: Shop & Order
       if (data.referenceImage && data.referenceImage.name) {
         message += `${String.fromCodePoint(
           0x1f5bc
-        )}️ A reference image has been selected and will be sent separately.\n\n`;
+        )}️ IMPORTANT: Please attach your reference image to this chat now before sending.\n\n`;
       }
-      message += `Thank you, this will be much appreaciated!`;
+      message += `Thank you, this will be much appreciated!`;
 
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
