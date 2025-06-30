@@ -16,24 +16,29 @@ class BlogLoader {
 
   // Initialize the blog loader
   async init() {
-    await this.loadPosts();
-    this.setupEventListeners();
-    this.renderPosts();
-  }
+    this.isLoading = true;
+    this.renderPosts(); // Show loader immediately
 
-  // Load posts from markdown files or API
-  async loadPosts() {
     try {
-      this.isLoading = true;
-      this.posts = await this.fetchPosts();
-      this.currentPosts = [...this.posts];
+      await this.loadPosts();
     } catch (error) {
-      console.error("Error loading posts:", error);
+      console.error("Failed to load posts during initialization:", error);
       this.posts = [];
       this.currentPosts = [];
     } finally {
       this.isLoading = false;
+      this.renderPosts(); // Always render the final state (posts or error message)
     }
+
+    // Event listeners should be set up regardless of post loading success
+    this.setupEventListeners();
+  }
+
+  // Load posts from markdown files or API
+  async loadPosts() {
+    // isLoading is now handled by the init method
+    this.posts = await this.fetchPosts();
+    this.currentPosts = [...this.posts];
   }
 
   // Fetch posts from Netlify Function
