@@ -148,7 +148,15 @@ class BlogLoader {
     const loadMoreContainer = document.getElementById("loadMoreContainer");
     const loadingIndicator = document.getElementById("loadingIndicator");
 
-    // Show loading indicator if posts are being loaded
+    // Guard against missing elements on the page
+    if (!blogGrid || !noResults || !loadMoreContainer || !loadingIndicator) {
+      console.error(
+        "One or more required blog elements are missing from the DOM."
+      );
+      return;
+    }
+
+    // Show loading indicator
     if (this.isLoading) {
       loadingIndicator.style.display = "block";
       blogGrid.style.display = "none";
@@ -159,16 +167,18 @@ class BlogLoader {
 
     // Hide loading indicator
     loadingIndicator.style.display = "none";
-    blogGrid.style.display = "block";
 
+    // Handle case with no posts
     if (this.currentPosts.length === 0) {
-      blogGrid.innerHTML = "";
+      blogGrid.style.display = "none";
       noResults.style.display = "block";
       loadMoreContainer.style.display = "none";
       return;
     }
 
+    // Display posts
     noResults.style.display = "none";
+    blogGrid.style.display = "flex"; // Use flex for Bootstrap rows
 
     const postsToShow = this.currentPosts.slice(
       0,
