@@ -340,22 +340,32 @@ title: Shop & Order
       });
 
       // Construct WhatsApp message
-      let message = `*🍰 NEW PASTRY ORDER 🍰*\n\n`;
+      let message = `*${String.fromCodePoint(
+        0x1f370
+      )} NEW PASTRY ORDER ${String.fromCodePoint(0x1f370)}*\n\n`;
       message += `*Customer Details:*\n`;
-      message += `👤 Name: ${data.fullName}\n`;
-      message += `📱 Phone: ${data.phoneNumber}\n\n`;
+      message += `${String.fromCodePoint(0x1f464)} Name: ${data.fullName}\n`;
+      message += `${String.fromCodePoint(0x1f4f1)} Phone: ${
+        data.phoneNumber
+      }\n\n`;
       message += `*Order Details:*\n`;
-      message += `🎂 Type: ${data.pastryType}\n`;
-      message += `🔢 Quantity: ${data.quantity}\n`;
+      message += `${String.fromCodePoint(0x1f382)} Type: ${data.pastryType}\n`;
+      message += `${String.fromCodePoint(0x1f522)} Quantity: ${
+        data.quantity
+      }\n`;
       if (data.flavor) {
-        message += `✨ Flavor: ${data.flavor}\n`;
+        message += `${String.fromCodePoint(0x2728)} Flavor: ${data.flavor}\n`;
       }
-      message += `📅 Date Needed: ${formattedDate}\n\n`;
+      message += `${String.fromCodePoint(
+        0x1f4c5
+      )} Date Needed: ${formattedDate}\n\n`;
       if (data.designDescription) {
         message += `*Design Description:*\n${data.designDescription}\n\n`;
       }
       if (data.referenceImage && data.referenceImage.name) {
-        message += `🖼️ A reference image has been selected and will be sent separately.\n\n`;
+        message += `${String.fromCodePoint(
+          0x1f5bc
+        )}️ A reference image has been selected and will be sent separately.\n\n`;
       }
       message += `Thank you for your order! We will be in touch shortly.`;
 
