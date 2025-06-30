@@ -6,7 +6,9 @@ title: Shop & Order
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
   <div class="container text-center pt-5 pb-3">
-    <h1 class="display-4 text-white animated slideInDown mb-3">Shop</h1>
+    <h1 class="display-4 text-white animated slideInDown mb-3">
+      Place Your Order
+    </h1>
     <nav aria-label="breadcrumb animated slideInDown">
       <ol class="breadcrumb justify-content-center mb-0">
         <li class="breadcrumb-item">
@@ -30,141 +32,181 @@ title: Shop & Order
       style="max-width: 500px"
     >
       <p class="text-primary text-uppercase mb-2">// Custom Order</p>
-      <h1 class="display-6 mb-4">Design Your Dream Cake or Pastry With Us</h1>
+      <h1 class="display-6 mb-4">
+        Tell us about your dream pastry and we'll make it happen!
+      </h1>
     </div>
     <div class="row g-5 justify-content-center">
       <div class="col-lg-10 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
         <div class="order-form-card">
           <div class="order-info mb-5">
-            <h5 class="mb-3">How to Place a Custom Order:</h5>
+            <h5 class="mb-3">
+              <i class="fa fa-info-circle me-2"></i>How to Place a Custom Order:
+            </h5>
             <ul>
               <li>Fill out the form below with as much detail as possible.</li>
+              <li>Click "Send Order via WhatsApp" to connect with us.</li>
               <li>
-                For design inspiration, you can upload an image of a cake you
-                like.
+                We will confirm your order details and provide a price quote.
               </li>
-              <li>
-                Once we receive your request, we will contact you within 24
-                hours to confirm the details and provide a price quote.
-              </li>
-              <li>
-                A 50% deposit is required to confirm your order. The balance is
-                due upon pickup or delivery.
-              </li>
+              <li>A 50% deposit is required to confirm your order.</li>
             </ul>
           </div>
 
-          <form id="order-form">
+          <form id="orderForm">
             <div class="row g-4">
+              <!-- Full Name -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="name">Full Name</label>
+                  <label for="fullName"
+                    ><i class="fa fa-user me-2"></i>Full Name *</label
+                  >
                   <input
                     type="text"
                     class="form-control"
-                    id="name"
-                    name="name"
-                    placeholder="e.g., Jane Doe"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="e.g., Brian Terer"
                     required
                   />
                 </div>
               </div>
+              <!-- Phone Number -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="phone">Phone Number</label>
+                  <label for="phoneNumber"
+                    ><i class="fa fa-phone me-2"></i>Phone Number *</label
+                  >
                   <input
                     type="tel"
                     class="form-control"
-                    id="phone"
-                    name="phone"
-                    placeholder="e.g., +254 7XX XXX XXX"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="+254719123126"
                     required
                   />
                 </div>
               </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    placeholder="e.g., you@example.com"
-                    required
-                  />
-                </div>
-              </div>
+              <!-- Type of Pastry -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="item_type">Type of Item</label>
+                  <label for="pastryType"
+                    ><i class="fa fa-birthday-cake me-2"></i>Type of Pastry
+                    *</label
+                  >
                   <select
                     class="form-select form-control"
-                    id="item_type"
-                    name="item_type"
+                    id="pastryType"
+                    name="pastryType"
                     required
                   >
                     <option selected disabled value="">
-                      Choose an item...
+                      Choose a pastry type...
                     </option>
-                    <option value="Custom Cake">Custom Cake</option>
-                    <option value="Cupcakes">Cupcakes (per dozen)</option>
-                    <option value="Custom Cookies">Custom Cookies</option>
-                    <option value="Pastry Platter">Pastry Platter</option>
-                    <option value="Other">Other (Please specify)</option>
+                    <option>Cake</option>
+                    <option>Cupcakes</option>
+                    <option>Cookies</option>
+                    <option>Pastry Platter</option>
+                    <option>Bread</option>
+                    <option>Other</option>
                   </select>
                 </div>
               </div>
+              <!-- Quantity -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="pickup_date"
-                    >Requested Pickup/Delivery Date</label
+                  <label for="quantity"
+                    ><i class="fa fa-hashtag me-2"></i>Quantity *</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    name="quantity"
+                    placeholder="e.g., 1"
+                    min="1"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- Flavor -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="flavor"
+                    ><i class="fa fa-star me-2"></i>Flavor (Optional)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="flavor"
+                    name="flavor"
+                    placeholder="e.g., Black Forest"
+                  />
+                </div>
+              </div>
+              <!-- Date Needed -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="dateNeeded"
+                    ><i class="fa fa-calendar me-2"></i>Date Needed *</label
                   >
                   <input
                     type="date"
                     class="form-control"
-                    id="pickup_date"
-                    name="pickup_date"
+                    id="dateNeeded"
+                    name="dateNeeded"
                     required
                   />
                 </div>
               </div>
+              <!-- Design Description -->
               <div class="col-12">
                 <div class="form-group">
-                  <label for="description">Detailed Description</label>
+                  <label for="designDescription"
+                    ><i class="fa fa-paint-brush me-2"></i>Design
+                    Description</label
+                  >
                   <textarea
                     class="form-control"
-                    id="description"
-                    name="description"
-                    rows="6"
-                    placeholder="Describe your desired flavor, size, colors, theme, and any text you'd like written on the cake."
-                    required
+                    id="designDescription"
+                    name="designDescription"
+                    rows="4"
+                    placeholder="Describe your dream pastry design, colors, theme, or any special requirements..."
                   ></textarea>
                 </div>
               </div>
+              <!-- Reference Image -->
               <div class="col-12">
                 <div class="form-group">
-                  <label for="inspiration_image"
-                    >Upload an Inspiration Image (Optional)</label
+                  <label for="referenceImage"
+                    ><i class="fa fa-image me-2"></i>Reference Image
+                    (Optional)</label
                   >
                   <div class="file-upload">
-                    <input type="file" id="inspiration_image" name="file" />
+                    <input
+                      type="file"
+                      id="referenceImage"
+                      name="referenceImage"
+                      accept="image/*"
+                    />
                     <label
-                      for="inspiration_image"
+                      for="referenceImage"
                       class="file-upload-label"
                       id="file-upload-text"
                     >
-                      <i class="fa fa-upload me-2"></i>Click to choose a file
+                      <i class="fa fa-cloud-upload me-2"></i>Click to upload a
+                      reference image or drag and drop
                     </label>
                   </div>
                 </div>
               </div>
+              <!-- Submit Button -->
               <div class="col-12 text-center">
                 <button
                   type="submit"
                   class="btn btn-primary rounded-pill py-3 px-5"
                 >
-                  Submit Order Request
+                  <i class="fab fa-whatsapp me-2"></i>Send Order via WhatsApp
                 </button>
               </div>
             </div>
@@ -175,6 +217,12 @@ title: Shop & Order
   </div>
 </div>
 <!-- Order Form Section End -->
+
+<!-- Toast Notification Container -->
+<div
+  id="toastContainer"
+  style="position: fixed; top: 20px; right: 20px; z-index: 1050"
+></div>
 
 <!-- Custom CSS for the order form -->
 <style>
@@ -243,15 +291,100 @@ title: Shop & Order
 
 <!-- Custom JS for the order form -->
 <script>
-  document
-    .getElementById("inspiration_image")
-    .addEventListener("change", function (e) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const orderForm = document.getElementById("orderForm");
+    const whatsAppNumber = "254719123126"; // Your WhatsApp Number
+
+    // File upload handler
+    const fileInput = document.getElementById("referenceImage");
+    const fileLabel = document.getElementById("file-upload-text");
+    fileInput.addEventListener("change", function (e) {
       const fileName =
         e.target.files.length > 0
           ? e.target.files[0].name
-          : "Click to choose a file";
-      document.getElementById("file-upload-text").innerHTML = `
-      <i class="fa fa-check-circle me-2 text-success"></i> ${fileName}
-    `;
+          : "Click to upload a reference image or drag and drop";
+      fileLabel.innerHTML = `<i class="fa fa-check-circle me-2 text-success"></i> ${fileName}`;
     });
+
+    // Set minimum date for date picker to today
+    document.getElementById("dateNeeded").min = new Date()
+      .toISOString()
+      .split("T")[0];
+
+    // Form submission handler
+    orderForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(orderForm);
+      const data = Object.fromEntries(formData.entries());
+
+      // Simple validation
+      if (
+        !data.fullName ||
+        !data.phoneNumber ||
+        !data.pastryType ||
+        !data.quantity ||
+        !data.dateNeeded
+      ) {
+        showToast("Please fill in all required fields (*)", "danger");
+        return;
+      }
+
+      // Format date for display
+      const date = new Date(data.dateNeeded);
+      const formattedDate = date.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      // Construct WhatsApp message
+      let message = `*🍰 NEW PASTRY ORDER 🍰*\n\n`;
+      message += `*Customer Details:*\n`;
+      message += `👤 Name: ${data.fullName}\n`;
+      message += `📱 Phone: ${data.phoneNumber}\n\n`;
+      message += `*Order Details:*\n`;
+      message += `🎂 Type: ${data.pastryType}\n`;
+      message += `🔢 Quantity: ${data.quantity}\n`;
+      if (data.flavor) {
+        message += `✨ Flavor: ${data.flavor}\n`;
+      }
+      message += `📅 Date Needed: ${formattedDate}\n\n`;
+      if (data.designDescription) {
+        message += `*Design Description:*\n${data.designDescription}\n\n`;
+      }
+      if (data.referenceImage && data.referenceImage.name) {
+        message += `🖼️ A reference image has been selected and will be sent separately.\n\n`;
+      }
+      message += `Thank you for your order! We will be in touch shortly.`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
+
+      showToast("Preparing your order message...", "success");
+
+      setTimeout(() => {
+        window.open(whatsappUrl, "_blank");
+      }, 1500);
+    });
+
+    // Toast notification function
+    function showToast(message, type = "success") {
+      const toastContainer = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = `alert alert-${type} alert-dismissible fade show`;
+      toast.setAttribute("role", "alert");
+      toast.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      `;
+      toastContainer.appendChild(toast);
+
+      const bsAlert = new bootstrap.Alert(toast);
+      setTimeout(() => {
+        bsAlert.close();
+      }, 4000);
+    }
+  });
 </script>
