@@ -29,6 +29,8 @@ excerpt: >-
 
 
   Happy cooking!
+tags:
+  - "#pastrypleasures"
 draft: false
 ---
 
