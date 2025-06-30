@@ -123,10 +123,12 @@ extraHead: |
       {% for post in collections.posts %}
       <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
         <div class="blog-card h-100">
-          <div class="blog-card-image">
-            <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
-            <div class="blog-card-category">{{ post.data.category }}</div>
-          </div>
+          <a href="{{ post.url }}">
+            <div class="blog-card-image">
+              <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
+              <div class="blog-card-category">{{ post.data.category }}</div>
+            </div>
+          </a>
           <div class="blog-card-content d-flex flex-column">
             <h3 class="blog-card-title">
               <a
