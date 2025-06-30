@@ -100,48 +100,153 @@ extraHead: |
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
-        <h1 class="display-4 text-primary mb-4 wow fadeInUp" data-wow-delay="0.1s">
-          Sweet Stories & Baking Tips
-        </h1>
-        <p class="lead text-muted wow fadeInUp" data-wow-delay="0.3s">
-          Discover delicious recipes, baking secrets, and sweet inspiration from our pastry kitchen
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Blog Hero Section End -->
-
-<!-- Blog Grid Section Start -->
-<div class="blog-grid">
-  <div class="container">
-    <div class="row" id="blogGrid">
-      {% for post in collections.posts %}
-        <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
-          <div class="blog-card h-100">
-            <div class="blog-card-image">
-              <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
-              <div class="blog-card-category">{{ post.data.category }}</div>
-            </div>
-            <div class="blog-card-content d-flex flex-column">
-              <h3 class="blog-card-title">
-                <a href="{{ post.url }}" style="color: inherit; text-decoration: none;">
-                  {{ post.data.title }}
-                </a>
-              </h3>
-              <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
-              <div class="blog-card-meta mt-auto">
-                <div class="blog-card-author">
-                  <img src="{{ post.data.authorImage }}" alt="{{ post.data.author }}" />
-                  {{ post.data.author }}
+        <h1 class="display-4 mb-4">Our Blog</h1>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              {%- for post in collections.posts | reverse -%}
+              <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                  <img
+                    class="card-img-top"
+                    src="{{ post.data.image }}"
+                    alt="{{ post.data.title }}"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">{{ post.data.title }}</h5>
+                    <p class="card-text">{{ post.data.excerpt }}</p>
+                    <a href="{{ post.url }}" class="btn btn-primary"
+                      >Read More</a
+                    >
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted"
+                      >Published on {{ post.date | readableDate }} by {{
+                      post.data.author }}</small
+                    >
+                  </div>
                 </div>
-                <div class="blog-card-date">{{ post.date | postDate }}</div>
+              </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-5 mt-lg-0">
+            <!-- Search Form -->
+            <div class="mb-5">
+              <div class="bg-white" style="padding: 30px">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-4"
+                    placeholder="Search"
+                  />
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text bg-primary border-primary text-white"
+                      ><i class="fa fa-search"></i
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category List -->
+            <div class="mb-5">
+              <h3 class="mb-4">Categories</h3>
+              <div class="bg-white" style="padding: 30px">
+                <ul class="list-inline m-0">
+                  <li
+                    class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center"
+                  >
+                    <a class="text-dark" href="#"
+                      ><i class="fa fa-angle-right text-primary mr-2"></i>All
+                      Posts</a
+                    >
+                  </li>
+                  <li
+                    class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center"
+                  >
+                    <a class="text-dark" href="#"
+                      ><i class="fa fa-angle-right text-primary mr-2"></i
+                      >Recipes</a
+                    >
+                  </li>
+                  <li
+                    class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center"
+                  >
+                    <a class="text-dark" href="#"
+                      ><i class="fa fa-angle-right text-primary mr-2"></i>Baking
+                      Tips</a
+                    >
+                  </li>
+                  <li
+                    class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center"
+                  >
+                    <a class="text-dark" href="#"
+                      ><i class="fa fa-angle-right text-primary mr-2"></i>Sweet
+                      Stories</a
+                    >
+                  </li>
+                  <li
+                    class="py-2 px-3 bg-light d-flex justify-content-between align-items-center"
+                  >
+                    <a class="text-dark" href="#"
+                      ><i class="fa fa-angle-right text-primary mr-2"></i
+                      >Events</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-      {% endfor %}
+      </div>
     </div>
+
+    <!-- Blog Hero Section End -->
+
+    <!-- Blog Grid Section Start -->
+    <div class="blog-grid">
+      <div class="container">
+        <div class="row" id="blogGrid">
+          {% for post in collections.posts %}
+          <div
+            class="col-lg-4 col-md-6 mb-4 wow fadeInUp"
+            data-wow-delay="0.1s"
+          >
+            <div class="blog-card h-100">
+              <div class="blog-card-image">
+                <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
+                <div class="blog-card-category">{{ post.data.category }}</div>
+              </div>
+              <div class="blog-card-content d-flex flex-column">
+                <h3 class="blog-card-title">
+                  <a
+                    href="{{ post.url }}"
+                    style="color: inherit; text-decoration: none"
+                  >
+                    {{ post.data.title }}
+                  </a>
+                </h3>
+                <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
+                <div class="blog-card-meta mt-auto">
+                  <div class="blog-card-author">
+                    <img
+                      src="{{ post.data.authorImage }}"
+                      alt="{{ post.data.author }}"
+                    />
+                    {{ post.data.author }}
+                  </div>
+                  <div class="blog-card-date">{{ post.date | postDate }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!-- Blog Grid Section End -->
   </div>
 </div>
-<!-- Blog Grid Section End --> 
