@@ -22,6 +22,14 @@ module.exports = function (eleventyConfig) {
     return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_MED);
   });
 
+  // Custom filter for downcasing strings
+  eleventyConfig.addFilter("downcase", function (value) {
+    if (value && typeof value.toLowerCase === "function") {
+      return value.toLowerCase();
+    }
+    return value;
+  });
+
   return {
     dir: {
       input: ".",
