@@ -1,1 +1,15 @@
-const { DateTime } = require("luxon");\n\nmodule.exports = function(eleventyConfig) {\n\n  eleventyConfig.addFilter("postDate", (dateObj) => {\n    return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_MED);\n  });\n\n  // Return your Object options:\n  return {\n    dir: {\n      input: ".",\n      includes: "_includes",\n      output: "_site"\n    }\n  };\n};
+const { DateTime } = require("luxon");
+
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addFilter("postDate", (dateObj) => {
+    return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_MED);
+  });
+
+  return {
+    dir: {
+      input: ".",
+      includes: "_includes",
+      output: "_site",
+    },
+  };
+};
