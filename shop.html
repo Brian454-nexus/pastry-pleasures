@@ -222,6 +222,18 @@ title: Shop & Order
 </div>
 <!-- Order Form Section End -->
 
+<!-- Emoji Storage -->
+<div id="emoji-storage" style="display: none">
+  <span data-emoji="cake">🍰</span>
+  <span data-emoji="person">👤</span>
+  <span data-emoji="phone">📱</span>
+  <span data-emoji="pastry">🎂</span>
+  <span data-emoji="quantity">🔢</span>
+  <span data-emoji="flavor">✨</span>
+  <span data-emoji="calendar">📅</span>
+  <span data-emoji="image">🖼️</span>
+</div>
+
 <!-- Toast Notification Container -->
 <div
   id="toastContainer"
@@ -343,23 +355,35 @@ title: Shop & Order
         day: "numeric",
       });
 
-      // Construct WhatsApp message
-      let message = `*\u{1F370} NEW PASTRY ORDER \u{1F370}*\n\n`;
-      message += `*Customer Details:*\n`;
-      message += `\u{1F464} Name: ${data.fullName}\n`;
-      message += `\u{1F4F1} Phone: ${data.phoneNumber}\n\n`;
-      message += `*Order Details:*\n`;
-      message += `\u{1F382} Type: ${data.pastryType}\n`;
-      message += `\u{1F522} Quantity: ${data.quantity}\n`;
-      if (data.flavor) {
-        message += `\u{2728} Flavor: ${data.flavor}\n`;
+      // Helper to get emojis from the DOM
+      function getEmoji(name) {
+        const element = document.querySelector(
+          `#emoji-storage [data-emoji='${name}']`
+        );
+        return element ? element.textContent : "";
       }
-      message += `\u{1F4C5} Date Needed: ${formattedDate}\n\n`;
+
+      // Construct WhatsApp message
+      let message = `*${getEmoji("cake")} NEW PASTRY ORDER ${getEmoji(
+        "cake"
+      )}*\n\n`;
+      message += `*Customer Details:*\n`;
+      message += `${getEmoji("person")} Name: ${data.fullName}\n`;
+      message += `${getEmoji("phone")} Phone: ${data.phoneNumber}\n\n`;
+      message += `*Order Details:*\n`;
+      message += `${getEmoji("pastry")} Type: ${data.pastryType}\n`;
+      message += `${getEmoji("quantity")} Quantity: ${data.quantity}\n`;
+      if (data.flavor) {
+        message += `${getEmoji("flavor")} Flavor: ${data.flavor}\n`;
+      }
+      message += `${getEmoji("calendar")} Date Needed: ${formattedDate}\n\n`;
       if (data.designDescription) {
         message += `*Design Description:*\n${data.designDescription}\n\n`;
       }
       if (data.referenceImage && data.referenceImage.name) {
-        message += `\u{1F5BC} A reference image was selected on the form.\n\n`;
+        message += `${getEmoji(
+          "image"
+        )} A reference image was selected on the form.\n\n`;
       }
       message += `Thank you, this will be much appreciated!`;
 
