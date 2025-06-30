@@ -1,7 +1,7 @@
 ---
 layout: blog-post
 title: Passion cake
-date: 2025-06-30T17:26:39.267Z
+date: 2016-11-12T17:26:39.267Z
 image: /img/blog/passioncake.jpg
 category: recipes
 author: Wangechi Kimata
