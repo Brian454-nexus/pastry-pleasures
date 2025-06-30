@@ -3,49 +3,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("searchBtn");
   const filterButtons = document.querySelectorAll(".filter-btn");
   const blogGrid = document.getElementById("blogGrid");
-  const blogPosts = Array.from(blogGrid.children);
   const noResults = document.getElementById("noResults");
+
+  if (!blogGrid) {
+    // Not on the blog page, do nothing.
+    return;
+  }
+
+  const posts = Array.from(blogGrid.children);
 
   const filterPosts = () => {
     const searchTerm = searchInput.value.toLowerCase();
     const activeCategory =
       document.querySelector(".filter-btn.active").dataset.category;
+    let postsFound = false;
 
-    let hasVisiblePosts = false;
-
-    blogPosts.forEach((post) => {
-      const title = post.querySelector(".post-title").textContent.toLowerCase();
-      const excerpt = post
-        .querySelector(".post-excerpt")
+    posts.forEach((post) => {
+      const title = post
+        .querySelector(".project-title h5")
         .textContent.toLowerCase();
-      const postCategory = post.dataset.category;
+      const category = post.dataset.category.toLowerCase();
 
-      const matchesCategory =
-        activeCategory === "all" || postCategory === activeCategory;
-      const matchesSearch =
-        title.includes(searchTerm) || excerpt.includes(searchTerm);
+      const categoryMatch =
+        activeCategory === "all" || category === activeCategory;
+      const searchMatch = title.includes(searchTerm);
 
-      if (matchesCategory && matchesSearch) {
-        post.style.display = "block";
-        hasVisiblePosts = true;
+      if (categoryMatch && searchMatch) {
+        post.style.display = "";
+        postsFound = true;
       } else {
         post.style.display = "none";
       }
     });
 
-    if (hasVisiblePosts) {
-      noResults.style.display = "none";
-    } else {
-      noResults.style.display = "block";
-    }
+    noResults.style.display = postsFound ? "none" : "block";
   };
-
-  searchBtn.addEventListener("click", filterPosts);
-  searchInput.addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-      filterPosts();
-    }
-  });
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -54,4 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
       filterPosts();
     });
   });
+
+  searchBtn.addEventListener("click", filterPosts);
+  searchInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      filterPosts();
+    }
+  });
+
+  // Initial filter on load
+  filterPosts();
 });
