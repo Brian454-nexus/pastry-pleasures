@@ -439,6 +439,18 @@
     <!-- Blog Grid Section Start -->
     <div class="blog-grid">
       <div class="container">
+        <!-- Loading Indicator -->
+        <div
+          id="loadingIndicator"
+          class="text-center py-5"
+          style="display: none"
+        >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Loading blog posts...</p>
+        </div>
+
         <div class="row" id="blogGrid">
           <!-- Blog posts will be dynamically loaded here -->
         </div>
@@ -602,259 +614,17 @@
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Blog Loader -->
+    <!-- Blog Loader Script -->
     <script src="js/blog-loader.js"></script>
 
-    <!-- Custom Blog JavaScript -->
+    <!-- Template Javascript -->
     <script>
-      // Sample blog data (in production, this would come from Netlify CMS)
-      const blogPosts = [
-        {
-          id: 1,
-          title: "The Perfect Chocolate Cake Recipe",
-          excerpt:
-            "Discover the secrets to baking the most moist and delicious chocolate cake that will impress everyone at your next celebration.",
-          category: "recipes",
-          author: "Chef Sarah",
-          authorImage: "img/team-1.jpg",
-          date: "2024-01-15",
-          image: "img/product-1.jpg",
-          slug: "perfect-chocolate-cake-recipe",
-        },
-        {
-          id: 2,
-          title: "Essential Baking Tools Every Baker Needs",
-          excerpt:
-            "From measuring cups to stand mixers, here are the must-have tools that will take your baking to the next level.",
-          category: "tips",
-          author: "Chef Michael",
-          authorImage: "img/team-2.jpg",
-          date: "2024-01-12",
-          image: "img/product-2.jpg",
-          slug: "essential-baking-tools",
-        },
-        {
-          id: 3,
-          title: "A Sweet Love Story: How Pastry Pleasures Began",
-          excerpt:
-            "The heartwarming story of how our bakery started from a small kitchen dream to becoming Nairobi's favorite pastry destination.",
-          category: "stories",
-          author: "Founder Emma",
-          authorImage: "img/team-3.jpg",
-          date: "2024-01-10",
-          image: "img/product-3.jpg",
-          slug: "how-pastry-pleasures-began",
-        },
-        {
-          id: 4,
-          title: "Valentine's Day Special: Romantic Pastry Ideas",
-          excerpt:
-            "Create the perfect romantic atmosphere with these specially designed pastries perfect for Valentine's Day celebrations.",
-          category: "events",
-          author: "Chef David",
-          authorImage: "img/team-4.jpg",
-          date: "2024-01-08",
-          image: "img/product-1.jpg",
-          slug: "valentines-day-pastry-ideas",
-        },
-        {
-          id: 5,
-          title: "Gluten-Free Baking Made Easy",
-          excerpt:
-            "Learn how to create delicious gluten-free pastries that taste just as good as traditional recipes.",
-          category: "recipes",
-          author: "Chef Lisa",
-          authorImage: "img/team-1.jpg",
-          date: "2024-01-05",
-          image: "img/product-2.jpg",
-          slug: "gluten-free-baking-guide",
-        },
-        {
-          id: 6,
-          title: "The Science Behind Perfect Bread",
-          excerpt:
-            "Understanding the chemistry of bread making and how to achieve that perfect crust and crumb every time.",
-          category: "tips",
-          author: "Chef James",
-          authorImage: "img/team-2.jpg",
-          date: "2024-01-03",
-          image: "img/product-3.jpg",
-          slug: "science-of-bread-making",
-        },
-      ];
-
-      let currentPosts = [...blogPosts];
-      let currentCategory = "all";
-      let currentSearch = "";
-      let postsPerPage = 6;
-      let currentPage = 1;
-
-      // Initialize blog
-      function initBlog() {
-        renderBlogPosts();
-        setupEventListeners();
-      }
-
-      // Render blog posts
-      function renderBlogPosts() {
-        const blogGrid = document.getElementById("blogGrid");
-        const noResults = document.getElementById("noResults");
-        const loadMoreContainer = document.getElementById("loadMoreContainer");
-
-        if (currentPosts.length === 0) {
-          blogGrid.innerHTML = "";
-          noResults.style.display = "block";
-          loadMoreContainer.style.display = "none";
-          return;
-        }
-
-        noResults.style.display = "none";
-
-        const postsToShow = currentPosts.slice(0, currentPage * postsPerPage);
-        const hasMorePosts = postsToShow.length < currentPosts.length;
-
-        blogGrid.innerHTML = postsToShow
-          .map((post) => createBlogCard(post))
-          .join("");
-
-        if (hasMorePosts) {
-          loadMoreContainer.style.display = "block";
-        } else {
-          loadMoreContainer.style.display = "none";
-        }
-      }
-
-      // Create blog card HTML
-      function createBlogCard(post) {
-        const date = new Date(post.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        });
-
-        return `
-          <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="blog-card">
-              <div class="blog-card-image">
-                <img src="${post.image}" alt="${post.title}" />
-                <div class="blog-card-category">${post.category}</div>
-              </div>
-              <div class="blog-card-content">
-                <h3 class="blog-card-title">
-                  <a href="blog-details.html?slug=${post.slug}" style="color: inherit; text-decoration: none;">
-                    ${post.title}
-                  </a>
-                </h3>
-                <p class="blog-card-excerpt">${post.excerpt}</p>
-                <div class="blog-card-meta">
-                  <div class="blog-card-author">
-                    <img src="${post.authorImage}" alt="${post.author}" />
-                    ${post.author}
-                  </div>
-                  <div class="blog-card-date">${date}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Filter posts by category
-      function filterByCategory(category) {
-        currentCategory = category;
-        currentPage = 1;
-
-        if (category === "all") {
-          currentPosts = blogPosts.filter(
-            (post) =>
-              post.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
-              post.excerpt.toLowerCase().includes(currentSearch.toLowerCase())
-          );
-        } else {
-          currentPosts = blogPosts.filter(
-            (post) =>
-              post.category === category &&
-              (post.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
-                post.excerpt
-                  .toLowerCase()
-                  .includes(currentSearch.toLowerCase()))
-          );
-        }
-
-        renderBlogPosts();
-      }
-
-      // Search posts
-      function searchPosts(query) {
-        currentSearch = query;
-        currentPage = 1;
-
-        if (currentCategory === "all") {
-          currentPosts = blogPosts.filter(
-            (post) =>
-              post.title.toLowerCase().includes(query.toLowerCase()) ||
-              post.excerpt.toLowerCase().includes(query.toLowerCase())
-          );
-        } else {
-          currentPosts = blogPosts.filter(
-            (post) =>
-              post.category === currentCategory &&
-              (post.title.toLowerCase().includes(query.toLowerCase()) ||
-                post.excerpt.toLowerCase().includes(query.toLowerCase()))
-          );
-        }
-
-        renderBlogPosts();
-      }
-
-      // Load more posts
-      function loadMorePosts() {
-        currentPage++;
-        renderBlogPosts();
-      }
-
-      // Setup event listeners
-      function setupEventListeners() {
-        // Category filter buttons
-        document.querySelectorAll(".filter-btn").forEach((btn) => {
-          btn.addEventListener("click", function () {
-            document
-              .querySelectorAll(".filter-btn")
-              .forEach((b) => b.classList.remove("active"));
-            this.classList.add("active");
-            filterByCategory(this.dataset.category);
-          });
-        });
-
-        // Search functionality
-        const searchInput = document.getElementById("searchInput");
-        const searchBtn = document.getElementById("searchBtn");
-
-        searchBtn.addEventListener("click", () => {
-          searchPosts(searchInput.value);
-        });
-
-        searchInput.addEventListener("keypress", (e) => {
-          if (e.key === "Enter") {
-            searchPosts(searchInput.value);
-          }
-        });
-
-        // Load more button
-        document
-          .getElementById("loadMoreBtn")
-          .addEventListener("click", loadMorePosts);
-      }
-
       // Initialize when DOM is loaded
       document.addEventListener("DOMContentLoaded", function () {
-        initBlog();
+        const blogLoader = new BlogLoader();
+        blogLoader.init();
         new WOW().init();
       });
 

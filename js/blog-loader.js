@@ -24,103 +24,96 @@ class BlogLoader {
   // Load posts from markdown files or API
   async loadPosts() {
     try {
-      // In production, this would fetch from your CMS or API
-      // For now, we'll use the sample data
+      this.isLoading = true;
       this.posts = await this.fetchPosts();
+      this.currentPosts = [...this.posts];
     } catch (error) {
       console.error("Error loading posts:", error);
       this.posts = [];
+      this.currentPosts = [];
+    } finally {
+      this.isLoading = false;
     }
   }
 
-  // Fetch posts from markdown files or API
+  // Fetch posts from Netlify CMS Git backend
   async fetchPosts() {
-    // In a real implementation, you would:
-    // 1. Fetch from Netlify CMS API
-    // 2. Parse markdown files
-    // 3. Return structured data
+    try {
+      // Fetch the list of files in the blog directory
+      const response = await fetch(
+        "https://api.github.com/repos/Brian454-nexus/pastry-pleasures/contents/blog"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch blog posts");
+      }
 
-    // For demo purposes, return sample data
-    return [
-      {
-        id: 1,
-        title: "The Perfect Chocolate Cake Recipe",
-        excerpt:
-          "Discover the secrets to baking the most moist and delicious chocolate cake that will impress everyone at your next celebration.",
-        category: "recipes",
-        author: "Chef Sarah",
-        authorImage: "img/team-1.jpg",
-        date: "2024-01-15",
-        image: "img/product-1.jpg",
-        slug: "perfect-chocolate-cake-recipe",
-        content: "Full markdown content would go here...",
-      },
-      {
-        id: 2,
-        title: "Essential Baking Tools Every Baker Needs",
-        excerpt:
-          "From measuring cups to stand mixers, here are the must-have tools that will take your baking to the next level.",
-        category: "tips",
-        author: "Chef Michael",
-        authorImage: "img/team-2.jpg",
-        date: "2024-01-12",
-        image: "img/product-2.jpg",
-        slug: "essential-baking-tools",
-        content: "Full markdown content would go here...",
-      },
-      {
-        id: 3,
-        title: "A Sweet Love Story: How Pastry Pleasures Began",
-        excerpt:
-          "The heartwarming story of how our bakery started from a small kitchen dream to becoming Nairobi's favorite pastry destination.",
-        category: "stories",
-        author: "Founder Emma",
-        authorImage: "img/team-3.jpg",
-        date: "2024-01-10",
-        image: "img/product-3.jpg",
-        slug: "how-pastry-pleasures-began",
-        content: "Full markdown content would go here...",
-      },
-      {
-        id: 4,
-        title: "Valentine's Day Special: Romantic Pastry Ideas",
-        excerpt:
-          "Create the perfect romantic atmosphere with these specially designed pastries perfect for Valentine's Day celebrations.",
-        category: "events",
-        author: "Chef David",
-        authorImage: "img/team-4.jpg",
-        date: "2024-01-08",
-        image: "img/product-1.jpg",
-        slug: "valentines-day-pastry-ideas",
-        content: "Full markdown content would go here...",
-      },
-      {
-        id: 5,
-        title: "Gluten-Free Baking Made Easy",
-        excerpt:
-          "Learn how to create delicious gluten-free pastries that taste just as good as traditional recipes.",
-        category: "recipes",
-        author: "Chef Lisa",
-        authorImage: "img/team-1.jpg",
-        date: "2024-01-05",
-        image: "img/product-2.jpg",
-        slug: "gluten-free-baking-guide",
-        content: "Full markdown content would go here...",
-      },
-      {
-        id: 6,
-        title: "The Science Behind Perfect Bread",
-        excerpt:
-          "Understanding the chemistry of bread making and how to achieve that perfect crust and crumb every time.",
-        category: "tips",
-        author: "Chef James",
-        authorImage: "img/team-2.jpg",
-        date: "2024-01-03",
-        image: "img/product-3.jpg",
-        slug: "science-of-bread-making",
-        content: "Full markdown content would go here...",
-      },
-    ];
+      const files = await response.json();
+      const markdownFiles = files.filter((file) => file.name.endsWith(".md"));
+
+      // Fetch and parse each markdown file
+      const posts = await Promise.all(
+        markdownFiles.map(async (file) => {
+          const contentResponse = await fetch(file.download_url);
+          if (!contentResponse.ok) {
+            throw new Error(`Failed to fetch ${file.name}`);
+          }
+
+          const content = await contentResponse.text();
+          const { data, content: body } = this.parseFrontMatter(content);
+
+          return {
+            id: file.sha,
+            title: data.title,
+            excerpt: data.excerpt,
+            category: data.category,
+            author: data.author,
+            authorImage: data.authorImage,
+            date: data.date,
+            image: data.image,
+            slug: file.name.replace(".md", ""),
+            content: body,
+            tags: data.tags || [],
+            draft: data.draft || false,
+          };
+        })
+      );
+
+      // Sort posts by date (newest first) and filter out drafts
+      return posts
+        .filter((post) => !post.draft)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      return [];
+    }
+  }
+
+  // Parse front matter from markdown content
+  parseFrontMatter(content) {
+    const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+    const matches = content.match(frontMatterRegex);
+
+    if (!matches) {
+      throw new Error("Invalid front matter format");
+    }
+
+    const [, frontMatter, body] = matches;
+    const data = {};
+
+    // Parse YAML front matter
+    frontMatter.split("\n").forEach((line) => {
+      const [key, ...values] = line.split(":");
+      if (key && values.length) {
+        let value = values.join(":").trim();
+        // Remove quotes if present
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.slice(1, -1);
+        }
+        data[key.trim()] = value;
+      }
+    });
+
+    return { data, content: body.trim() };
   }
 
   // Filter posts by category
@@ -184,17 +177,29 @@ class BlogLoader {
     const blogGrid = document.getElementById("blogGrid");
     const noResults = document.getElementById("noResults");
     const loadMoreContainer = document.getElementById("loadMoreContainer");
+    const loadingIndicator = document.getElementById("loadingIndicator");
 
-    if (!blogGrid) return;
-
-    if (this.currentPosts.length === 0) {
-      blogGrid.innerHTML = "";
-      if (noResults) noResults.style.display = "block";
-      if (loadMoreContainer) loadMoreContainer.style.display = "none";
+    // Show loading indicator if posts are being loaded
+    if (this.isLoading) {
+      loadingIndicator.style.display = "block";
+      blogGrid.style.display = "none";
+      noResults.style.display = "none";
+      loadMoreContainer.style.display = "none";
       return;
     }
 
-    if (noResults) noResults.style.display = "none";
+    // Hide loading indicator
+    loadingIndicator.style.display = "none";
+    blogGrid.style.display = "block";
+
+    if (this.currentPosts.length === 0) {
+      blogGrid.innerHTML = "";
+      noResults.style.display = "block";
+      loadMoreContainer.style.display = "none";
+      return;
+    }
+
+    noResults.style.display = "none";
 
     const postsToShow = this.currentPosts.slice(
       0,
@@ -206,12 +211,10 @@ class BlogLoader {
       .map((post) => this.createBlogCard(post))
       .join("");
 
-    if (loadMoreContainer) {
-      if (hasMorePosts) {
-        loadMoreContainer.style.display = "block";
-      } else {
-        loadMoreContainer.style.display = "none";
-      }
+    if (hasMorePosts) {
+      loadMoreContainer.style.display = "block";
+    } else {
+      loadMoreContainer.style.display = "none";
     }
   }
 
