@@ -36,54 +36,18 @@ class BlogLoader {
     }
   }
 
-  // Fetch posts from Netlify CMS Git backend
+  // Fetch posts from Netlify Function
   async fetchPosts() {
     try {
-      // Fetch the list of files in the blog directory
-      const response = await fetch(
-        "https://api.github.com/repos/Brian454-nexus/pastry-pleasures/contents/blog"
-      );
+      const response = await fetch("/.netlify/functions/get-posts");
       if (!response.ok) {
-        throw new Error("Failed to fetch blog posts");
+        throw new Error(`Error fetching posts: ${response.statusText}`);
       }
-
-      const files = await response.json();
-      const markdownFiles = files.filter((file) => file.name.endsWith(".md"));
-
-      // Fetch and parse each markdown file
-      const posts = await Promise.all(
-        markdownFiles.map(async (file) => {
-          const contentResponse = await fetch(file.download_url);
-          if (!contentResponse.ok) {
-            throw new Error(`Failed to fetch ${file.name}`);
-          }
-
-          const content = await contentResponse.text();
-          const { data, content: body } = this.parseFrontMatter(content);
-
-          return {
-            id: file.sha,
-            title: data.title,
-            excerpt: data.excerpt,
-            category: data.category,
-            author: data.author,
-            authorImage: data.authorImage,
-            date: data.date,
-            image: data.image,
-            slug: file.name.replace(".md", ""),
-            content: body,
-            tags: data.tags || [],
-            draft: data.draft || false,
-          };
-        })
-      );
-
-      // Sort posts by date (newest first) and filter out drafts
-      return posts
-        .filter((post) => !post.draft)
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      const posts = await response.json();
+      return posts;
     } catch (error) {
       console.error("Error fetching posts:", error);
+      // Return empty array on error to prevent site crash
       return [];
     }
   }
