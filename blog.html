@@ -475,7 +475,9 @@
         <div class="no-results" id="errorMessage" style="display: none">
           <i class="fa fa-exclamation-triangle"></i>
           <h3>Oops! Something went wrong.</h3>
-          <p id="errorText">We couldn't load the blog posts. Please try again later.</p>
+          <p id="errorText">
+            We couldn't load the blog posts. Please try again later.
+          </p>
         </div>
       </div>
     </div>
@@ -631,9 +633,11 @@
     <!-- Template Javascript -->
     <script>
       // Initialize when DOM is loaded
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", async function () {
         const blogLoader = new BlogLoader();
-        blogLoader.init();
+        await blogLoader.init();
+
+        // Initialize WOW.js after content has been loaded and rendered
         new WOW().init();
       });
 

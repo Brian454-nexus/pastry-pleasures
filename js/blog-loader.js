@@ -48,22 +48,25 @@ class BlogLoader {
     const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second timeout
 
     try {
-      const response = await fetch('/.netlify/functions/get-posts', {
-        signal: controller.signal
+      const response = await fetch("/.netlify/functions/get-posts", {
+        signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`We couldn't retrieve the posts (Server responded with status ${response.status}).`);
+        throw new Error(
+          `We couldn't retrieve the posts (Server responded with status ${response.status}).`
+        );
       }
-      
-      return await response.json();
 
+      return await response.json();
     } catch (error) {
       clearTimeout(timeoutId);
-      if (error.name === 'AbortError') {
-        throw new Error('The request for blog posts took too long. Please check your connection and try again.');
+      if (error.name === "AbortError") {
+        throw new Error(
+          "The request for blog posts took too long. Please check your connection and try again."
+        );
       }
       // Re-throw other errors to be caught by the init method
       throw error;
@@ -163,8 +166,17 @@ class BlogLoader {
     const errorMessageContainer = document.getElementById("errorMessage");
     const errorTextElement = document.getElementById("errorText");
 
-    if (!blogGrid || !noResults || !loadMoreContainer || !loadingIndicator || !errorMessageContainer || !errorTextElement) {
-      console.error("One or more required blog elements are missing from the DOM.");
+    if (
+      !blogGrid ||
+      !noResults ||
+      !loadMoreContainer ||
+      !loadingIndicator ||
+      !errorMessageContainer ||
+      !errorTextElement
+    ) {
+      console.error(
+        "One or more required blog elements are missing from the DOM."
+      );
       return;
     }
 
@@ -185,7 +197,7 @@ class BlogLoader {
       errorMessageContainer.style.display = "block";
       return;
     }
-    
+
     if (this.currentPosts.length === 0) {
       noResults.style.display = "block";
       return;
@@ -193,7 +205,10 @@ class BlogLoader {
 
     // Display posts if everything is fine
     blogGrid.style.display = "flex";
-    const postsToShow = this.currentPosts.slice(0, this.currentPage * this.postsPerPage);
+    const postsToShow = this.currentPosts.slice(
+      0,
+      this.currentPage * this.postsPerPage
+    );
     const hasMorePosts = postsToShow.length < this.currentPosts.length;
 
     blogGrid.innerHTML = postsToShow
@@ -314,12 +329,6 @@ class BlogLoader {
       .replace(/\n/gim, "<br>");
   }
 }
-
-// Initialize blog loader when DOM is loaded
-document.addEventListener("DOMContentLoaded", function () {
-  const blogLoader = new BlogLoader();
-  blogLoader.init();
-});
 
 // Export for use in other scripts
 if (typeof module !== "undefined" && module.exports) {
