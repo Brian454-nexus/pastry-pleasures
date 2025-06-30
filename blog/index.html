@@ -57,8 +57,7 @@ layout: layout.njk
           <div class="blog-img">
             <img src="{{ post.data.image }}" alt="{{ post.data.title }}" />
             <div class="meta-date">
-              <span>{{ post.date | date: '%d' }}</span>
-              <span class="month">{{ post.date | date: '%b' }}</span>
+              <span>{{ post.date | postDate }}</span>
             </div>
           </div>
           <div class="blog-content">
