@@ -3,11 +3,11 @@ const { DateTime } = require("luxon");
 module.exports = function (eleventyConfig) {
   // Pass through static assets
   eleventyConfig.addPassthroughCopy({
-    css: "css",
-    img: "img",
-    js: "js",
-    lib: "lib",
-    admin: "admin",
+    "./css": "css",
+    "./img": "img",
+    "./js": "js",
+    "./lib": "lib",
+    "./admin": "admin",
   });
 
   // Pre-process blog posts
@@ -36,7 +36,6 @@ module.exports = function (eleventyConfig) {
       includes: "_includes",
       output: "_site",
     },
-    passthroughFileCopy: true,
     templateFormats: ["html", "njk", "md"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",
