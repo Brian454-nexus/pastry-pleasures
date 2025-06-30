@@ -115,13 +115,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav mx-auto p-4 p-lg-0">
-          <a href="{{ '/' | url }}" class="nav-item nav-link">Home</a>
-          <a href="{{ '/about.html' | url }}" class="nav-item nav-link">About</a>
-          <a href="{{ '/service.html' | url }}" class="nav-item nav-link">Services</a>
-          <a href="{{ '/product.html' | url }}" class="nav-item nav-link">Products</a>
-          <a href="{{ '/shop.html' | url }}" class="nav-item nav-link">Shop</a>
-          <a href="{{ '/blog/' | url }}" class="nav-item nav-link active">Blog</a>
-          <a href="{{ '/contact.html' | url }}" class="nav-item nav-link">Contact</a>
+          <a href="{{ '/' | url }}" class="nav-item nav-link{% if page.url == '/' %} active{% endif %}">Home</a>
+          <a href="{{ '/about.html' | url }}" class="nav-item nav-link{% if page.url == '/about.html' %} active{% endif %}">About</a>
+          <a href="{{ '/service.html' | url }}" class="nav-item nav-link{% if page.url == '/service.html' %} active{% endif %}">Services</a>
+          <a href="{{ '/product.html' | url }}" class="nav-item nav-link{% if page.url == '/product.html' %} active{% endif %}">Products</a>
+          <a href="{{ '/shop.html' | url }}" class="nav-item nav-link{% if page.url == '/shop.html' %} active{% endif %}">Shop</a>
+          <a href="{{ '/blog/' | url }}" class="nav-item nav-link{% if page.url.startsWith('/blog/') %} active{% endif %}">Blog</a>
+          <a href="{{ '/contact.html' | url }}" class="nav-item nav-link{% if page.url == '/contact.html' %} active{% endif %}">Contact</a>
         </div>
         <div class="d-none d-lg-flex">
           <div
