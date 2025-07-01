@@ -1,7 +1,7 @@
 ---
 layout: blog-post
 title: For my Favs
-date: 2017-02-22T14:07:51.854Z
+date: 2018-02-22T14:07:51.854Z
 image: /img/blog/favs.jpg
 category: recipes
 author: Wangechi Kimata
