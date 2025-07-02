@@ -1,7 +1,7 @@
 ---
 layout: blog-post
 title: Cookies and Cream Cake/ Oreo cake
-date: 2025-08-16T18:10:21.654Z
+date: 2017-08-16T18:10:21.654Z
 image: /img/blog/oreo.jpg
 category: recipes
 author: Wangechi Kimata
