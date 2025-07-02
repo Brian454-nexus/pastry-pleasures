@@ -160,7 +160,7 @@ title: Home
               <i class="fa fa-check text-primary me-2"></i>Online Order
             </div>
             <div class="col-sm-6">
-              <i class="fa fa-check text-primary me-2"></i>Home Delivery
+              <i class="fa fa-check text-primary me-2"></i>Patsry Lessons
             </div>
           </div>
           <a class="btn btn-primary rounded-pill py-3 px-5" href=""
@@ -427,7 +427,7 @@ title: Home
           <div class="team-text">
             <div class="team-title">
               <h5>Wangechi Kimata</h5>
-              <span>Pastry Chef</span>
+              <span>Owner &amp; Pastry Chef</span>
             </div>
             <div class="team-social">
               <a class="btn btn-square btn-light rounded-circle" href=""
@@ -439,6 +439,13 @@ title: Home
               <a class="btn btn-square btn-light rounded-circle" href=""
                 ><i class="fab fa-instagram"></i
               ></a>
+            </div>
+            <div class="team-bio mt-3">
+              <p>
+                Founder and creative force behind Pastry Pleasures, Wangechi
+                brings over a decade of baking expertise and a passion for
+                sharing joy through every treat.
+              </p>
             </div>
           </div>
         </div>
@@ -626,3 +633,27 @@ title: Home
   </div>
 </div>
 <!-- Testimonial End -->
+
+<!-- Add the slogan under the hero section -->
+<div class="container text-center my-4">
+  <h2 class="text-primary fw-bold" style="font-style: italic">
+    A little bliss in every bite
+  </h2>
+</div>
+
+<!-- Newsletter subscription confirmation -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.querySelector('form[action*="newsletter"]');
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var msg = document.createElement("div");
+        msg.className = "alert alert-success mt-3";
+        msg.innerText = "Thank you for subscribing to our newsletter!";
+        form.parentNode.insertBefore(msg, form.nextSibling);
+        form.reset();
+      });
+    }
+  });
+</script>
