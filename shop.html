@@ -204,11 +204,37 @@ title: Shop & Order
                   </small>
                 </div>
               </div>
+              <!-- Terms Agreement Checkbox -->
+              <div class="col-12 mb-2">
+                <div class="form-check text-start">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="agreeTerms"
+                    required
+                  />
+                  <label class="form-check-label" for="agreeTerms">
+                    I agree to the
+                    <a
+                      href="/terms.html"
+                      target="_blank"
+                      style="
+                        color: var(--primary);
+                        font-weight: 600;
+                        text-decoration: underline;
+                      "
+                      >Terms &amp; Conditions</a
+                    >
+                  </label>
+                </div>
+              </div>
               <!-- Submit Button -->
               <div class="col-12 text-center">
                 <button
                   type="submit"
                   class="btn btn-primary rounded-pill py-3 px-5"
+                  id="waOrderBtn"
+                  disabled
                 >
                   <i class="fab fa-whatsapp me-2"></i>Send Order via WhatsApp
                 </button>
@@ -414,5 +440,14 @@ title: Shop & Order
         bsAlert.close();
       }, 4000);
     }
+
+    // Enable/disable WhatsApp button based on terms agreement
+    const agreeTerms = document.getElementById("agreeTerms");
+    const waOrderBtn = document.getElementById("waOrderBtn");
+    agreeTerms.addEventListener("change", function () {
+      waOrderBtn.disabled = !this.checked;
+    });
+    // On page load, ensure button is disabled
+    waOrderBtn.disabled = !agreeTerms.checked;
   });
 </script>
