@@ -1,0 +1,131 @@
+---
+layout: layout.njk
+title: Terms & Conditions
+---
+
+<div
+  class="container-xxl py-6 d-flex justify-content-center align-items-center"
+  style="min-height: 80vh"
+>
+  <div class="tc-card mx-auto wow fadeInUp" data-wow-delay="0.1s">
+    <h1 class="tc-title mb-4 text-center">Terms &amp; Conditions</h1>
+    <div id="tc-content" class="tc-content"></div>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <button
+        id="tc-prev"
+        class="btn btn-outline-primary rounded-pill px-4"
+        style="min-width: 100px"
+      >
+        Previous
+      </button>
+      <span id="tc-progress" class="tc-progress"></span>
+      <button
+        id="tc-next"
+        class="btn btn-primary rounded-pill px-4"
+        style="min-width: 100px"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Merriweather:wght@400;700&display=swap");
+  .tc-card {
+    background: #fff8f0;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(234, 166, 54, 0.1),
+      0 1.5px 6px rgba(30, 25, 22, 0.04);
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    max-width: 540px;
+    width: 100%;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tc-title {
+    font-family: "Quicksand", cursive, sans-serif;
+    font-size: 2.1rem;
+    color: var(--primary, #eaa636);
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .tc-content {
+    font-family: "Merriweather", serif;
+    font-size: 1.08rem;
+    color: #3a2c1a;
+    min-height: 220px;
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    transition: opacity 0.3s;
+  }
+  .tc-progress {
+    font-family: "Quicksand", sans-serif;
+    color: var(--primary, #eaa636);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  #tc-prev,
+  #tc-next {
+    font-family: "Quicksand", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  }
+  #tc-prev:disabled,
+  #tc-next:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .tc-card {
+      padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+      min-height: 340px;
+      max-width: 98vw;
+    }
+    .tc-title {
+      font-size: 1.3rem;
+    }
+    .tc-content {
+      font-size: 0.98rem;
+      min-height: 120px;
+    }
+  }
+</style>
+
+<script>
+  const tcPages = [
+    `<b>Order Postponement & Cancellation</b><br>* If an order has to be postponed, the new pick up date has to be within ten (10) days. However, this is inapplicable if an order is cancelled/postponed less than 48hrs to the pickup date. The client will either have to forego the payment or organize collection as previously agreed. Please note that cancellations/postponements should be done within working hours.<br><br>* If a cake is already finalized and client opts to postpone their pickup date, please note that we can only guarantee freshness up to a certain time. We will not release the cake after 48hrs nor refund the payment.<br><br>* A Ksh. 500 storage fee will be applicable for all orders that are picked 12 hrs later than the agreed upon pick up time. If no communication from client is made within 24hrs, we will consider the order foregone and thus the deposit/payments made will be non refundable.`,
+    `<b>Product Availability & Refunds</b><br>* Due to changes in seasons, berry cakes/fillings may be unavailable, thus kindly confirm with us prior to booking.<br>* We deal with edible items, once sold, it's non refundable/returnable.<br>* All collected goods (unless stated) are edible and therefore perishable, and shelf life is not long. It is therefore advisable to pick your items the day of/eve of your function so as to maintain freshness. Please inquire from us about storage of the item prior to consumption.<br>* Should there be any issues with your order, please let us know within 24hrs, so we can discuss a way forward.`,
+    `<b>Payment, Pricing & Working Hours</b><br>* Early payment secures your date and ensures all items that would need to be sourced for are available and ready on time. Please note that early payment does not mean your cake will be made early, thus risking staleness.<br>* To place your order, kindly contact us on +254 725 745 988.<br>* The above prices are not inclusive of toppers/accessories/customization. Kindly confirm the final cost with us before making any payments.<br>* Our prices are subject to change without notice. To secure the price given initially/during consultation, kindly place a deposit.<br>* Quotations are only valid for a period of 10 days, after which a new quote would be needed. Therefore, orders placed/paid for can only be picked within that period.<br>* We are open Tuesday - Saturday, 9am - 5pm. We are closed Sunday, Monday & all public holidays. Therefore we do not take orders on these particular days.<br>* All Payments are to be made to +254 725745988. We do not accept cash or bankers cheques. FULL PAYMENT is required to confirm any order. Please note that without the payment at the agreed time, we would unfortunately have to cancel your order.`,
+    `<b>Order Changes, Collection & Delivery</b><br>* Any changes/additions made after payment has been placed could attract extra charges. Therefore, it is advisable to make all information present so that we can give you a finalized quote.<br>* The payment is non refundable. If something arises and you aren't able to collect on agreed date, kindly let us know as early as possible, so we can arrange for postponement if applicable, or a way forward.<br>* For the purpose of stability and design, wooden skewers/toothpicks or floral wires may be inserted into the cake. Kindly avoid smashing the cake into hands or faces as this could lead to injuries. Pastry Pleasures will not be held liable if any injuries occur.<br>* We do not offer delivery, client should be able to pick up before closing time. All balances should be cleared before pickup is made. If you opt to send someone to collect on your behalf, kindly ensure that they are able to clear the balance, or have the balance cleared before they arrive.<br>* No cakes/cupcakes will be released to any two wheeled vehicles. The risk of damage is quite high, and therefore the best/preferred option would be a car. However, if you feel confident using a boda/bike, please note that we shall not be liable for any damages, and you would be required to send your own rider.`,
+    `<b>Allergies, Design, and Communication</b><br>* Pastry Pleasures deals with a multitude of different baked goods, and therefore, in case of any allergies, religious preferences/restrictions or dietary concerns, we would prefer prior notice/information. Pastry Pleasures will not be liable for any damages suffered in the event that such information was withheld.<br>* If you're acting as agent or middleman when placing an order, it is your sole duty to inform the recipient of our terms and conditions. Pastry Pleasures will not be liable for any miscommunication or misinformation that may arise between the middleman and 3rd party.<br>* We do not send progress pics/videos while working. We are fully committed to giving all our clients quality work and therefore undivided attention while working. Thus it is not possible to send videos or pics during every step. However, in case we need clarification or confirmation from our client, we may send a photo (eg, confirming custom toppers), so as to be in agreement with client.<br>* Pastry Pleasures will send confirmation photos, at least an hour before pickup, and if there are any doable changes to be made, we shall make them. Otherwise, we will consider the item satisfactory to the client. Doable changes do not include design alterations, or any alterations not initially stated prior to booking.<br>* Most of the images seen online are edited and thus colours may not be true to what our devices show. Therefore, it is preferred that you give us a colour scheme/theme that you prefer so as to achieve it. If the colour is to match a specific theme, a sample colour fabric/swatch can be delivered to us so as to give the same colours, if applicable and if possible.<br>* If for any reason you would need any special considerations in the above mentioned terms & conditions, kindly get in touch with us as early as possible, so as to discuss how best to go about it. We understand that things do happen beyond human control and therefore, communication is key. If you're upfront about anything that may have come up, we will try to accommodate you to the best of our capability.`,
+  ];
+  let tcPage = 0;
+  const tcContent = () => {
+    document.getElementById("tc-content").innerHTML = tcPages[tcPage];
+    document.getElementById("tc-progress").textContent = `Page ${
+      tcPage + 1
+    } of ${tcPages.length}`;
+    document.getElementById("tc-prev").disabled = tcPage === 0;
+    document.getElementById("tc-next").disabled = tcPage === tcPages.length - 1;
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    tcContent();
+    document.getElementById("tc-prev").onclick = function () {
+      if (tcPage > 0) {
+        tcPage--;
+        tcContent();
+      }
+    };
+    document.getElementById("tc-next").onclick = function () {
+      if (tcPage < tcPages.length - 1) {
+        tcPage++;
+        tcContent();
+      }
+    };
+  });
+</script>
