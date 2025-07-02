@@ -654,14 +654,16 @@ title: Home
     if (btn && input) {
       btn.addEventListener("click", function () {
         if (input.value.trim() !== "") {
-          var msg = document.createElement("div");
-          msg.className = "alert alert-success mt-3 newsletter-fadeout";
-          msg.innerText = "Thank you for subscribing to our newsletter!";
-          btn.closest(".col-lg-6").appendChild(msg);
-          input.value = "";
           setTimeout(function () {
-            msg.remove();
-          }, 3500); // 2.5s delay + 1s fade
+            var msg = document.createElement("div");
+            msg.className = "alert alert-success mt-3";
+            msg.innerText = "Thank you for subscribing to our newsletter!";
+            btn.closest(".col-lg-6").appendChild(msg);
+            setTimeout(function () {
+              msg.remove();
+            }, 4000);
+          }, 500);
+          input.value = "";
         }
       });
     }
