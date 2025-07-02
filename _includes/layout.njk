@@ -378,15 +378,23 @@
         const loader = document.getElementById('loader');
         let svg = loader ? loader.querySelector('svg') : null;
         if (!svg) return;
+        function resetPaths() {
+          const paths = svg.querySelectorAll('[class^="svg-elem-"]');
+          paths.forEach(path => {
+            path.style.strokeDashoffset = '0';
+            path.style.fill = 'transparent';
+          });
+        }
         function loopAnimation() {
           if (!loader || loader.classList.contains('fade')) return;
-          // Clone the SVG node to reset all animations
-          const newSvg = svg.cloneNode(true);
-          svg.replaceWith(newSvg);
-          svg = newSvg;
+          svg.classList.remove('active');
+          resetPaths();
+          // Force reflow to restart animation
+          void svg.offsetWidth;
           svg.classList.add('active');
           setTimeout(loopAnimation, 1700);
         }
+        resetPaths();
         svg.classList.add('active');
         loopAnimation();
       });
