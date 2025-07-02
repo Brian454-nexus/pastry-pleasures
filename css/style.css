@@ -287,8 +287,9 @@ h6,
 
 /*** Team ***/
 .team-item .team-text {
-  position: relative;
-  height: 100px;
+  height: 100px !important;
+  min-height: 100px !important;
+  max-height: 100px !important;
   overflow: hidden;
 }
 
@@ -303,7 +304,7 @@ h6,
   align-items: center;
   justify-content: center;
   background: var(--light);
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .team-item:hover .team-title {
@@ -320,7 +321,7 @@ h6,
   align-items: center;
   justify-content: center;
   background: var(--primary);
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .team-item .team-social .btn {
