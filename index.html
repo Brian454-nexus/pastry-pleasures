@@ -16,7 +16,7 @@ title: Home
                 // The Best Bakery
               </p>
               <h1 class="display-1 text-light mb-4 animated slideInDown">
-                We Bake With Passion
+                A little bliss in every bite
               </h1>
               <p class="text-light fs-5 mb-4 pb-3">
                 Discover the joy of freshly baked pastries, cakes, and breads
@@ -41,7 +41,7 @@ title: Home
                 // The Best Bakery
               </p>
               <h1 class="display-1 text-light mb-4 animated slideInDown">
-                We Bake With Passion
+                A little bliss in every bite
               </h1>
               <p class="text-light fs-5 mb-4 pb-3">
                 From classic favorites to creative confections, our bakery
@@ -440,13 +440,6 @@ title: Home
                 ><i class="fab fa-instagram"></i
               ></a>
             </div>
-            <div class="team-bio mt-3">
-              <p>
-                Founder and creative force behind Pastry Pleasures, Wangechi
-                brings over a decade of baking expertise and a passion for
-                sharing joy through every treat.
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -634,9 +627,21 @@ title: Home
 </div>
 <!-- Testimonial End -->
 
-<!-- Add the slogan under the hero section -->
-<div class="container text-center my-4">
-  <h2 class="text-primary fw-bold" style="font-style: italic">
+<!-- SLOGAN BEFORE FOOTER -->
+<link
+  href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap"
+  rel="stylesheet"
+/>
+<div class="container text-center my-5">
+  <h2
+    style="
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #eaa636;
+      font-weight: 700;
+      letter-spacing: 1px;
+    "
+  >
     A little bliss in every bite
   </h2>
 </div>
@@ -644,15 +649,17 @@ title: Home
 <!-- Newsletter subscription confirmation -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    var form = document.querySelector('form[action*="newsletter"]');
-    if (form) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var msg = document.createElement("div");
-        msg.className = "alert alert-success mt-3";
-        msg.innerText = "Thank you for subscribing to our newsletter!";
-        form.parentNode.insertBefore(msg, form.nextSibling);
-        form.reset();
+    var btn = document.querySelector(".bg-primary .btn-dark");
+    var input = document.querySelector('.bg-primary input[type="text"]');
+    if (btn && input) {
+      btn.addEventListener("click", function () {
+        if (input.value.trim() !== "") {
+          var msg = document.createElement("div");
+          msg.className = "alert alert-success mt-3";
+          msg.innerText = "Thank you for subscribing to our newsletter!";
+          btn.closest(".col-lg-6").appendChild(msg);
+          input.value = "";
+        }
       });
     }
   });
