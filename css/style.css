@@ -287,9 +287,8 @@ h6,
 
 /*** Team ***/
 .team-item .team-text {
-  height: 100px !important;
-  min-height: 100px !important;
-  max-height: 100px !important;
+  position: relative;
+  min-height: 100px;
   overflow: hidden;
 }
 
