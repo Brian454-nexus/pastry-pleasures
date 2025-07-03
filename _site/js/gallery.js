@@ -1,3 +1,7 @@
+const galleryContainer = document.getElementById("pastryGallery");
+const sprinkleContainer = document.getElementById("sprinkle-animation");
+const surpriseBtn = document.getElementById("surpriseMeBtn");
+
 // Dynamically load all images from the gallery folder
 function fetchGalleryImages() {
   // List of images in the gallery folder (generated from server or injected by backend)
@@ -391,7 +395,3 @@ function shareImage(src) {
     }
   }
 }
-
-const galleryContainer = document.getElementById("pastryGallery");
-const sprinkleContainer = document.getElementById("sprinkle-animation");
-const surpriseBtn = document.getElementById("surpriseMeBtn");
