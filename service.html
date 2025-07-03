@@ -283,11 +283,11 @@ title: Baking Classes & Pastry Pricing
         </div>
       </div>
     </div>
-    <!-- Application Form -->
-    <div class="row justify-content-center mt-5">
+    <!-- WhatsApp Application Form -->
+    <div class="row justify-content-center mb-5">
       <div class="col-lg-7">
         <div
-          class="glass-card no-hover-glass p-4"
+          class="glass-card p-4"
           style="
             border-radius: 1.5rem;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
@@ -729,28 +729,6 @@ title: Baking Classes & Pastry Pricing
     }, 400);
   };
 
-  // WhatsApp application form logic
-  const bakingClassForm = document.getElementById("bakingClassForm");
-  bakingClassForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const name = document.getElementById("bcName").value.trim();
-    const phone = document.getElementById("bcPhone").value.trim();
-    const email = document.getElementById("bcEmail").value.trim();
-    const selectedClass = document.getElementById("bcClass").value;
-    const notes = document.getElementById("bcNotes").value.trim();
-    let message = `Hello Pastry Pleasures Team! 👩‍🍳✨\n\n`;
-    message += `I'm excited to apply for your *${selectedClass}* and start my baking journey with you.\n\n`;
-    message += `Here are my details:\n`;
-    message += `- Name: ${name}\n`;
-    message += `- Phone: ${phone}\n`;
-    message += `- Email: ${email}\n`;
-    if (notes) message += `- Additional Notes: ${notes}\n`;
-    message += `\nLooking forward to learning and creating sweet memories together!\n\nSent from the Pastry Pleasures website.`;
-    const encodedMsg = encodeURIComponent(message);
-    const waUrl = `https://wa.me/254719123126?text=${encodedMsg}`;
-    window.open(waUrl, "_blank");
-  });
-
   // On page load, fade in the choice prompt
   window.addEventListener("DOMContentLoaded", function () {
     document.getElementById("service-choice").style.opacity = 0;
@@ -760,4 +738,29 @@ title: Baking Classes & Pastry Pricing
       document.getElementById("service-choice").style.opacity = 1;
     }, 100);
   });
+
+  // WhatsApp application form logic
+  if (document.getElementById("bakingClassForm")) {
+    document
+      .getElementById("bakingClassForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("bcName").value.trim();
+        const phone = document.getElementById("bcPhone").value.trim();
+        const email = document.getElementById("bcEmail").value.trim();
+        const selectedClass = document.getElementById("bcClass").value;
+        const notes = document.getElementById("bcNotes").value.trim();
+        let message = `Hello Pastry Pleasures Team! 👩‍🍳✨\n\n`;
+        message += `I'm excited to apply for your *${selectedClass}* and start my baking journey with you.\n\n`;
+        message += `Here are my details:\n`;
+        message += `- Name: ${name}\n`;
+        message += `- Phone: ${phone}\n`;
+        message += `- Email: ${email}\n`;
+        if (notes) message += `- Additional Notes: ${notes}\n`;
+        message += `\nLooking forward to learning and creating sweet memories together!\n\nSent from the Pastry Pleasures website.`;
+        const encodedMsg = encodeURIComponent(message);
+        const waUrl = `https://wa.me/254719123126?text=${encodedMsg}`;
+        window.open(waUrl, "_blank");
+      });
+  }
 </script>
