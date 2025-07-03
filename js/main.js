@@ -49,6 +49,9 @@
     animateIn: "fadeIn",
     nav: true,
     dots: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
     navText: [
       '<i class="bi bi-chevron-left"></i>',
       '<i class="bi bi-chevron-right"></i>',

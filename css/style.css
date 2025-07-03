@@ -149,8 +149,13 @@ h6,
   .header-carousel .owl-carousel-item img {
     object-position: center 30%;
     object-fit: cover;
-    height: 600px;
+    height: 750px;
     width: 100%;
+    min-height: 750px;
+    max-height: 80vh;
+  }
+  .header-carousel {
+    min-height: 750px;
   }
 }
 
@@ -518,9 +523,9 @@ h6,
 /* Shorten product cards on mobile */
 @media (max-width: 768px) {
   .product-item .position-relative {
-    height: 120px;
-    min-height: 100px;
-    max-height: 140px;
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
     overflow: hidden;
   }
   .product-item .position-relative img {
@@ -532,7 +537,23 @@ h6,
     padding: 1rem !important;
   }
   .product-item {
-    min-height: 260px;
+    min-height: 320px;
     max-height: 340px;
   }
+}
+
+.product-item .position-relative {
+  height: 220px;
+  min-height: 220px;
+  max-height: 220px;
+  overflow: hidden;
+}
+.product-item .position-relative img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.product-item {
+  min-height: 320px;
+  max-height: 340px;
 }
