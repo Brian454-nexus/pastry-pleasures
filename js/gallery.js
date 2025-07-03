@@ -1,0 +1,310 @@
+// Dynamically load all images from the img/ folder (excluding subfolders for now)
+const galleryContainer = document.getElementById("pastryGallery");
+const sprinkleContainer = document.getElementById("sprinkle-animation");
+const surpriseBtn = document.getElementById("surpriseMeBtn");
+
+// List of images (add new filenames here or generate via backend if possible)
+const imageList = [
+  "product-1.jpg",
+  "product-2.jpg",
+  "product-3.jpg",
+  "testimonial1.jpeg",
+  "testimonial2.jpeg",
+  "testimonial3.jpeg",
+  "testimonial4.jpeg",
+  "testimonial-1.jpg",
+  "testimonial-2.jpg",
+  "testimonial-3.jpg",
+  "testimonial-4.jpg",
+  "team1.jpeg",
+  "team2.jpeg",
+  "team3.jpeg",
+  "team4.jpeg",
+  "team-1.jpg",
+  "team-2.jpg",
+  "team-3.jpg",
+  "team-4.jpg",
+  "carousel-1.jpg",
+  "carousel-2.jpg",
+  "about-1.jpg",
+  "about-2.jpg",
+  "service-1.jpg",
+  "service-2.jpg",
+  // Add more as you upload!
+];
+
+function formatCaption(filename) {
+  let name = filename.replace(/[-_]/g, " ").replace(/\.[^.]+$/, "");
+  name = name.replace(/\b\w/g, (c) => c.toUpperCase());
+  return name;
+}
+
+function getLikes() {
+  return JSON.parse(localStorage.getItem("pastryGalleryLikes") || "{}");
+}
+function setLikes(likes) {
+  localStorage.setItem("pastryGalleryLikes", JSON.stringify(likes));
+}
+function toggleLike(src) {
+  const likes = getLikes();
+  likes[src] = likes[src] ? likes[src] + 1 : 1;
+  setLikes(likes);
+  updateGalleryLikes();
+  updateLightboxLikes();
+}
+function unlike(src) {
+  const likes = getLikes();
+  if (likes[src] && likes[src] > 0) likes[src]--;
+  setLikes(likes);
+  updateGalleryLikes();
+  updateLightboxLikes();
+}
+function isLiked(src) {
+  const likes = getLikes();
+  return likes[src] && likes[src] > 0;
+}
+function getLikeCount(src) {
+  const likes = getLikes();
+  return likes[src] || 0;
+}
+function updateGalleryLikes() {
+  document.querySelectorAll(".pastry-gallery-item").forEach((item) => {
+    const img = item.querySelector("img");
+    const src = img.src.split("/img/")[1];
+    const likeBtn = item.querySelector(".pastry-like-btn");
+    const likeCount = item.querySelector(".pastry-like-count");
+    if (isLiked(src)) likeBtn.classList.add("liked");
+    else likeBtn.classList.remove("liked");
+    likeCount.textContent = getLikeCount(src);
+  });
+}
+function updateLightboxLikes() {
+  if (!lightboxImg.src) return;
+  const src = lightboxImg.src.split("/img/")[1];
+  const likeBtn = document.querySelector(".lightbox-like-btn");
+  const likeCount = document.querySelector(".lightbox-like-count");
+  if (isLiked(src)) likeBtn.classList.add("liked");
+  else likeBtn.classList.remove("liked");
+  likeCount.textContent = getLikeCount(src);
+}
+function createGalleryItem(src) {
+  const item = document.createElement("div");
+  item.className = "pastry-gallery-item";
+  const img = document.createElement("img");
+  img.className = "pastry-gallery-img";
+  img.src = `/img/${src}`;
+  img.alt = formatCaption(src);
+  img.loading = "lazy";
+  const caption = document.createElement("div");
+  caption.className = "pastry-gallery-caption";
+  caption.textContent = formatCaption(src);
+  // Like button
+  const likeBtn = document.createElement("button");
+  likeBtn.className = "pastry-like-btn";
+  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  likeBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (isLiked(src)) unlike(src);
+    else toggleLike(src);
+  };
+  // Like count
+  const likeCount = document.createElement("span");
+  likeCount.className = "pastry-like-count";
+  likeCount.textContent = getLikeCount(src);
+  item.appendChild(img);
+  item.appendChild(caption);
+  item.appendChild(likeBtn);
+  item.appendChild(likeCount);
+  item.addEventListener("click", () => openLightbox(src));
+  return item;
+}
+
+function loadGallery() {
+  galleryContainer.innerHTML = "";
+  imageList.forEach((src) => {
+    const item = createGalleryItem(src);
+    galleryContainer.appendChild(item);
+  });
+  // Masonry layout
+  imagesLoaded(galleryContainer, function () {
+    new Masonry(galleryContainer, {
+      itemSelector: ".pastry-gallery-item",
+      columnWidth: ".pastry-gallery-item",
+      percentPosition: true,
+      gutter: 8,
+    });
+  });
+}
+
+// Lightbox logic
+const lightbox = document.getElementById("galleryLightbox");
+const lightboxImg = document.querySelector(".lightbox-img");
+const lightboxCaption = document.querySelector(".lightbox-caption");
+const closeBtn = document.querySelector(".lightbox-close");
+const prevBtn = document.querySelector(".lightbox-prev");
+const nextBtn = document.querySelector(".lightbox-next");
+let currentIndex = 0;
+
+function openLightbox(src) {
+  currentIndex = imageList.indexOf(src);
+  showLightboxImage();
+  lightbox.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox() {
+  lightbox.style.display = "none";
+  document.body.style.overflow = "";
+}
+function showLightboxImage() {
+  const src = imageList[currentIndex];
+  lightboxImg.src = `/img/${src}`;
+  lightboxCaption.textContent = formatCaption(src);
+  // Add actions bar
+  let actions = document.querySelector(".lightbox-actions");
+  if (!actions) {
+    actions = document.createElement("div");
+    actions.className = "lightbox-actions";
+    lightbox.insertBefore(actions, lightboxCaption);
+  }
+  actions.innerHTML = "";
+  // Like button
+  const likeBtn = document.createElement("button");
+  likeBtn.className = "lightbox-action-btn lightbox-like-btn";
+  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  likeBtn.onclick = () => {
+    if (isLiked(src)) unlike(src);
+    else toggleLike(src);
+  };
+  // Like count
+  const likeCount = document.createElement("span");
+  likeCount.className = "lightbox-like-count";
+  likeCount.textContent = getLikeCount(src);
+  likeBtn.appendChild(likeCount);
+  actions.appendChild(likeBtn);
+  // Download button
+  const downloadBtn = document.createElement("button");
+  downloadBtn.className = "lightbox-action-btn";
+  downloadBtn.innerHTML = '<i class="fa fa-download"></i> Download';
+  downloadBtn.onclick = () => {
+    const a = document.createElement("a");
+    a.href = `/img/${src}`;
+    a.download = src;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+  actions.appendChild(downloadBtn);
+  // Share button
+  const shareBtn = document.createElement("button");
+  shareBtn.className = "lightbox-action-btn";
+  shareBtn.innerHTML = '<i class="fa fa-share-alt"></i> Share';
+  shareBtn.onclick = () => shareImage(src);
+  actions.appendChild(shareBtn);
+  updateLightboxLikes();
+}
+function prevImage() {
+  currentIndex = (currentIndex - 1 + imageList.length) % imageList.length;
+  showLightboxImage();
+}
+function nextImage() {
+  currentIndex = (currentIndex + 1) % imageList.length;
+  showLightboxImage();
+}
+closeBtn.onclick = closeLightbox;
+prevBtn.onclick = prevImage;
+nextBtn.onclick = nextImage;
+lightbox.onclick = function (e) {
+  if (e.target === lightbox) closeLightbox();
+};
+document.addEventListener("keydown", function (e) {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "Escape") closeLightbox();
+  }
+});
+
+// Surprise Me button logic
+function surpriseMe() {
+  const items = document.querySelectorAll(".pastry-gallery-item");
+  if (!items.length) return;
+  const idx = Math.floor(Math.random() * items.length);
+  const item = items[idx];
+  // Scroll to the item
+  item.scrollIntoView({ behavior: "smooth", block: "center" });
+  // Highlight
+  item.classList.add("surprise-highlight");
+  setTimeout(() => item.classList.remove("surprise-highlight"), 1800);
+  // Sprinkle animation
+  sprinkleRain();
+}
+
+surpriseBtn.addEventListener("click", surpriseMe);
+
+// Sprinkle animation
+function sprinkleRain() {
+  const sprinkleCount = 32 + Math.floor(Math.random() * 16);
+  for (let i = 0; i < sprinkleCount; i++) {
+    const sprinkle = document.createElement("div");
+    sprinkle.className = "sprinkle";
+    sprinkle.style.left = Math.random() * 100 + "vw";
+    sprinkle.style.top = "-24px";
+    sprinkle.style.background = `linear-gradient(90deg, #eaa636, #fff3cd, #f7b731, #fff, #eaa636)`;
+    sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
+    sprinkleContainer.appendChild(sprinkle);
+    setTimeout(() => sprinkle.remove(), 1300);
+  }
+}
+
+// Add highlight style
+const style = document.createElement("style");
+style.innerHTML = `.surprise-highlight { box-shadow: 0 0 0 6px #eaa63699, 0 8px 32px rgba(234,166,54,0.18) !important; z-index: 10; animation: highlightPop 0.7s; }
+@keyframes highlightPop { 0% { transform: scale(1.1); } 60% { transform: scale(0.97); } 100% { transform: scale(1.03); } }`;
+document.head.appendChild(style);
+
+// Load gallery on page load
+document.addEventListener("DOMContentLoaded", () => {
+  loadGallery();
+  updateGalleryLikes();
+});
+
+function shareImage(src) {
+  const url = window.location.origin + "/img/" + src;
+  const caption = formatCaption(src);
+  if (navigator.share) {
+    navigator.share({ title: caption, text: caption, url });
+  } else {
+    // Fallback: show share links
+    const shareLinks = [
+      `<a href='https://wa.me/?text=${encodeURIComponent(
+        caption + " " + url
+      )}' target='_blank'>WhatsApp</a>`,
+      `<a href='https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        url
+      )}' target='_blank'>Facebook</a>`,
+      `<a href='https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        caption + " " + url
+      )}' target='_blank'>Twitter</a>`,
+      `<button onclick="navigator.clipboard.writeText('${url}')">Copy Link</button>`,
+    ];
+    let modal = document.getElementById("shareModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "shareModal";
+      modal.style.position = "fixed";
+      modal.style.left = "0";
+      modal.style.top = "0";
+      modal.style.width = "100vw";
+      modal.style.height = "100vh";
+      modal.style.background = "rgba(0,0,0,0.7)";
+      modal.style.zIndex = "10001";
+      modal.style.display = "flex";
+      modal.style.alignItems = "center";
+      modal.style.justifyContent = "center";
+      modal.innerHTML = `<div style='background:#fff3cd;padding:2rem 2.5rem;border-radius:1.2rem;box-shadow:0 2px 8px #eaa63633;text-align:center;'><h3 style='color:#eaa636;'>Share Image</h3><div style='margin:1.2rem 0;font-size:1.2rem;display:flex;gap:1.2rem;justify-content:center;'>${shareLinks.join(
+        ""
+      )}</div><button style='margin-top:1.2rem;' onclick='document.getElementById("shareModal").remove()'>Close</button></div>`;
+      document.body.appendChild(modal);
+    }
+  }
+}
