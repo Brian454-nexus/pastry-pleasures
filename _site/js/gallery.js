@@ -170,11 +170,8 @@ function createGalleryItem(src) {
   const img = document.createElement("img");
   img.className = "pastry-gallery-img";
   img.src = `/gallery/${src}`;
-  img.alt = formatCaption(src);
+  img.alt = "Pastry Photo";
   img.loading = "lazy";
-  const caption = document.createElement("div");
-  caption.className = "pastry-gallery-caption";
-  caption.textContent = formatCaption(src);
   // Like button
   const likeBtn = document.createElement("button");
   likeBtn.className = "pastry-like-btn";
@@ -189,10 +186,17 @@ function createGalleryItem(src) {
   likeCount.className = "pastry-like-count";
   likeCount.textContent = getLikeCount(src);
   item.appendChild(img);
-  item.appendChild(caption);
   item.appendChild(likeBtn);
   item.appendChild(likeCount);
-  item.addEventListener("click", () => openLightbox(src));
+  // Only open lightbox if not clicking like button
+  item.addEventListener("click", (e) => {
+    if (
+      !e.target.classList.contains("fa-heart") &&
+      !e.target.classList.contains("pastry-like-btn")
+    ) {
+      openLightbox(src);
+    }
+  });
   return item;
 }
 
@@ -245,7 +249,6 @@ function closeLightbox() {
 function showLightboxImage() {
   const src = imageList[currentIndex];
   lightboxImg.src = `/gallery/${src}`;
-  lightboxCaption.textContent = formatCaption(src);
   // Add actions bar
   let actions = document.querySelector(".lightbox-actions");
   if (!actions) {

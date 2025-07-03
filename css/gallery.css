@@ -1,71 +1,87 @@
 /* Masonry Gallery Layout */
 .pastry-masonry-gallery {
-  column-count: 1;
-  column-gap: 0.5rem;
+  column-count: 2;
+  column-gap: 1rem;
   margin-bottom: 2rem;
 }
-@media (min-width: 400px) {
-  .pastry-masonry-gallery {
-    column-count: 2;
-  }
-}
 @media (min-width: 600px) {
-  .pastry-masonry-gallery {
-    column-count: 2;
-  }
+  .pastry-masonry-gallery { column-count: 3; }
 }
 @media (min-width: 900px) {
-  .pastry-masonry-gallery {
-    column-count: 3;
-  }
+  .pastry-masonry-gallery { column-count: 4; }
 }
 @media (min-width: 1200px) {
-  .pastry-masonry-gallery {
-    column-count: 4;
-  }
+  .pastry-masonry-gallery { column-count: 5; }
 }
 .pastry-gallery-item {
   display: inline-block;
   width: 100%;
-  margin: 0 0 0.5rem;
+  margin: 0 0 1rem;
   position: relative;
   border-radius: 1.2rem;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(234, 166, 54, 0.1),
-    0 1.5px 6px rgba(0, 0, 0, 0.04);
-  background: #fff;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.pastry-gallery-item:hover {
-  transform: scale(1.03) rotate(-1deg);
-  box-shadow: 0 8px 32px rgba(234, 166, 54, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
-  z-index: 2;
+  box-shadow: 0 4px 24px rgba(234,166,54,0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+  background: none;
+  padding: 0;
+  vertical-align: top;
 }
 .pastry-gallery-img {
   width: 100%;
   display: block;
   border-radius: 1.2rem;
+  object-fit: cover;
+  aspect-ratio: auto;
+  min-height: 120px;
   transition: filter 0.2s;
 }
 .pastry-gallery-item:hover .pastry-gallery-img {
   filter: brightness(1.08) saturate(1.2);
 }
 .pastry-gallery-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 60%, transparent 100%);
-  color: #fff;
-  padding: 1rem 1.2rem 0.7rem 1.2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
+  display: none !important;
 }
-.pastry-gallery-item:hover .pastry-gallery-caption {
+.pastry-like-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 1.1rem;
+  background: rgba(255,255,255,0.92);
+  border: none;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(234,166,54,0.08);
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s;
+  font-size: 1.2rem;
+  color: #eaa636;
+  gap: 0.2rem;
+}
+.pastry-like-count {
+  position: absolute;
+  top: 2.7rem;
+  right: 1.1rem;
+  background: rgba(255,255,255,0.92);
+  border-radius: 1rem;
+  padding: 0.1rem 0.7rem;
+  font-size: 1rem;
+  color: #eaa636;
+  font-weight: 700;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(234,166,54,0.08);
+  margin-top: 0.1rem;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.pastry-like-btn, .pastry-like-count {
+  opacity: 0.95;
+}
+.pastry-gallery-item:hover .pastry-like-btn,
+.pastry-gallery-item:hover .pastry-like-count {
   opacity: 1;
 }
 /* Lightbox Styles */
@@ -197,49 +213,6 @@
     transform: translateY(100vh) rotate(360deg) scale(1.1);
     opacity: 0;
   }
-}
-/* Like Button & Count Overlay - update for vertical layout */
-.pastry-like-btn {
-  position: absolute;
-  top: 0.7rem;
-  right: 1.1rem;
-  background: rgba(255, 255, 255, 0.92);
-  border: none;
-  border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
-  cursor: pointer;
-  z-index: 3;
-  transition: background 0.2s;
-  font-size: 1.2rem;
-  color: #eaa636;
-  gap: 0.3rem;
-}
-.pastry-like-count {
-  position: static;
-  background: none;
-  border-radius: 0;
-  padding: 0.1rem 0;
-  font-size: 1rem;
-  color: #eaa636;
-  font-weight: 700;
-  z-index: 3;
-  box-shadow: none;
-  margin-top: 0.1rem;
-}
-.pastry-gallery-item:hover .pastry-like-btn,
-.pastry-gallery-item:hover .pastry-like-count {
-  opacity: 1;
-}
-.pastry-like-btn,
-.pastry-like-count {
-  opacity: 0.85;
-  transition: opacity 0.2s;
 }
 /* Lightbox Action Bar */
 .lightbox-actions {
