@@ -85,6 +85,37 @@ title: Baking Classes & Pastry Pricing
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
+  /* Form icon and label improvements */
+  .form-label {
+    font-weight: 700;
+    color: #222 !important;
+    letter-spacing: 0.01em;
+  }
+  .form-control,
+  .form-select {
+    font-weight: 500;
+    color: #222;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .form-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #222 !important;
+    font-size: 1.1em;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .form-control.ps-5,
+  .form-select.ps-5 {
+    padding-left: 2.2rem !important;
+  }
+  /* For textarea icon alignment */
+  .form-icon-top {
+    top: 2.35rem;
+    transform: none;
+  }
 </style>
 
 <!-- Choice Prompt Start -->
@@ -255,15 +286,7 @@ title: Baking Classes & Pastry Pricing
           <form id="bakingClassForm">
             <div class="mb-3 position-relative">
               <label for="bcName" class="form-label">Full Name</label>
-              <span
-                class="position-absolute top-50 translate-middle-y ms-2"
-                style="
-                  left: 0.75rem;
-                  color: var(--primary);
-                  pointer-events: none;
-                "
-                ><i class="fa fa-user"></i
-              ></span>
+              <span class="form-icon"><i class="fa fa-user"></i></span>
               <input
                 type="text"
                 class="form-control ps-5"
@@ -274,15 +297,7 @@ title: Baking Classes & Pastry Pricing
             </div>
             <div class="mb-3 position-relative">
               <label for="bcPhone" class="form-label">Phone Number</label>
-              <span
-                class="position-absolute top-50 translate-middle-y ms-2"
-                style="
-                  left: 0.75rem;
-                  color: var(--primary);
-                  pointer-events: none;
-                "
-                ><i class="fa fa-phone"></i
-              ></span>
+              <span class="form-icon"><i class="fa fa-phone"></i></span>
               <input
                 type="tel"
                 class="form-control ps-5"
@@ -293,15 +308,7 @@ title: Baking Classes & Pastry Pricing
             </div>
             <div class="mb-3 position-relative">
               <label for="bcEmail" class="form-label">Email Address</label>
-              <span
-                class="position-absolute top-50 translate-middle-y ms-2"
-                style="
-                  left: 0.75rem;
-                  color: var(--primary);
-                  pointer-events: none;
-                "
-                ><i class="fa fa-envelope"></i
-              ></span>
+              <span class="form-icon"><i class="fa fa-envelope"></i></span>
               <input
                 type="email"
                 class="form-control ps-5"
@@ -312,13 +319,7 @@ title: Baking Classes & Pastry Pricing
             </div>
             <div class="mb-3 position-relative">
               <label for="bcClass" class="form-label">Select Class</label>
-              <span
-                class="position-absolute top-50 translate-middle-y ms-2"
-                style="
-                  left: 0.75rem;
-                  color: var(--primary);
-                  pointer-events: none;
-                "
+              <span class="form-icon"
                 ><i class="fa fa-graduation-cap"></i
               ></span>
               <select
@@ -339,14 +340,7 @@ title: Baking Classes & Pastry Pricing
               <label for="bcNotes" class="form-label"
                 >Additional Notes (optional)</label
               >
-              <span
-                class="position-absolute top-0 ms-2"
-                style="
-                  left: 0.75rem;
-                  color: var(--primary);
-                  pointer-events: none;
-                  top: 2.2rem;
-                "
+              <span class="form-icon form-icon-top"
                 ><i class="fa fa-comment"></i
               ></span>
               <textarea
