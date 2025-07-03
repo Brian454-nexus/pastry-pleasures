@@ -140,6 +140,11 @@ h6,
     transition: 0.5s;
     opacity: 1;
   }
+
+  .header-carousel .display-1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+  }
 }
 
 /*** Header ***/
@@ -409,4 +414,11 @@ h6,
 
 .copyright a:hover {
   color: var(--light);
+}
+
+@media (max-width: 600px) {
+  .team-item .team-text {
+    height: auto;
+    min-height: 100px;
+  }
 }

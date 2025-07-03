@@ -73,9 +73,10 @@ title: About Us
               <i class="fa fa-check text-primary me-2"></i>Online Order
             </div>
             <div class="col-sm-6">
-              <i class="fa fa-check text-primary me-2"></i>Home Delivery
+              <i class="fa fa-check text-primary me-2"></i>Baking School
             </div>
           </div>
+          <p class="fs-1 fw-bold mb-0">+254725745988</p>
           <a class="btn btn-primary rounded-pill py-3 px-5" href=""
             >Read More</a
           >
@@ -86,107 +87,38 @@ title: About Us
 </div>
 <!-- About End -->
 
-<!-- Team Start -->
-<div class="container-xxl py-6">
-  <div class="container">
-    <div
-      class="text-center mx-auto mb-5 wow fadeInUp"
-      data-wow-delay="0.1s"
-      style="max-width: 500px"
-    >
-      <p class="text-primary text-uppercase mb-2">// Our Team</p>
-      <h1 class="display-6 mb-4">We're Super Professional At Our Skills</h1>
-    </div>
-    <div class="row g-4">
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <img class="img-fluid" src="{{ '/img/team-1.jpg' | url }}" alt="" />
-          <div class="team-text">
-            <div class="team-title">
-              <h5>Mary K.</h5>
-              <span>Head Pastry Chef</span>
-            </div>
-            <div class="team-social">
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <img class="img-fluid" src="{{ '/img/team-2.jpg' | url }}" alt="" />
-          <div class="team-text">
-            <div class="team-title">
-              <h5>James M.</h5>
-              <span>Bakery Manager</span>
-            </div>
-            <div class="team-social">
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <img class="img-fluid" src="{{ '/img/team-3.jpg' | url }}" alt="" />
-          <div class="team-text">
-            <div class="team-title">
-              <h5>Grace W.</h5>
-              <span>Lead Cake Designer</span>
-            </div>
-            <div class="team-social">
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <img class="img-fluid" src="{{ '/img/team-4.jpg' | url }}" alt="" />
-          <div class="team-text">
-            <div class="team-title">
-              <h5>David O.</h5>
-              <span>Customer Service Lead</span>
-            </div>
-            <div class="team-social">
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a class="btn btn-square btn-light rounded-circle" href=""
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Newsletter subscription confirmation (if form exists) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.querySelector('form[action*="newsletter"]');
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var msg = document.createElement("div");
+        msg.className = "alert alert-success mt-3";
+        msg.innerText = "Thank you for subscribing to our newsletter!";
+        form.parentNode.insertBefore(msg, form.nextSibling);
+        form.reset();
+      });
+    }
+  });
+</script>
+
+<!-- SLOGAN BEFORE FOOTER -->
+<link
+  href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap"
+  rel="stylesheet"
+/>
+<div class="container text-center my-5">
+  <h2
+    style="
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #eaa636;
+      font-weight: 700;
+      letter-spacing: 1px;
+    "
+  >
+    A little bliss in every bite
+  </h2>
 </div>
-<!-- Team End -->
