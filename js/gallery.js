@@ -5,7 +5,7 @@ const surpriseBtn = document.getElementById("surpriseMeBtn");
 // Dynamically load all images from the gallery folder
 function fetchGalleryImages() {
   // 1 to 130 (adjust the number if you have more/less images)
-  return Array.from({length: 130}, (_, i) => `pastry${i+1}.jpg`);
+  return Array.from({ length: 130 }, (_, i) => `pastry${i + 1}.jpg`);
 }
 
 // Use gallery folder for images
@@ -73,31 +73,8 @@ function createGalleryItem(src) {
   img.src = `/gallery/${src}`;
   img.alt = "Pastry Photo";
   img.loading = "lazy";
-  // Like button
-  const likeBtn = document.createElement("button");
-  likeBtn.className = "pastry-like-btn";
-  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
-  likeBtn.onclick = (e) => {
-    e.stopPropagation();
-    if (isLiked(src)) unlike(src);
-    else toggleLike(src);
-  };
-  // Like count
-  const likeCount = document.createElement("span");
-  likeCount.className = "pastry-like-count";
-  likeCount.textContent = getLikeCount(src);
   item.appendChild(img);
-  item.appendChild(likeBtn);
-  item.appendChild(likeCount);
-  // Only open lightbox if not clicking like button
-  item.addEventListener("click", (e) => {
-    if (
-      !e.target.classList.contains("fa-heart") &&
-      !e.target.classList.contains("pastry-like-btn")
-    ) {
-      openLightbox(src);
-    }
-  });
+  item.addEventListener("click", () => openLightbox(src));
   return item;
 }
 
