@@ -534,7 +534,7 @@ h6,
     object-fit: cover;
   }
   .product-item .text-center.p-4 {
-    padding: 1rem !important;
+    padding: 1.5rem !important;
   }
   .product-item {
     min-height: 320px;
