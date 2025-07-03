@@ -6,23 +6,86 @@ title: Baking Classes & Pastry Pricing
 <!-- Hero Section Start -->
 <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
   <div class="container text-center pt-5 pb-3">
-    <h1 class="display-4 text-primary animated slideInDown mb-3">Baking Classes & Pastry Pricing</h1>
-    <p class="lead text-dark mb-0">A little bliss in every bite — Learn, Bake, Enjoy!</p>
+    <h1 class="display-4 text-primary animated slideInDown mb-3">
+      Baking Classes & Pastry Pricing
+    </h1>
+    <p class="lead mb-0" style="color: var(--primary); font-weight: 600">
+      A little bliss in every bite — Learn, Bake, Enjoy!
+    </p>
   </div>
 </div>
 <!-- Hero Section End -->
 
-<!-- Intro Start -->
-<div class="container-xxl py-6">
-  <div class="container">
-    <div class="row justify-content-center mb-5">
-      <div class="col-lg-8 text-center">
-        <h2 class="mb-3" style="color: var(--primary); font-family: 'Sevillana', cursive;">Welcome to Pastry Pleasures Baking School</h2>
-        <p class="fs-5">Whether you're a beginner or a seasoned baker, our classes are designed to elevate your skills and ignite your passion for baking. Explore our masterclasses, learn new techniques, and discover our delicious range of cakes, cupcakes, and pastries!</p>
-      </div>
-    </div>
+<!-- Add transition styles -->
+<style>
+  .fade-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+  .fade-section.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #service-choice {
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .btn-lg {
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .btn-lg:hover, .btn-lg:focus {
+    box-shadow: 0 8px 32px rgba(234,166,54,0.15);
+    transform: translateY(-2px) scale(1.04);
+  }
+</style>
 
-    <!-- Classes Offered -->
+<!-- Choice Prompt Start -->
+<div
+  id="service-choice"
+  class="container-xxl py-6 d-flex flex-column align-items-center justify-content-center"
+  style="min-height: 40vh"
+>
+  <h2
+    class="mb-4 text-center"
+    style="
+      font-family: 'Sevillana', cursive;
+      color: var(--primary);
+      font-size: 2.2rem;
+    "
+  >
+    What do you want to see?
+  </h2>
+  <div class="d-flex flex-wrap gap-4 justify-content-center">
+    <button class="btn btn-primary btn-lg px-5 py-3" id="show-classes">
+      Baking Classes
+    </button>
+    <button class="btn btn-outline-primary btn-lg px-5 py-3" id="show-pricing">
+      Pastry Pricing
+    </button>
+  </div>
+</div>
+<!-- Choice Prompt End -->
+
+<!-- Baking Classes Section Start -->
+<div
+  id="baking-classes-section"
+  class="container-xxl py-6 fade-section"
+  style="display: none"
+>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2
+        class="mb-0"
+        style="color: var(--primary); font-family: 'Sevillana', cursive"
+      >
+        Baking Classes
+      </h2>
+      <button class="btn btn-outline-primary" id="switch-to-pricing">
+        See Pastry Pricing
+      </button>
+    </div>
     <div class="row g-5 mb-5">
       <div class="col-lg-4">
         <div class="card h-100 shadow-sm">
@@ -34,7 +97,11 @@ title: Baking Classes & Pastry Pricing
               <li><strong>Time:</strong> 9:00AM–11:30AM or 1:00PM–3:30PM</li>
               <li><strong>Days:</strong> Monday–Thursday</li>
             </ul>
-            <p class="mb-2">This class is for bakers who want to master fondant for weddings and large cakes. Suitable for ages 13+ with basic cake decorating knowledge.</p>
+            <p class="mb-2">
+              This class is for bakers who want to master fondant for weddings
+              and large cakes. Suitable for ages 13+ with basic cake decorating
+              knowledge.
+            </p>
             <ul>
               <li>Cake leveling, trimming, layering</li>
               <li>Ganache & fondant covering</li>
@@ -42,7 +109,9 @@ title: Baking Classes & Pastry Pricing
               <li>Consultations, contracts, costing</li>
             </ul>
             <div class="alert alert-warning small mt-3">
-              <strong>Note:</strong> 70% payment required for booking. All equipment & ingredients provided. Non-refundable. Max 3 students per class.
+              <strong>Note:</strong> 70% payment required for booking. All
+              equipment & ingredients provided. Non-refundable. Max 3 students
+              per class.
             </div>
           </div>
         </div>
@@ -65,7 +134,9 @@ title: Baking Classes & Pastry Pricing
               <li>Fondant (Ksh. 6,000)</li>
             </ul>
             <div class="alert alert-warning small mt-3">
-              <strong>Note:</strong> Cost is per item, per person. 70% payment required for booking. All equipment & ingredients provided. Non-refundable. Max 3 students per class.
+              <strong>Note:</strong> Cost is per item, per person. 70% payment
+              required for booking. All equipment & ingredients provided.
+              Non-refundable. Max 3 students per class.
             </div>
           </div>
         </div>
@@ -89,13 +160,107 @@ title: Baking Classes & Pastry Pricing
               <li>Black/White Forest (Whipped Cream)</li>
             </ul>
             <div class="alert alert-warning small mt-3">
-              <strong>Note:</strong> Cost is per item, per person. 70% payment required for booking. All equipment & ingredients provided. Non-refundable. Max 3 students per class.
+              <strong>Note:</strong> Cost is per item, per person. 70% payment
+              required for booking. All equipment & ingredients provided.
+              Non-refundable. Max 3 students per class.
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Application Form -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-7">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="mb-4 text-primary">Apply for a Baking Class</h4>
+            <form id="bakingClassForm">
+              <div class="mb-3">
+                <label for="bcName" class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bcName"
+                  name="name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="bcPhone" class="form-label">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="bcPhone"
+                  name="phone"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="bcEmail" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="bcEmail"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="bcClass" class="form-label">Select Class</label>
+                <select class="form-select" id="bcClass" name="class" required>
+                  <option value="" disabled selected>Select a class</option>
+                  <option value="Fondant Masterclass">
+                    Fondant Masterclass
+                  </option>
+                  <option value="Frosting Making Class">
+                    Frosting Making Class
+                  </option>
+                  <option value="Basics Baking Class">
+                    Basics Baking Class
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="bcNotes" class="form-label"
+                  >Additional Notes (optional)</label
+                >
+                <textarea
+                  class="form-control"
+                  id="bcNotes"
+                  name="notes"
+                  rows="2"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary px-4">
+                Apply via WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Baking Classes Section End -->
 
+<!-- Pastry Pricing Section Start -->
+<div
+  id="pastry-pricing-section"
+  class="container-xxl py-6 fade-section"
+  style="display: none"
+>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2
+        class="mb-0"
+        style="color: var(--primary); font-family: 'Sevillana', cursive"
+      >
+        Pastry Pricing
+      </h2>
+      <button class="btn btn-outline-primary" id="switch-to-classes">
+        See Baking Classes
+      </button>
+    </div>
     <!-- Flavour List & Cake Pricing -->
     <div class="row g-5 mb-5">
       <div class="col-lg-6">
@@ -139,7 +304,8 @@ title: Baking Classes & Pastry Pricing
               </div>
             </div>
             <div class="alert alert-info small mt-3">
-              <strong>Note:</strong> Prices for cakes vary depending on size and design. Please contact us for a final quote.
+              <strong>Note:</strong> Prices for cakes vary depending on size and
+              design. Please contact us for a final quote.
             </div>
           </div>
         </div>
@@ -157,24 +323,54 @@ title: Baking Classes & Pastry Pricing
                 </tr>
               </thead>
               <tbody>
-                <tr><td>8-inch (1kg)</td><td>8–12</td><td>Ksh. 2,500</td></tr>
-                <tr><td>9-inch (1.5kg)</td><td>12–18</td><td>Ksh. 3,700</td></tr>
-                <tr><td>10-inch (2kg)</td><td>16–24</td><td>Ksh. 4,900</td></tr>
-                <tr><td>11-inch (2.5kg)</td><td>20–30</td><td>Ksh. 6,100</td></tr>
-                <tr><td>12-inch (3kg)</td><td>24–36</td><td>Ksh. 7,300</td></tr>
-                <tr><td>13-inch (3.5kg)</td><td>28–42</td><td>Ksh. 8,500</td></tr>
-                <tr><td>14-inch (4kg)</td><td>32–48</td><td>Ksh. 9,700</td></tr>
+                <tr>
+                  <td>8-inch (1kg)</td>
+                  <td>8–12</td>
+                  <td>Ksh. 2,500</td>
+                </tr>
+                <tr>
+                  <td>9-inch (1.5kg)</td>
+                  <td>12–18</td>
+                  <td>Ksh. 3,700</td>
+                </tr>
+                <tr>
+                  <td>10-inch (2kg)</td>
+                  <td>16–24</td>
+                  <td>Ksh. 4,900</td>
+                </tr>
+                <tr>
+                  <td>11-inch (2.5kg)</td>
+                  <td>20–30</td>
+                  <td>Ksh. 6,100</td>
+                </tr>
+                <tr>
+                  <td>12-inch (3kg)</td>
+                  <td>24–36</td>
+                  <td>Ksh. 7,300</td>
+                </tr>
+                <tr>
+                  <td>13-inch (3.5kg)</td>
+                  <td>28–42</td>
+                  <td>Ksh. 8,500</td>
+                </tr>
+                <tr>
+                  <td>14-inch (4kg)</td>
+                  <td>32–48</td>
+                  <td>Ksh. 9,700</td>
+                </tr>
               </tbody>
             </table>
             <div class="alert alert-info small mt-3">
-              <strong>Boozy options:</strong> Add Ksh. 500 per kilo (e.g. Baileys Forest, Boozy Pina Colada).<br>
-              <strong>Note:</strong> Prices are fixed and not inclusive of toppers & delivery charges. Please confirm before making any payments.
+              <strong>Boozy options:</strong> Add Ksh. 500 per kilo (e.g.
+              Baileys Forest, Boozy Pina Colada).<br />
+              <strong>Note:</strong> Prices are fixed and not inclusive of
+              toppers & delivery charges. Please confirm before making any
+              payments.
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Cupcake Boxes & Fillings -->
     <div class="row g-5 mb-5">
       <div class="col-lg-6">
@@ -214,7 +410,8 @@ title: Baking Classes & Pastry Pricing
               </div>
             </div>
             <div class="alert alert-info small mt-3">
-              <strong>Note:</strong> Please confirm before making payment. Extra charges for customizations. Contact us for availability.
+              <strong>Note:</strong> Please confirm before making payment. Extra
+              charges for customizations. Contact us for availability.
             </div>
           </div>
         </div>
@@ -230,13 +427,13 @@ title: Baking Classes & Pastry Pricing
               <li>White/Dark Chocolate Ganache & Berries</li>
             </ul>
             <div class="alert alert-info small mt-3">
-              <strong>Note:</strong> Extra Ksh. 200 per kg for fillings (except for cakes with matching compote). Contact us for details.
+              <strong>Note:</strong> Extra Ksh. 200 per kg for fillings (except
+              for cakes with matching compote). Contact us for details.
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Starting Prices & Payment -->
     <div class="row g-5 mb-5">
       <div class="col-lg-6">
@@ -251,17 +448,41 @@ title: Baking Classes & Pastry Pricing
                 </tr>
               </thead>
               <tbody>
-                <tr><td>1kg</td><td>Ksh. 4,500</td></tr>
-                <tr><td>1.5kg</td><td>Ksh. 6,000</td></tr>
-                <tr><td>2kg</td><td>Ksh. 7,500</td></tr>
-                <tr><td>2.5kg</td><td>Ksh. 9,000</td></tr>
-                <tr><td>3kg</td><td>Ksh. 10,500</td></tr>
-                <tr><td>3.5kg</td><td>Ksh. 12,000</td></tr>
-                <tr><td>4kg</td><td>Ksh. 13,500</td></tr>
+                <tr>
+                  <td>1kg</td>
+                  <td>Ksh. 4,500</td>
+                </tr>
+                <tr>
+                  <td>1.5kg</td>
+                  <td>Ksh. 6,000</td>
+                </tr>
+                <tr>
+                  <td>2kg</td>
+                  <td>Ksh. 7,500</td>
+                </tr>
+                <tr>
+                  <td>2.5kg</td>
+                  <td>Ksh. 9,000</td>
+                </tr>
+                <tr>
+                  <td>3kg</td>
+                  <td>Ksh. 10,500</td>
+                </tr>
+                <tr>
+                  <td>3.5kg</td>
+                  <td>Ksh. 12,000</td>
+                </tr>
+                <tr>
+                  <td>4kg</td>
+                  <td>Ksh. 13,500</td>
+                </tr>
               </tbody>
             </table>
             <div class="alert alert-info small mt-3">
-              <strong>Note:</strong> Prices exclude customization, toppers, and accessories. Fondant cakes start at Ksh. 5,500. Tiered buttercream cakes from Ksh. 4,000/kg, tiered fondant from Ksh. 5,300/kg (min 2.5kg). Please confirm before payment.
+              <strong>Note:</strong> Prices exclude customization, toppers, and
+              accessories. Fondant cakes start at Ksh. 5,500. Tiered buttercream
+              cakes from Ksh. 4,000/kg, tiered fondant from Ksh. 5,300/kg (min
+              2.5kg). Please confirm before payment.
             </div>
           </div>
         </div>
@@ -274,16 +495,115 @@ title: Baking Classes & Pastry Pricing
               <li>Paybill: <strong>400200</strong></li>
               <li>Account number: <strong>689705</strong></li>
               <li>Phone: <a href="tel:+254725745988">+254 725745988</a></li>
-              <li>Instagram: <a href="https://instagram.com/whiskedtemptations" target="_blank">@whiskedtemptations</a></li>
+              <li>
+                Instagram:
+                <a
+                  href="https://instagram.com/whiskedtemptations"
+                  target="_blank"
+                  >@whiskedtemptations</a
+                >
+              </li>
             </ul>
             <div class="alert alert-warning small mt-3">
-              <strong>Note:</strong> All payments are to be made to our account. Kindly confirm with us before making any payments. Prices are not inclusive of toppers, delivery, or customizations.
+              <strong>Note:</strong> All payments are to be made to our account.
+              Kindly confirm with us before making any payments. Prices are not
+              inclusive of toppers, delivery, or customizations.
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
-<!-- End of Service Page -->
+<!-- Pastry Pricing Section End -->
+
+<script>
+  // Section toggling logic with animation
+  function showSection(section) {
+    // Hide all
+    document.getElementById("service-choice").style.opacity = 1;
+    document.getElementById("service-choice").style.display = "flex";
+    document.getElementById("baking-classes-section").classList.remove("active");
+    document.getElementById("pastry-pricing-section").classList.remove("active");
+    document.getElementById("baking-classes-section").style.display = "none";
+    document.getElementById("pastry-pricing-section").style.display = "none";
+
+    if (section === "classes") {
+      document.getElementById("service-choice").style.opacity = 0;
+      setTimeout(function() {
+        document.getElementById("service-choice").style.display = "none";
+        document.getElementById("baking-classes-section").style.display = "block";
+        setTimeout(function() {
+          document.getElementById("baking-classes-section").classList.add("active");
+        }, 10);
+      }, 400);
+    } else if (section === "pricing") {
+      document.getElementById("service-choice").style.opacity = 0;
+      setTimeout(function() {
+        document.getElementById("service-choice").style.display = "none";
+        document.getElementById("pastry-pricing-section").style.display = "block";
+        setTimeout(function() {
+          document.getElementById("pastry-pricing-section").classList.add("active");
+        }, 10);
+      }, 400);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  document.getElementById("show-classes").onclick = function () {
+    showSection("classes");
+  };
+  document.getElementById("show-pricing").onclick = function () {
+    showSection("pricing");
+  };
+  document.getElementById("switch-to-pricing").onclick = function () {
+    // Animate out current, then in new
+    document.getElementById("baking-classes-section").classList.remove("active");
+    setTimeout(function() {
+      document.getElementById("baking-classes-section").style.display = "none";
+      document.getElementById("pastry-pricing-section").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("pastry-pricing-section").classList.add("active");
+      }, 10);
+    }, 400);
+  };
+  document.getElementById("switch-to-classes").onclick = function () {
+    document.getElementById("pastry-pricing-section").classList.remove("active");
+    setTimeout(function() {
+      document.getElementById("pastry-pricing-section").style.display = "none";
+      document.getElementById("baking-classes-section").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("baking-classes-section").classList.add("active");
+      }, 10);
+    }, 400);
+  };
+
+  // WhatsApp application form logic
+  const bakingClassForm = document.getElementById("bakingClassForm");
+  bakingClassForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("bcName").value.trim();
+    const phone = document.getElementById("bcPhone").value.trim();
+    const email = document.getElementById("bcEmail").value.trim();
+    const selectedClass = document.getElementById("bcClass").value;
+    const notes = document.getElementById("bcNotes").value.trim();
+    let message = `*Baking Class Application*\n`;
+    message += `Name: ${name}\n`;
+    message += `Phone: ${phone}\n`;
+    message += `Email: ${email}\n`;
+    message += `Class: ${selectedClass}\n`;
+    if (notes) message += `Notes: ${notes}\n`;
+    message += `\nSent from Pastry Pleasures website.`;
+    const encodedMsg = encodeURIComponent(message);
+    const waUrl = `https://wa.me/254719123126?text=${encodedMsg}`;
+    window.open(waUrl, "_blank");
+  });
+
+  // On page load, fade in the choice prompt
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('service-choice').style.opacity = 0;
+    setTimeout(function() {
+      document.getElementById('service-choice').style.transition = 'opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1)';
+      document.getElementById('service-choice').style.opacity = 1;
+    }, 100);
+  });
+</script>
