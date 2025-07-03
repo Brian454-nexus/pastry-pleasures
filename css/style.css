@@ -502,7 +502,8 @@ h6,
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
-.header-carousel .owl-carousel-item.active img {
+.header-carousel .owl-carousel-item.active img,
+.header-carousel .owl-carousel-item:first-child img {
   opacity: 1;
 }
 
