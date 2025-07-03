@@ -473,3 +473,13 @@ h6,
     height: 200px;
   }
 }
+
+.footer-gallery-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #fff;
+  display: block;
+  margin: 0 auto;
+}

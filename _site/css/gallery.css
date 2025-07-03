@@ -22,6 +22,14 @@
     column-gap: 1.2rem;
   }
 }
+@media (max-width: 900px) {
+  .pastry-masonry-gallery {
+    column-gap: 0.4rem;
+  }
+  .pastry-gallery-item {
+    margin: 0 0 0.4rem;
+  }
+}
 .pastry-gallery-item {
   display: inline-block;
   width: 100%;
