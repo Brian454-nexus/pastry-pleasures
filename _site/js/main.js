@@ -39,14 +39,16 @@
 
   // Header carousel
   $(".header-carousel").owlCarousel({
+    items: 1,
+    loop: true,
     autoplay: true,
     autoplayTimeout: 4000,
     autoplayHoverPause: true,
-    smartSpeed: 1500,
-    loop: true,
+    smartSpeed: 1000,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
     nav: true,
     dots: false,
-    items: 1,
     navText: [
       '<i class="bi bi-chevron-left"></i>',
       '<i class="bi bi-chevron-right"></i>',

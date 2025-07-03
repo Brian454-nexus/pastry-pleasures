@@ -145,6 +145,13 @@ h6,
     font-size: 3.5rem;
     line-height: 1.1;
   }
+
+  .header-carousel .owl-carousel-item img {
+    object-position: center 30%;
+    object-fit: cover;
+    height: 600px;
+    width: 100%;
+  }
 }
 
 @media (min-width: 900px) {
@@ -488,4 +495,43 @@ h6,
   border-radius: 0.5rem;
   min-height: 80px;
   max-height: 120px;
+}
+
+/* Fade in/out for hero carousel images */
+.header-carousel .owl-carousel-item img {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.header-carousel .owl-carousel-item.active img {
+  opacity: 1;
+}
+
+/* Lower hero images on desktop only */
+@media (max-width: 991.98px) {
+  .header-carousel .owl-carousel-item img {
+    object-position: center center;
+    height: auto;
+  }
+}
+
+/* Shorten product cards on mobile */
+@media (max-width: 768px) {
+  .product-item .position-relative {
+    height: 120px;
+    min-height: 100px;
+    max-height: 140px;
+    overflow: hidden;
+  }
+  .product-item .position-relative img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .product-item .text-center.p-4 {
+    padding: 1rem !important;
+  }
+  .product-item {
+    min-height: 260px;
+    max-height: 340px;
+  }
 }
