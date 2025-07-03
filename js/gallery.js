@@ -192,9 +192,19 @@ function createGalleryItem(src) {
   return item;
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function loadGallery() {
   galleryContainer.innerHTML = "";
-  imageList.forEach((src) => {
+  // Shuffle images for Pinterest-like randomness
+  const shuffled = [...imageList];
+  shuffleArray(shuffled);
+  shuffled.forEach((src) => {
     const item = createGalleryItem(src);
     galleryContainer.appendChild(item);
   });
@@ -381,3 +391,7 @@ function shareImage(src) {
     }
   }
 }
+
+const galleryContainer = document.getElementById("pastryGallery");
+const sprinkleContainer = document.getElementById("sprinkle-animation");
+const surpriseBtn = document.getElementById("surpriseMeBtn");
