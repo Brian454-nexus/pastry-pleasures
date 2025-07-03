@@ -253,39 +253,80 @@ title: Baking Classes & Pastry Pricing
         >
           <h4 class="mb-4 text-primary">Apply for a Baking Class</h4>
           <form id="bakingClassForm">
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="bcName" class="form-label">Full Name</label>
+              <span
+                class="position-absolute top-50 translate-middle-y ms-2"
+                style="
+                  left: 0.75rem;
+                  color: var(--primary);
+                  pointer-events: none;
+                "
+                ><i class="fa fa-user"></i
+              ></span>
               <input
                 type="text"
-                class="form-control"
+                class="form-control ps-5"
                 id="bcName"
                 name="name"
                 required
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="bcPhone" class="form-label">Phone Number</label>
+              <span
+                class="position-absolute top-50 translate-middle-y ms-2"
+                style="
+                  left: 0.75rem;
+                  color: var(--primary);
+                  pointer-events: none;
+                "
+                ><i class="fa fa-phone"></i
+              ></span>
               <input
                 type="tel"
-                class="form-control"
+                class="form-control ps-5"
                 id="bcPhone"
                 name="phone"
                 required
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="bcEmail" class="form-label">Email Address</label>
+              <span
+                class="position-absolute top-50 translate-middle-y ms-2"
+                style="
+                  left: 0.75rem;
+                  color: var(--primary);
+                  pointer-events: none;
+                "
+                ><i class="fa fa-envelope"></i
+              ></span>
               <input
                 type="email"
-                class="form-control"
+                class="form-control ps-5"
                 id="bcEmail"
                 name="email"
                 required
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="bcClass" class="form-label">Select Class</label>
-              <select class="form-select" id="bcClass" name="class" required>
+              <span
+                class="position-absolute top-50 translate-middle-y ms-2"
+                style="
+                  left: 0.75rem;
+                  color: var(--primary);
+                  pointer-events: none;
+                "
+                ><i class="fa fa-graduation-cap"></i
+              ></span>
+              <select
+                class="form-select ps-5"
+                id="bcClass"
+                name="class"
+                required
+              >
                 <option value="" disabled selected>Select a class</option>
                 <option value="Fondant Masterclass">Fondant Masterclass</option>
                 <option value="Frosting Making Class">
@@ -294,19 +335,29 @@ title: Baking Classes & Pastry Pricing
                 <option value="Basics Baking Class">Basics Baking Class</option>
               </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="bcNotes" class="form-label"
                 >Additional Notes (optional)</label
               >
+              <span
+                class="position-absolute top-0 ms-2"
+                style="
+                  left: 0.75rem;
+                  color: var(--primary);
+                  pointer-events: none;
+                  top: 2.2rem;
+                "
+                ><i class="fa fa-comment"></i
+              ></span>
               <textarea
-                class="form-control"
+                class="form-control ps-5"
                 id="bcNotes"
                 name="notes"
                 rows="2"
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary px-4">
-              Apply via WhatsApp
+              <i class="fab fa-whatsapp me-2"></i>Apply via WhatsApp
             </button>
           </form>
         </div>
@@ -605,10 +656,22 @@ title: Baking Classes & Pastry Pricing
     document.getElementById("baking-classes-section").style.display = "none";
     document.getElementById("pastry-pricing-section").style.display = "none";
 
-    if (section === "classes") {
-      document.getElementById("service-choice").style.opacity = 0;
+    // Collapse and remove modal space
+    const modal = document.getElementById("service-choice");
+    if (modal) {
+      modal.style.transition =
+        "opacity 0.5s, height 0.5s, padding 0.5s, margin 0.5s";
+      modal.style.opacity = 0;
+      modal.style.height = 0;
+      modal.style.padding = 0;
+      modal.style.margin = 0;
       setTimeout(function () {
-        document.getElementById("service-choice").style.display = "none";
+        if (modal.parentNode) modal.parentNode.removeChild(modal);
+      }, 500);
+    }
+
+    if (section === "classes") {
+      setTimeout(function () {
         document.getElementById("baking-classes-section").style.display =
           "block";
         setTimeout(function () {
@@ -618,9 +681,7 @@ title: Baking Classes & Pastry Pricing
         }, 10);
       }, 400);
     } else if (section === "pricing") {
-      document.getElementById("service-choice").style.opacity = 0;
       setTimeout(function () {
-        document.getElementById("service-choice").style.display = "none";
         document.getElementById("pastry-pricing-section").style.display =
           "block";
         setTimeout(function () {
