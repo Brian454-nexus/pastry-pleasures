@@ -61,10 +61,29 @@ title: Baking Classes & Pastry Pricing
     -webkit-backdrop-filter: blur(14px);
     background: rgba(255, 255, 255, 0.35);
   }
+  /* Prevent hover shift for form card */
+  .no-hover-glass:hover,
+  .no-hover-glass:focus {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    transform: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.25);
+  }
   /* Remove top padding when section is active */
   .no-top-space {
     padding-top: 0 !important;
     margin-top: 0 !important;
+  }
+  /* Remove top margin from first heading in visible section */
+  .no-top-space h2.mb-0 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  /* Remove top margin from container if present */
+  .no-top-space > .container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 </style>
 
@@ -226,7 +245,7 @@ title: Baking Classes & Pastry Pricing
     <div class="row justify-content-center mt-5">
       <div class="col-lg-7">
         <div
-          class="glass-card p-4"
+          class="glass-card no-hover-glass p-4"
           style="
             border-radius: 1.5rem;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
@@ -658,13 +677,14 @@ title: Baking Classes & Pastry Pricing
     const email = document.getElementById("bcEmail").value.trim();
     const selectedClass = document.getElementById("bcClass").value;
     const notes = document.getElementById("bcNotes").value.trim();
-    let message = `*Baking Class Application*\n`;
-    message += `Name: ${name}\n`;
-    message += `Phone: ${phone}\n`;
-    message += `Email: ${email}\n`;
-    message += `Class: ${selectedClass}\n`;
-    if (notes) message += `Notes: ${notes}\n`;
-    message += `\nSent from Pastry Pleasures website.`;
+    let message = `Hello Pastry Pleasures Team! 👩‍🍳✨\n\n`;
+    message += `I'm excited to apply for your *${selectedClass}* and start my baking journey with you.\n\n`;
+    message += `Here are my details:\n`;
+    message += `- Name: ${name}\n`;
+    message += `- Phone: ${phone}\n`;
+    message += `- Email: ${email}\n`;
+    if (notes) message += `- Additional Notes: ${notes}\n`;
+    message += `\nLooking forward to learning and creating sweet memories together!\n\nSent from the Pastry Pleasures website.`;
     const encodedMsg = encodeURIComponent(message);
     const waUrl = `https://wa.me/254719123126?text=${encodedMsg}`;
     window.open(waUrl, "_blank");
