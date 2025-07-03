@@ -286,49 +286,69 @@ h6,
 }
 
 /*** Team ***/
-.team-item .team-text {
+.team-card {
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.team-image {
   position: relative;
-  height: 100px;
   overflow: hidden;
+  height: 280px;
 }
 
-.team-item .team-title {
-  position: absolute;
+.team-image img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover .team-image img {
+  transform: scale(1.05);
+}
+
+.team-overlay {
+  position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--light);
-  transition: 0.5s;
-}
-
-.team-item:hover .team-title {
-  top: -100px;
-}
-
-.team-item .team-social {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 100px;
-  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(234, 166, 54, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary);
-  transition: 0.5s;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.team-item .team-social .btn {
-  margin: 0 3px;
+.team-card:hover .team-overlay {
+  opacity: 1;
 }
 
-.team-item:hover .team-social {
-  top: 0;
+.team-designation h5 {
+  color: #fff;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.team-info {
+  background: #fff;
+  border-top: 3px solid var(--primary);
+}
+
+.team-info h5 {
+  color: var(--dark);
+  font-weight: 600;
+  margin: 0;
 }
 
 /*** Testimonial ***/
@@ -416,9 +436,26 @@ h6,
   color: var(--light);
 }
 
-@media (max-width: 600px) {
-  .team-item .team-text {
-    height: auto;
-    min-height: 100px;
+@media (max-width: 768px) {
+  .team-image {
+    height: 220px;
+  }
+
+  .team-info {
+    padding: 1rem !important;
+  }
+
+  .team-info h5 {
+    font-size: 1rem;
+  }
+
+  .team-designation h5 {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .team-image {
+    height: 200px;
   }
 }
