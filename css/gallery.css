@@ -4,6 +4,11 @@
   column-gap: 0.5rem;
   margin-bottom: 2rem;
 }
+@media (min-width: 400px) {
+  .pastry-masonry-gallery {
+    column-count: 2;
+  }
+}
 @media (min-width: 600px) {
   .pastry-masonry-gallery {
     column-count: 2;
@@ -193,7 +198,7 @@
     opacity: 0;
   }
 }
-/* Like Button & Count Overlay */
+/* Like Button & Count Overlay - update for vertical layout */
 .pastry-like-btn {
   position: absolute;
   top: 0.7rem;
@@ -204,6 +209,7 @@
   width: 2.3rem;
   height: 2.3rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
@@ -212,23 +218,19 @@
   transition: background 0.2s;
   font-size: 1.2rem;
   color: #eaa636;
-}
-.pastry-like-btn.liked {
-  color: #e74c3c;
-  background: #fff3cd;
+  gap: 0.3rem;
 }
 .pastry-like-count {
-  position: absolute;
-  top: 0.7rem;
-  right: 3.2rem;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 1rem;
-  padding: 0.2rem 0.7rem;
+  position: static;
+  background: none;
+  border-radius: 0;
+  padding: 0.1rem 0;
   font-size: 1rem;
   color: #eaa636;
   font-weight: 700;
   z-index: 3;
-  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  box-shadow: none;
+  margin-top: 0.1rem;
 }
 .pastry-gallery-item:hover .pastry-like-btn,
 .pastry-gallery-item:hover .pastry-like-count {
