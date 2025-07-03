@@ -1,0 +1,281 @@
+/* Masonry Gallery Layout */
+.pastry-masonry-gallery {
+  column-count: 1;
+  column-gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 400px) {
+  .pastry-masonry-gallery {
+    column-count: 2;
+  }
+}
+@media (min-width: 600px) {
+  .pastry-masonry-gallery {
+    column-count: 2;
+  }
+}
+@media (min-width: 900px) {
+  .pastry-masonry-gallery {
+    column-count: 3;
+  }
+}
+@media (min-width: 1200px) {
+  .pastry-masonry-gallery {
+    column-count: 4;
+  }
+}
+.pastry-gallery-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 0.5rem;
+  position: relative;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(234, 166, 54, 0.1),
+    0 1.5px 6px rgba(0, 0, 0, 0.04);
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.pastry-gallery-item:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 8px 32px rgba(234, 166, 54, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+.pastry-gallery-img {
+  width: 100%;
+  display: block;
+  border-radius: 1.2rem;
+  transition: filter 0.2s;
+}
+.pastry-gallery-item:hover .pastry-gallery-img {
+  filter: brightness(1.08) saturate(1.2);
+}
+.pastry-gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 60%, transparent 100%);
+  color: #fff;
+  padding: 1rem 1.2rem 0.7rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.pastry-gallery-item:hover .pastry-gallery-caption {
+  opacity: 1;
+}
+/* Lightbox Styles */
+.gallery-lightbox {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: fadeIn 0.3s;
+}
+.gallery-lightbox .lightbox-img {
+  max-width: 90vw;
+  max-height: 70vh;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(234, 166, 54, 0.18);
+  margin-bottom: 1.2rem;
+}
+.gallery-lightbox .lightbox-caption {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 80vw;
+}
+.gallery-lightbox .lightbox-close {
+  position: absolute;
+  top: 2.5rem;
+  right: 3rem;
+  font-size: 2.5rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10001;
+  transition: color 0.2s;
+}
+.gallery-lightbox .lightbox-close:hover {
+  color: var(--primary, #eaa636);
+}
+.gallery-lightbox .lightbox-prev,
+.gallery-lightbox .lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: #fff;
+  background: rgba(234, 166, 54, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10001;
+  transition: background 0.2s;
+}
+.gallery-lightbox .lightbox-prev {
+  left: 2rem;
+}
+.gallery-lightbox .lightbox-next {
+  right: 2rem;
+}
+.gallery-lightbox .lightbox-prev:hover,
+.gallery-lightbox .lightbox-next:hover {
+  background: #fff;
+  color: var(--primary, #eaa636);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Surprise Me Button */
+#surpriseMeBtn {
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  background: linear-gradient(90deg, #eaa636 0%, #fff3cd 100%);
+  color: #fff;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+#surpriseMeBtn:hover,
+#surpriseMeBtn:focus {
+  background: linear-gradient(90deg, #fff3cd 0%, #eaa636 100%);
+  color: #eaa636;
+}
+/* Sprinkle Animation Overlay */
+#sprinkle-animation {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  overflow: visible;
+}
+.sprinkle {
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  border-radius: 8px 8px 16px 16px;
+  background: linear-gradient(90deg, #eaa636, #fff3cd, #f7b731, #fff, #eaa636);
+  opacity: 0.85;
+  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.18);
+  animation: sprinkleDrop 1.2s cubic-bezier(0.6, 0.2, 0.4, 1) forwards;
+}
+@keyframes sprinkleDrop {
+  0% {
+    transform: translateY(-40px) rotate(0deg) scale(0.7);
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+/* Like Button & Count Overlay - update for vertical layout */
+.pastry-like-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 1.1rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: none;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s;
+  font-size: 1.2rem;
+  color: #eaa636;
+  gap: 0.3rem;
+}
+.pastry-like-count {
+  position: static;
+  background: none;
+  border-radius: 0;
+  padding: 0.1rem 0;
+  font-size: 1rem;
+  color: #eaa636;
+  font-weight: 700;
+  z-index: 3;
+  box-shadow: none;
+  margin-top: 0.1rem;
+}
+.pastry-gallery-item:hover .pastry-like-btn,
+.pastry-gallery-item:hover .pastry-like-count {
+  opacity: 1;
+}
+.pastry-like-btn,
+.pastry-like-count {
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+/* Lightbox Action Bar */
+.lightbox-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.lightbox-action-btn {
+  background: #fff3cd;
+  color: #eaa636;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lightbox-action-btn:hover,
+.lightbox-action-btn:focus {
+  background: #eaa636;
+  color: #fff;
+}
+.lightbox-like-btn.liked {
+  color: #e74c3c;
+  background: #fff3cd;
+}
+.lightbox-like-count {
+  color: #eaa636;
+  font-weight: 700;
+  margin-left: 0.3rem;
+  font-size: 1.1rem;
+}
