@@ -127,6 +127,112 @@ title: Baking Classes & Pastry Pricing
     align-self: flex-start;
     margin-top: 0.5rem;
   }
+  /* WhatsApp form style to match shop page */
+  .pp-form-card {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(234, 166, 54, 0.18);
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .pp-form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .pp-form-group .pp-form-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #222;
+    font-size: 1.1em;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .pp-form-group textarea.pp-form-control {
+    min-height: 80px;
+    resize: vertical;
+  }
+  .pp-form-control,
+  .pp-form-select {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border-radius: 0.7rem;
+    border: 1.5px solid #e5e5e5;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    color: #222;
+    font-weight: 500;
+    transition: border-color 0.2s;
+    box-shadow: none;
+  }
+  .pp-form-control:focus,
+  .pp-form-select:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: #fff;
+  }
+  .pp-form-label {
+    position: absolute;
+    left: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    background: transparent;
+    transition: 0.2s;
+    z-index: 3;
+  }
+  .pp-form-control:not(:placeholder-shown) + .pp-form-label,
+  .pp-form-control:focus + .pp-form-label,
+  .pp-form-select:focus + .pp-form-label,
+  .pp-form-select:not([value=""]):not([value=""]) + .pp-form-label {
+    top: 0.1rem;
+    left: 2.3rem;
+    font-size: 0.85rem;
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 0.2rem;
+    font-weight: 700;
+  }
+  .pp-form-group textarea.pp-form-control + .pp-form-label {
+    top: 1.1rem;
+    left: 2.3rem;
+  }
+  .pp-form-group
+    textarea.pp-form-control:not(:placeholder-shown)
+    + .pp-form-label,
+  .pp-form-group textarea.pp-form-control:focus + .pp-form-label {
+    top: -0.7rem;
+    left: 2.3rem;
+    font-size: 0.85rem;
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 0.2rem;
+    font-weight: 700;
+  }
+  .pp-form-btn {
+    width: 100%;
+    padding: 0.8rem 0;
+    font-size: 1.1rem;
+    border-radius: 0.7rem;
+    font-weight: 700;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
+  }
+  .pp-form-btn:hover,
+  .pp-form-btn:focus {
+    background: #d89b2e;
+    color: #fff;
+  }
 </style>
 
 <!-- Choice Prompt Start -->
@@ -286,77 +392,73 @@ title: Baking Classes & Pastry Pricing
     <!-- WhatsApp Application Form -->
     <div class="row justify-content-center mb-5">
       <div class="col-lg-7">
-        <div
-          class="glass-card p-4"
-          style="
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-          "
-        >
+        <div class="pp-form-card">
           <h4 class="mb-4 text-primary">Apply for a Baking Class</h4>
-          <form id="bakingClassForm">
-            <div class="form-group-icon">
-              <label for="bcName" class="form-label">Full Name</label>
-              <span class="form-icon"><i class="fa fa-user"></i></span>
+          <form id="bakingClassForm" autocomplete="off">
+            <div class="pp-form-group">
               <input
                 type="text"
-                class="form-control"
+                class="pp-form-control"
                 id="bcName"
                 name="name"
                 required
+                placeholder=" "
               />
+              <label for="bcName" class="pp-form-label">Full Name</label>
+              <span class="pp-form-icon"><i class="fa fa-user"></i></span>
             </div>
-            <div class="form-group-icon">
-              <label for="bcPhone" class="form-label">Phone Number</label>
-              <span class="form-icon"><i class="fa fa-phone"></i></span>
+            <div class="pp-form-group">
               <input
                 type="tel"
-                class="form-control"
+                class="pp-form-control"
                 id="bcPhone"
                 name="phone"
                 required
+                placeholder=" "
               />
+              <label for="bcPhone" class="pp-form-label">Phone Number</label>
+              <span class="pp-form-icon"><i class="fa fa-phone"></i></span>
             </div>
-            <div class="form-group-icon">
-              <label for="bcEmail" class="form-label">Email Address</label>
-              <span class="form-icon"><i class="fa fa-envelope"></i></span>
+            <div class="pp-form-group">
               <input
                 type="email"
-                class="form-control"
+                class="pp-form-control"
                 id="bcEmail"
                 name="email"
                 required
+                placeholder=" "
               />
+              <label for="bcEmail" class="pp-form-label">Email Address</label>
+              <span class="pp-form-icon"><i class="fa fa-envelope"></i></span>
             </div>
-            <div class="form-group-icon">
-              <label for="bcClass" class="form-label">Select Class</label>
-              <span class="form-icon"
-                ><i class="fa fa-graduation-cap"></i
-              ></span>
-              <select class="form-select" id="bcClass" name="class" required>
-                <option value="" disabled selected>Select a class</option>
+            <div class="pp-form-group">
+              <select class="pp-form-select" id="bcClass" name="class" required>
+                <option value="" disabled selected hidden></option>
                 <option value="Fondant Masterclass">Fondant Masterclass</option>
                 <option value="Frosting Making Class">
                   Frosting Making Class
                 </option>
                 <option value="Basics Baking Class">Basics Baking Class</option>
               </select>
-            </div>
-            <div class="form-group-icon">
-              <label for="bcNotes" class="form-label"
-                >Additional Notes (optional)</label
-              >
-              <span class="form-icon form-icon-top"
-                ><i class="fa fa-comment"></i
+              <label for="bcClass" class="pp-form-label">Select Class</label>
+              <span class="pp-form-icon"
+                ><i class="fa fa-graduation-cap"></i
               ></span>
+            </div>
+            <div class="pp-form-group">
               <textarea
-                class="form-control"
+                class="pp-form-control"
                 id="bcNotes"
                 name="notes"
                 rows="2"
+                placeholder=" "
               ></textarea>
+              <label for="bcNotes" class="pp-form-label"
+                >Additional Notes (optional)</label
+              >
+              <span class="pp-form-icon"><i class="fa fa-comment"></i></span>
             </div>
-            <button type="submit" class="btn btn-primary px-4">
+            <button type="submit" class="pp-form-btn">
               <i class="fab fa-whatsapp me-2"></i>Apply via WhatsApp
             </button>
           </form>
