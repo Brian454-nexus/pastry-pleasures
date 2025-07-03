@@ -147,6 +147,13 @@ h6,
   }
 }
 
+@media (min-width: 900px) {
+  .header-carousel .owl-carousel-item img {
+    max-height: 480px;
+    object-fit: cover;
+  }
+}
+
 /*** Header ***/
 .header-carousel .owl-carousel-inner {
   position: absolute;
@@ -472,4 +479,13 @@ h6,
   .team-image {
     height: 200px;
   }
+}
+
+.footer-gallery-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  min-height: 80px;
+  max-height: 120px;
 }

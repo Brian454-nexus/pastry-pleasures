@@ -30,6 +30,14 @@
     margin: 0 0 0.4rem;
   }
 }
+@media (max-width: 600px) {
+  .pastry-masonry-gallery {
+    column-gap: 0.7rem;
+  }
+  .pastry-gallery-item {
+    margin: 0 0.7rem 0.7rem 0;
+  }
+}
 .pastry-gallery-item {
   display: inline-block;
   width: 100%;
@@ -233,6 +241,19 @@
 .lightbox-like-btn.liked {
   color: #e74c3c;
   background: #fff3cd;
+}
+.lightbox-like-btn.liked i {
+  color: #e74c3c;
+}
+.lightbox-like-btn.liked:not(:hover):not(:focus) {
+  color: inherit;
+}
+.lightbox-like-btn.liked i {
+  color: #e74c3c !important;
+}
+.lightbox-like-btn i {
+  color: #eaa636;
+  transition: color 0.2s;
 }
 .lightbox-like-count {
   color: #eaa636;

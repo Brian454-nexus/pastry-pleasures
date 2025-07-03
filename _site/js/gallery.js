@@ -25,14 +25,18 @@ function setLikes(likes) {
 }
 function toggleLike(src) {
   const likes = getLikes();
-  likes[src] = likes[src] ? likes[src] + 1 : 1;
+  if (likes[src]) {
+    likes[src] = 0;
+  } else {
+    likes[src] = 1;
+  }
   setLikes(likes);
   updateGalleryLikes();
   updateLightboxLikes();
 }
 function unlike(src) {
   const likes = getLikes();
-  if (likes[src] && likes[src] > 0) likes[src]--;
+  if (likes[src]) likes[src] = 0;
   setLikes(likes);
   updateGalleryLikes();
   updateLightboxLikes();
@@ -139,9 +143,12 @@ function showLightboxImage() {
   const likeBtn = document.createElement("button");
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
   likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  if (isLiked(src)) likeBtn.classList.add("liked");
   likeBtn.onclick = () => {
     if (isLiked(src)) unlike(src);
     else toggleLike(src);
+    if (isLiked(src)) likeBtn.classList.add("liked");
+    else likeBtn.classList.remove("liked");
   };
   // Like count
   const likeCount = document.createElement("span");

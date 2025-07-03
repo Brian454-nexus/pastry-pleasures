@@ -41,13 +41,16 @@
   $(".header-carousel").owlCarousel({
     autoplay: true,
     autoplayTimeout: 4000,
+    autoplayHoverPause: true,
+    smartSpeed: 1500,
     loop: true,
+    nav: true,
+    dots: false,
     items: 1,
-    animateOut: "fadeOut",
-    animateIn: "fadeIn",
-    smartSpeed: 1000,
-    dots: true,
-    nav: false,
+    navText: [
+      '<i class="bi bi-chevron-left"></i>',
+      '<i class="bi bi-chevron-right"></i>',
+    ],
   });
 
   // Facts counter
@@ -58,7 +61,9 @@
 
   // Testimonials carousel
   $(".testimonial-carousel").owlCarousel({
-    autoplay: false,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplayHoverPause: true,
     smartSpeed: 1000,
     margin: 25,
     loop: true,
