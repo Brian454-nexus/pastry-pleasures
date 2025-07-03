@@ -86,35 +86,46 @@ title: Baking Classes & Pastry Pricing
     padding-top: 0 !important;
   }
   /* Form icon and label improvements */
+  .form-group-icon {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
   .form-label {
     font-weight: 700;
     color: #222 !important;
     letter-spacing: 0.01em;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+  .form-icon {
+    color: #222 !important;
+    font-size: 1.1em;
+    margin-right: 0.7rem;
+    flex-shrink: 0;
+    z-index: 2;
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    pointer-events: none;
   }
   .form-control,
   .form-select {
     font-weight: 500;
     color: #222;
     background: rgba(255, 255, 255, 0.7);
+    flex: 1 1 0%;
+    min-width: 0;
   }
-  .form-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #222 !important;
-    font-size: 1.1em;
-    pointer-events: none;
-    z-index: 2;
+  .form-control,
+  .form-select {
+    padding-left: 1rem !important;
   }
-  .form-control.ps-5,
-  .form-select.ps-5 {
-    padding-left: 2.7rem !important;
-  }
-  /* For textarea icon alignment */
   .form-icon-top {
-    top: 2.6rem;
-    transform: none;
+    align-self: flex-start;
+    margin-top: 0.5rem;
   }
 </style>
 
@@ -284,50 +295,45 @@ title: Baking Classes & Pastry Pricing
         >
           <h4 class="mb-4 text-primary">Apply for a Baking Class</h4>
           <form id="bakingClassForm">
-            <div class="mb-3 position-relative">
+            <div class="form-group-icon">
               <label for="bcName" class="form-label">Full Name</label>
               <span class="form-icon"><i class="fa fa-user"></i></span>
               <input
                 type="text"
-                class="form-control ps-5"
+                class="form-control"
                 id="bcName"
                 name="name"
                 required
               />
             </div>
-            <div class="mb-3 position-relative">
+            <div class="form-group-icon">
               <label for="bcPhone" class="form-label">Phone Number</label>
               <span class="form-icon"><i class="fa fa-phone"></i></span>
               <input
                 type="tel"
-                class="form-control ps-5"
+                class="form-control"
                 id="bcPhone"
                 name="phone"
                 required
               />
             </div>
-            <div class="mb-3 position-relative">
+            <div class="form-group-icon">
               <label for="bcEmail" class="form-label">Email Address</label>
               <span class="form-icon"><i class="fa fa-envelope"></i></span>
               <input
                 type="email"
-                class="form-control ps-5"
+                class="form-control"
                 id="bcEmail"
                 name="email"
                 required
               />
             </div>
-            <div class="mb-3 position-relative">
+            <div class="form-group-icon">
               <label for="bcClass" class="form-label">Select Class</label>
               <span class="form-icon"
                 ><i class="fa fa-graduation-cap"></i
               ></span>
-              <select
-                class="form-select ps-5"
-                id="bcClass"
-                name="class"
-                required
-              >
+              <select class="form-select" id="bcClass" name="class" required>
                 <option value="" disabled selected>Select a class</option>
                 <option value="Fondant Masterclass">Fondant Masterclass</option>
                 <option value="Frosting Making Class">
@@ -336,7 +342,7 @@ title: Baking Classes & Pastry Pricing
                 <option value="Basics Baking Class">Basics Baking Class</option>
               </select>
             </div>
-            <div class="mb-3 position-relative">
+            <div class="form-group-icon">
               <label for="bcNotes" class="form-label"
                 >Additional Notes (optional)</label
               >
@@ -344,7 +350,7 @@ title: Baking Classes & Pastry Pricing
                 ><i class="fa fa-comment"></i
               ></span>
               <textarea
-                class="form-control ps-5"
+                class="form-control"
                 id="bcNotes"
                 name="notes"
                 rows="2"
