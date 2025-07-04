@@ -2,104 +2,11 @@ const galleryContainer = document.getElementById("pastryGallery");
 const sprinkleContainer = document.getElementById("sprinkle-animation");
 const surpriseBtn = document.getElementById("surpriseMeBtn");
 
-const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6867b7018a456b7966bb3555"; // <-- use your actual bin ID
+// === Universal Like Logic for Lightbox using jsonbin.io ===
+const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6867b7018a456b7966bb3555";
 const JSONBIN_API_KEY =
-  "$2a$10$Ua2CufGwTC.FlERqVjPgTesgGhWmViaDyfgZuclYG20J5ruVH0iaS"; // <-- get this from your jsonbin.io dashboard
+  "$2a$10$Ua2CufGwTC.FlERqVjPgTesgGhWmViaDyfgZuclYG20J5ruVH0iaS";
 
-// === REMOVE ALL LIKE LOGIC BELOW ===
-// (Remove fetchLikeCounts, updateLikeCounts, hasLiked, setLiked, likeImage, unlikeImage, getLikeCount, updateGalleryLikes, updateLightboxLikes, and all like-related code in showLightboxImage)
-
-// === Universal Like Logic using jsonbin.io ===
-// Helper to fetch like counts from jsonbin.io
-async function fetchLikeCounts() {
-  try {
-    const res = await fetch(JSONBIN_URL, {
-      headers: { "X-Master-Key": JSONBIN_API_KEY },
-    });
-    const data = await res.json();
-    return data.record || {};
-  } catch (e) {
-    console.error("Failed to fetch like counts:", e);
-    return {};
-  }
-}
-
-// Helper to update like counts in jsonbin.io
-async function updateLikeCounts(newCounts) {
-  try {
-    const res = await fetch(JSONBIN_URL, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Master-Key": JSONBIN_API_KEY,
-      },
-      body: JSON.stringify(newCounts),
-    });
-    return await res.json();
-  } catch (e) {
-    console.error("Failed to update like counts:", e);
-  }
-}
-
-// Store like state in sessionStorage to prevent multiple likes per session
-function hasLiked(src) {
-  return sessionStorage.getItem("liked-" + src) === "1";
-}
-function setLiked(src, val) {
-  sessionStorage.setItem("liked-" + src, val ? "1" : "0");
-}
-
-// Like/unlike logic
-async function likeImage(src) {
-  const counts = await fetchLikeCounts();
-  counts[src] = (counts[src] || 0) + 1;
-  await updateLikeCounts(counts);
-  setLiked(src, true);
-  updateGalleryLikes();
-  updateLightboxLikes();
-}
-async function unlikeImage(src) {
-  const counts = await fetchLikeCounts();
-  counts[src] = Math.max((counts[src] || 1) - 1, 0);
-  await updateLikeCounts(counts);
-  setLiked(src, false);
-  updateGalleryLikes();
-  updateLightboxLikes();
-}
-
-// Get like count for an image
-async function getLikeCount(src) {
-  const counts = await fetchLikeCounts();
-  return counts[src] || 0;
-}
-
-// Update gallery like buttons and counts
-async function updateGalleryLikes() {
-  const counts = await fetchLikeCounts();
-  document.querySelectorAll(".pastry-gallery-item").forEach((item) => {
-    const img = item.querySelector("img");
-    const src = img.src.split("/gallery/")[1];
-    const likeBtn = item.querySelector(".pastry-like-btn");
-    const likeCount = item.querySelector(".pastry-like-count");
-    if (hasLiked(src)) likeBtn.classList.add("liked");
-    else likeBtn.classList.remove("liked");
-    likeCount.textContent = counts[src] || 0;
-  });
-}
-
-// Update lightbox like button and count
-async function updateLightboxLikes() {
-  if (!lightboxImg.src) return;
-  const src = lightboxImg.src.split("/gallery/")[1];
-  const likeBtn = document.querySelector(".lightbox-like-btn");
-  const likeCount = document.querySelector(".lightbox-like-count");
-  const counts = await fetchLikeCounts();
-  if (hasLiked(src)) likeBtn.classList.add("liked");
-  else likeBtn.classList.remove("liked");
-  likeCount.textContent = counts[src] || 0;
-}
-
-// === New Like Logic for Lightbox ===
 // Helper: fetch like counts from jsonbin.io
 async function fetchLikeCounts() {
   try {
