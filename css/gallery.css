@@ -152,6 +152,13 @@
   background: #fff;
   color: var(--primary, #eaa636);
 }
+.gallery-lightbox .lightbox-like-btn.liked {
+  background: #fff3cd;
+  color: #eaa636;
+}
+.gallery-lightbox .lightbox-like-btn.liked i {
+  color: #e74c3c !important;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -237,19 +244,6 @@
 .lightbox-action-btn:focus {
   background: #eaa636;
   color: #fff;
-}
-.lightbox-like-btn.liked {
-  color: #e74c3c;
-  background: #fff3cd;
-}
-.lightbox-like-btn.liked i {
-  color: #e74c3c;
-}
-.lightbox-like-btn.liked:not(:hover):not(:focus) {
-  color: inherit;
-}
-.lightbox-like-btn.liked i {
-  color: #e74c3c !important;
 }
 .lightbox-like-btn i {
   color: #eaa636;

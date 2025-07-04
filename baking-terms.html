@@ -12,7 +12,7 @@ layout: layout.njk
       Baking Classes Terms &amp; Conditions
     </h1>
     <div class="tc-content">
-      <ul class="fs-5 mb-4">
+      <ol class="fs-5 mb-4">
         <li>The above costs are per item, per person.</li>
         <li>
           The above classes do not include cake decoration. If you would like to
@@ -59,14 +59,14 @@ layout: layout.njk
           Photos & videos of the class will be taken during the class for
           purposes of marketing.
         </li>
-      </ul>
+      </ol>
     </div>
   </div>
 </div>
 
 <style>
   .tc-card {
-    background: #fff;
+    background: var(--primary);
     border-radius: 1.5rem;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     padding: 2.5rem 2rem 2rem 2rem;
@@ -74,12 +74,19 @@ layout: layout.njk
     width: 100%;
   }
   .tc-title {
-    color: var(--primary);
+    color: #fff;
     font-family: "Playfair Display", serif;
     font-size: 2.2rem;
     font-weight: 700;
   }
-  .tc-content ul {
+  .tc-content ol {
+    color: #fff;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 1.15rem;
     padding-left: 1.2rem;
+  }
+  .tc-content ol > li {
+    margin-bottom: 0.7rem;
+    line-height: 1.7;
   }
 </style>
