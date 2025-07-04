@@ -263,7 +263,11 @@ title: Baking Classes & Pastry Pricing
 <!-- Choice Prompt End -->
 
 <!-- Baking Classes Section Start -->
-<div class="container-xxl py-6" id="baking-classes-section">
+<div
+  class="container-xxl py-6 fade-section no-top-space"
+  id="baking-classes-section"
+  style="display: none"
+>
   <div class="container">
     <div
       class="text-center mx-auto mb-5 wow fadeInUp"
@@ -440,6 +444,135 @@ title: Baking Classes & Pastry Pricing
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Persuasive Message Before Form -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-10 text-center">
+        <div
+          class="p-4 mb-3 glass-card"
+          style="border-left: 5px solid var(--primary)"
+        >
+          <h4
+            style="
+              font-family: 'Sevillana', cursive;
+              color: var(--primary);
+              font-size: 2rem;
+            "
+          >
+            Join the Pastry Pleasures Family!
+          </h4>
+          <p class="fs-5 mb-0">
+            Ready to unlock the secrets of irresistible cakes and pastries? Our
+            classes are more than just lessons—they're a warm, creative
+            community where you'll learn, laugh, and bake with the best. Whether
+            you're a curious beginner or a passionate baker, we can't wait to
+            welcome you. Take the first step and apply below—your pastry journey
+            starts here!
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- WhatsApp Application Form -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7">
+        <div class="pp-form-card">
+          <h4 class="mb-4 text-primary">Apply for a Baking Class</h4>
+          <form id="bakingClassForm" autocomplete="off">
+            <div class="pp-form-group">
+              <input
+                type="text"
+                class="pp-form-control"
+                id="bcName"
+                name="name"
+                required
+                placeholder=" "
+              />
+              <label for="bcName" class="pp-form-label">Full Name</label>
+              <span class="pp-form-icon"><i class="fa fa-user"></i></span>
+            </div>
+            <div class="pp-form-group">
+              <input
+                type="tel"
+                class="pp-form-control"
+                id="bcPhone"
+                name="phone"
+                required
+                placeholder=" "
+              />
+              <label for="bcPhone" class="pp-form-label">Phone Number</label>
+              <span class="pp-form-icon"><i class="fa fa-phone"></i></span>
+            </div>
+            <div class="pp-form-group">
+              <input
+                type="email"
+                class="pp-form-control"
+                id="bcEmail"
+                name="email"
+                required
+                placeholder=" "
+              />
+              <label for="bcEmail" class="pp-form-label">Email Address</label>
+              <span class="pp-form-icon"><i class="fa fa-envelope"></i></span>
+            </div>
+            <div class="pp-form-group">
+              <select class="pp-form-select" id="bcClass" name="class" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Fondant Masterclass">Fondant Masterclass</option>
+                <option value="Frosting Making Class">
+                  Frosting Making Class
+                </option>
+                <option value="Basics Baking Class">Basics Baking Class</option>
+                <option value="Pastry Making Class">Pastry Making Class</option>
+              </select>
+              <label for="bcClass" class="pp-form-label">Select Class</label>
+              <span class="pp-form-icon"
+                ><i class="fa fa-graduation-cap"></i
+              ></span>
+            </div>
+            <div class="pp-form-group">
+              <textarea
+                class="pp-form-control"
+                id="bcNotes"
+                name="notes"
+                rows="2"
+                placeholder=" "
+              ></textarea>
+              <label for="bcNotes" class="pp-form-label"
+                >Additional Notes (optional)</label
+              >
+              <span class="pp-form-icon"><i class="fa fa-comment"></i></span>
+            </div>
+            <!-- Terms Agreement Checkbox -->
+            <div class="pp-form-group">
+              <div class="form-check text-start">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="agreeBakingTerms"
+                  required
+                />
+                <label class="form-check-label" for="agreeBakingTerms">
+                  I agree to the
+                  <a
+                    href="/baking-terms.html"
+                    target="_blank"
+                    style="
+                      color: var(--primary);
+                      font-weight: 600;
+                      text-decoration: underline;
+                    "
+                    >Baking Classes Terms &amp; Conditions</a
+                  >
+                </label>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="pp-form-btn" id="waBakingBtn" disabled>
+              <i class="fab fa-whatsapp me-2"></i>Apply via WhatsApp
+            </button>
+          </form>
         </div>
       </div>
     </div>
