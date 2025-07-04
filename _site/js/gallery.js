@@ -2,6 +2,159 @@ const galleryContainer = document.getElementById("pastryGallery");
 const sprinkleContainer = document.getElementById("sprinkle-animation");
 const surpriseBtn = document.getElementById("surpriseMeBtn");
 
+const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6867b7018a456b7966bb3555"; // <-- use your actual bin ID
+const JSONBIN_API_KEY =
+  "$2a$10$Ua2CufGwTC.FlERqVjPgTesgGhWmViaDyfgZuclYG20J5ruVH0iaS"; // <-- get this from your jsonbin.io dashboard
+
+// === Universal Like Logic using jsonbin.io ===
+// Helper to fetch like counts from jsonbin.io
+async function fetchLikeCounts() {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      headers: { "X-Master-Key": JSONBIN_API_KEY },
+    });
+    const data = await res.json();
+    return data.record || {};
+  } catch (e) {
+    console.error("Failed to fetch like counts:", e);
+    return {};
+  }
+}
+
+// Helper to update like counts in jsonbin.io
+async function updateLikeCounts(newCounts) {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_API_KEY,
+      },
+      body: JSON.stringify(newCounts),
+    });
+    return await res.json();
+  } catch (e) {
+    console.error("Failed to update like counts:", e);
+  }
+}
+
+// Store like state in sessionStorage to prevent multiple likes per session
+function hasLiked(src) {
+  return sessionStorage.getItem("liked-" + src) === "1";
+}
+function setLiked(src, val) {
+  sessionStorage.setItem("liked-" + src, val ? "1" : "0");
+}
+
+// Like/unlike logic
+async function likeImage(src) {
+  const counts = await fetchLikeCounts();
+  counts[src] = (counts[src] || 0) + 1;
+  await updateLikeCounts(counts);
+  setLiked(src, true);
+  updateGalleryLikes();
+  updateLightboxLikes();
+}
+async function unlikeImage(src) {
+  const counts = await fetchLikeCounts();
+  counts[src] = Math.max((counts[src] || 1) - 1, 0);
+  await updateLikeCounts(counts);
+  setLiked(src, false);
+  updateGalleryLikes();
+  updateLightboxLikes();
+}
+
+// Get like count for an image
+async function getLikeCount(src) {
+  const counts = await fetchLikeCounts();
+  return counts[src] || 0;
+}
+
+// Update gallery like buttons and counts
+async function updateGalleryLikes() {
+  const counts = await fetchLikeCounts();
+  document.querySelectorAll(".pastry-gallery-item").forEach((item) => {
+    const img = item.querySelector("img");
+    const src = img.src.split("/gallery/")[1];
+    const likeBtn = item.querySelector(".pastry-like-btn");
+    const likeCount = item.querySelector(".pastry-like-count");
+    if (hasLiked(src)) likeBtn.classList.add("liked");
+    else likeBtn.classList.remove("liked");
+    likeCount.textContent = counts[src] || 0;
+  });
+}
+
+// Update lightbox like button and count
+async function updateLightboxLikes() {
+  if (!lightboxImg.src) return;
+  const src = lightboxImg.src.split("/gallery/")[1];
+  const likeBtn = document.querySelector(".lightbox-like-btn");
+  const likeCount = document.querySelector(".lightbox-like-count");
+  const counts = await fetchLikeCounts();
+  if (hasLiked(src)) likeBtn.classList.add("liked");
+  else likeBtn.classList.remove("liked");
+  likeCount.textContent = counts[src] || 0;
+}
+
+// Update like button click logic in lightbox
+function showLightboxImage() {
+  const src = imageList[currentIndex];
+  lightboxImg.src = `/gallery/${src}`;
+  // Add actions bar
+  let actions = document.querySelector(".lightbox-actions");
+  if (!actions) {
+    actions = document.createElement("div");
+    actions.className = "lightbox-actions";
+    lightbox.insertBefore(actions, lightboxCaption);
+  }
+  actions.innerHTML = "";
+  // Like button
+  const likeBtn = document.createElement("button");
+  likeBtn.className = "lightbox-action-btn lightbox-like-btn";
+  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  if (hasLiked(src)) likeBtn.classList.add("liked");
+  likeBtn.onclick = async () => {
+    if (hasLiked(src)) await unlikeImage(src);
+    else await likeImage(src);
+    if (hasLiked(src)) likeBtn.classList.add("liked");
+    else likeBtn.classList.remove("liked");
+    await updateLightboxLikes();
+    await updateGalleryLikes();
+  };
+  // Like count
+  const likeCount = document.createElement("span");
+  likeCount.className = "lightbox-like-count";
+  getLikeCount(src).then((count) => (likeCount.textContent = count));
+  likeBtn.appendChild(likeCount);
+  actions.appendChild(likeBtn);
+  // Download button
+  const downloadBtn = document.createElement("button");
+  downloadBtn.className = "lightbox-action-btn";
+  downloadBtn.innerHTML = '<i class="fa fa-download"></i> Download';
+  downloadBtn.onclick = () => {
+    const a = document.createElement("a");
+    a.href = `/gallery/${src}`;
+    a.download = src;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+  actions.appendChild(downloadBtn);
+  // Share button
+  const shareBtn = document.createElement("button");
+  shareBtn.className = "lightbox-action-btn";
+  shareBtn.innerHTML = '<i class="fa fa-share-alt"></i> Share';
+  shareBtn.onclick = () => shareImage(src);
+  actions.appendChild(shareBtn);
+  updateLightboxLikes();
+}
+
+// On page load, update likes from server
+window.addEventListener("DOMContentLoaded", () => {
+  loadGallery();
+  updateGalleryLikes();
+});
+
 // Dynamically load all images from the gallery folder
 function fetchGalleryImages() {
   // 1 to 130 (adjust the number if you have more/less images)
@@ -17,58 +170,6 @@ function formatCaption(filename) {
   return name;
 }
 
-function getLikes() {
-  return JSON.parse(localStorage.getItem("pastryGalleryLikes") || "{}");
-}
-function setLikes(likes) {
-  localStorage.setItem("pastryGalleryLikes", JSON.stringify(likes));
-}
-function toggleLike(src) {
-  const likes = getLikes();
-  if (likes[src]) {
-    likes[src] = 0;
-  } else {
-    likes[src] = 1;
-  }
-  setLikes(likes);
-  updateGalleryLikes();
-  updateLightboxLikes();
-}
-function unlike(src) {
-  const likes = getLikes();
-  if (likes[src]) likes[src] = 0;
-  setLikes(likes);
-  updateGalleryLikes();
-  updateLightboxLikes();
-}
-function isLiked(src) {
-  const likes = getLikes();
-  return likes[src] && likes[src] > 0;
-}
-function getLikeCount(src) {
-  const likes = getLikes();
-  return likes[src] || 0;
-}
-function updateGalleryLikes() {
-  document.querySelectorAll(".pastry-gallery-item").forEach((item) => {
-    const img = item.querySelector("img");
-    const src = img.src.split("/gallery/")[1];
-    const likeBtn = item.querySelector(".pastry-like-btn");
-    const likeCount = item.querySelector(".pastry-like-count");
-    if (isLiked(src)) likeBtn.classList.add("liked");
-    else likeBtn.classList.remove("liked");
-    likeCount.textContent = getLikeCount(src);
-  });
-}
-function updateLightboxLikes() {
-  if (!lightboxImg.src) return;
-  const src = lightboxImg.src.split("/gallery/")[1];
-  const likeBtn = document.querySelector(".lightbox-like-btn");
-  const likeCount = document.querySelector(".lightbox-like-count");
-  if (isLiked(src)) likeBtn.classList.add("liked");
-  else likeBtn.classList.remove("liked");
-  likeCount.textContent = getLikeCount(src);
-}
 function createGalleryItem(src) {
   const item = document.createElement("div");
   item.className = "pastry-gallery-item";
@@ -127,55 +228,6 @@ function openLightbox(src) {
 function closeLightbox() {
   lightbox.style.display = "none";
   document.body.style.overflow = "";
-}
-function showLightboxImage() {
-  const src = imageList[currentIndex];
-  lightboxImg.src = `/gallery/${src}`;
-  // Add actions bar
-  let actions = document.querySelector(".lightbox-actions");
-  if (!actions) {
-    actions = document.createElement("div");
-    actions.className = "lightbox-actions";
-    lightbox.insertBefore(actions, lightboxCaption);
-  }
-  actions.innerHTML = "";
-  // Like button
-  const likeBtn = document.createElement("button");
-  likeBtn.className = "lightbox-action-btn lightbox-like-btn";
-  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
-  if (isLiked(src)) likeBtn.classList.add("liked");
-  likeBtn.onclick = () => {
-    if (isLiked(src)) unlike(src);
-    else toggleLike(src);
-    if (isLiked(src)) likeBtn.classList.add("liked");
-    else likeBtn.classList.remove("liked");
-  };
-  // Like count
-  const likeCount = document.createElement("span");
-  likeCount.className = "lightbox-like-count";
-  likeCount.textContent = getLikeCount(src);
-  likeBtn.appendChild(likeCount);
-  actions.appendChild(likeBtn);
-  // Download button
-  const downloadBtn = document.createElement("button");
-  downloadBtn.className = "lightbox-action-btn";
-  downloadBtn.innerHTML = '<i class="fa fa-download"></i> Download';
-  downloadBtn.onclick = () => {
-    const a = document.createElement("a");
-    a.href = `/gallery/${src}`;
-    a.download = src;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-  actions.appendChild(downloadBtn);
-  // Share button
-  const shareBtn = document.createElement("button");
-  shareBtn.className = "lightbox-action-btn";
-  shareBtn.innerHTML = '<i class="fa fa-share-alt"></i> Share';
-  shareBtn.onclick = () => shareImage(src);
-  actions.appendChild(shareBtn);
-  updateLightboxLikes();
 }
 function prevImage() {
   currentIndex = (currentIndex - 1 + imageList.length) % imageList.length;
@@ -236,12 +288,6 @@ const style = document.createElement("style");
 style.innerHTML = `.surprise-highlight { box-shadow: 0 0 0 6px #eaa63699, 0 8px 32px rgba(234,166,54,0.18) !important; z-index: 10; animation: highlightPop 0.7s; }
 @keyframes highlightPop { 0% { transform: scale(1.1); } 60% { transform: scale(0.97); } 100% { transform: scale(1.03); } }`;
 document.head.appendChild(style);
-
-// Load gallery on page load
-document.addEventListener("DOMContentLoaded", () => {
-  loadGallery();
-  updateGalleryLikes();
-});
 
 function shareImage(src) {
   const url = window.location.origin + "/gallery/" + src;

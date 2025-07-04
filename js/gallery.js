@@ -2,6 +2,11 @@ const galleryContainer = document.getElementById("pastryGallery");
 const sprinkleContainer = document.getElementById("sprinkle-animation");
 const surpriseBtn = document.getElementById("surpriseMeBtn");
 
+// === Universal Like Logic using jsonbin.io ===
+// Replace with your own bin URL after creating a bin at https://jsonbin.io/
+const JSONBIN_URL = "https://api.jsonbin.io/v3/b/YOUR_BIN_ID"; // <-- Replace with your bin URL
+const JSONBIN_API_KEY = "YOUR_API_KEY"; // <-- Optional: If you create a private bin, add your API key
+
 // Dynamically load all images from the gallery folder
 function fetchGalleryImages() {
   // 1 to 130 (adjust the number if you have more/less images)
@@ -17,58 +22,95 @@ function formatCaption(filename) {
   return name;
 }
 
-function getLikes() {
-  return JSON.parse(localStorage.getItem("pastryGalleryLikes") || "{}");
-}
-function setLikes(likes) {
-  localStorage.setItem("pastryGalleryLikes", JSON.stringify(likes));
-}
-function toggleLike(src) {
-  const likes = getLikes();
-  if (likes[src]) {
-    likes[src] = 0;
-  } else {
-    likes[src] = 1;
+// Helper to fetch like counts from jsonbin.io
+async function fetchLikeCounts() {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      headers: JSONBIN_API_KEY ? { "X-Master-Key": JSONBIN_API_KEY } : {},
+    });
+    const data = await res.json();
+    return data.record || {};
+  } catch (e) {
+    console.error("Failed to fetch like counts:", e);
+    return {};
   }
-  setLikes(likes);
+}
+
+// Helper to update like counts in jsonbin.io
+async function updateLikeCounts(newCounts) {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ...(JSONBIN_API_KEY ? { "X-Master-Key": JSONBIN_API_KEY } : {}),
+      },
+      body: JSON.stringify(newCounts),
+    });
+    return await res.json();
+  } catch (e) {
+    console.error("Failed to update like counts:", e);
+  }
+}
+
+// Store like state in sessionStorage to prevent multiple likes per session
+function hasLiked(src) {
+  return sessionStorage.getItem("liked-" + src) === "1";
+}
+function setLiked(src, val) {
+  sessionStorage.setItem("liked-" + src, val ? "1" : "0");
+}
+
+// Like/unlike logic
+async function likeImage(src) {
+  const counts = await fetchLikeCounts();
+  counts[src] = (counts[src] || 0) + 1;
+  await updateLikeCounts(counts);
+  setLiked(src, true);
   updateGalleryLikes();
   updateLightboxLikes();
 }
-function unlike(src) {
-  const likes = getLikes();
-  if (likes[src]) likes[src] = 0;
-  setLikes(likes);
+async function unlikeImage(src) {
+  const counts = await fetchLikeCounts();
+  counts[src] = Math.max((counts[src] || 1) - 1, 0);
+  await updateLikeCounts(counts);
+  setLiked(src, false);
   updateGalleryLikes();
   updateLightboxLikes();
 }
-function isLiked(src) {
-  const likes = getLikes();
-  return likes[src] && likes[src] > 0;
+
+// Get like count for an image
+async function getLikeCount(src) {
+  const counts = await fetchLikeCounts();
+  return counts[src] || 0;
 }
-function getLikeCount(src) {
-  const likes = getLikes();
-  return likes[src] || 0;
-}
-function updateGalleryLikes() {
+
+// Update gallery like buttons and counts
+async function updateGalleryLikes() {
+  const counts = await fetchLikeCounts();
   document.querySelectorAll(".pastry-gallery-item").forEach((item) => {
     const img = item.querySelector("img");
     const src = img.src.split("/gallery/")[1];
     const likeBtn = item.querySelector(".pastry-like-btn");
     const likeCount = item.querySelector(".pastry-like-count");
-    if (isLiked(src)) likeBtn.classList.add("liked");
+    if (hasLiked(src)) likeBtn.classList.add("liked");
     else likeBtn.classList.remove("liked");
-    likeCount.textContent = getLikeCount(src);
+    likeCount.textContent = counts[src] || 0;
   });
 }
-function updateLightboxLikes() {
+
+// Update lightbox like button and count
+async function updateLightboxLikes() {
   if (!lightboxImg.src) return;
   const src = lightboxImg.src.split("/gallery/")[1];
   const likeBtn = document.querySelector(".lightbox-like-btn");
   const likeCount = document.querySelector(".lightbox-like-count");
-  if (isLiked(src)) likeBtn.classList.add("liked");
+  const counts = await fetchLikeCounts();
+  if (hasLiked(src)) likeBtn.classList.add("liked");
   else likeBtn.classList.remove("liked");
-  likeCount.textContent = getLikeCount(src);
+  likeCount.textContent = counts[src] || 0;
 }
+
 function createGalleryItem(src) {
   const item = document.createElement("div");
   item.className = "pastry-gallery-item";
@@ -139,34 +181,23 @@ function showLightboxImage() {
     lightbox.insertBefore(actions, lightboxCaption);
   }
   actions.innerHTML = "";
-  // Like button (icon only clickable)
-  const likeBtn = document.createElement("span");
+  // Like button
+  const likeBtn = document.createElement("button");
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
-  const heartIcon = document.createElement("i");
-  if (isLiked(src)) {
-    heartIcon.className = "fas fa-heart";
-    likeBtn.classList.add("liked");
-  } else {
-    heartIcon.className = "far fa-heart";
-    likeBtn.classList.remove("liked");
-  }
-  heartIcon.onclick = (e) => {
-    e.stopPropagation();
-    if (isLiked(src)) {
-      unlike(src);
-      heartIcon.className = "far fa-heart";
-      likeBtn.classList.remove("liked");
-    } else {
-      toggleLike(src);
-      heartIcon.className = "fas fa-heart";
-      likeBtn.classList.add("liked");
-    }
+  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  if (hasLiked(src)) likeBtn.classList.add("liked");
+  likeBtn.onclick = async () => {
+    if (hasLiked(src)) await unlikeImage(src);
+    else await likeImage(src);
+    if (hasLiked(src)) likeBtn.classList.add("liked");
+    else likeBtn.classList.remove("liked");
+    await updateLightboxLikes();
+    await updateGalleryLikes();
   };
-  likeBtn.appendChild(heartIcon);
-  // Like count (not clickable)
+  // Like count
   const likeCount = document.createElement("span");
   likeCount.className = "lightbox-like-count";
-  likeCount.textContent = getLikeCount(src);
+  getLikeCount(src).then((count) => (likeCount.textContent = count));
   likeBtn.appendChild(likeCount);
   actions.appendChild(likeBtn);
   // Download button
