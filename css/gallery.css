@@ -152,12 +152,36 @@
   background: #fff;
   color: var(--primary, #eaa636);
 }
+.gallery-lightbox .lightbox-like-btn {
+  background: transparent !important;
+  color: inherit;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.7rem;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
 .gallery-lightbox .lightbox-like-btn.liked {
-  background: #fff3cd;
+  background: transparent !important;
+  color: inherit;
+}
+.gallery-lightbox .lightbox-like-btn i {
   color: #eaa636;
+  transition: color 0.2s;
 }
 .gallery-lightbox .lightbox-like-btn.liked i {
   color: #e74c3c !important;
+}
+.gallery-lightbox .lightbox-like-count {
+  color: #eaa636;
+  font-weight: 700;
+  margin-left: 0.3rem;
+  font-size: 1.1rem;
 }
 @keyframes fadeIn {
   from {

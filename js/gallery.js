@@ -139,18 +139,21 @@ function showLightboxImage() {
     lightbox.insertBefore(actions, lightboxCaption);
   }
   actions.innerHTML = "";
-  // Like button
-  const likeBtn = document.createElement("button");
+  // Like button (icon only clickable)
+  const likeBtn = document.createElement("span");
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
-  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
+  const heartIcon = document.createElement("i");
+  heartIcon.className = "fa fa-heart";
   if (isLiked(src)) likeBtn.classList.add("liked");
-  likeBtn.onclick = () => {
+  heartIcon.onclick = (e) => {
+    e.stopPropagation();
     if (isLiked(src)) unlike(src);
     else toggleLike(src);
     if (isLiked(src)) likeBtn.classList.add("liked");
     else likeBtn.classList.remove("liked");
   };
-  // Like count
+  likeBtn.appendChild(heartIcon);
+  // Like count (not clickable)
   const likeCount = document.createElement("span");
   likeCount.className = "lightbox-like-count";
   likeCount.textContent = getLikeCount(src);
