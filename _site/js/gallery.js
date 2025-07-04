@@ -111,21 +111,33 @@ function showLightboxImage() {
   // Like button
   const likeBtn = document.createElement("button");
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
-  likeBtn.innerHTML = '<i class="fa fa-heart"></i>';
-  if (hasLiked(src)) likeBtn.classList.add("liked");
-  likeBtn.onclick = async () => {
-    if (hasLiked(src)) await unlikeImage(src);
-    else await likeImage(src);
-    if (hasLiked(src)) likeBtn.classList.add("liked");
-    else likeBtn.classList.remove("liked");
-    await updateLightboxLikes();
-    await updateGalleryLikes();
-  };
+  // Heart icon
+  const heartIcon = document.createElement("i");
+  if (hasLiked(src)) {
+    heartIcon.className = "fas fa-heart";
+    likeBtn.classList.add("liked");
+  } else {
+    heartIcon.className = "far fa-heart";
+    likeBtn.classList.remove("liked");
+  }
   // Like count
   const likeCount = document.createElement("span");
   likeCount.className = "lightbox-like-count";
   getLikeCount(src).then((count) => (likeCount.textContent = count));
+  likeBtn.appendChild(heartIcon);
   likeBtn.appendChild(likeCount);
+  likeBtn.onclick = async () => {
+    if (hasLiked(src)) {
+      await unlikeImage(src);
+      heartIcon.className = "far fa-heart";
+      likeBtn.classList.remove("liked");
+    } else {
+      await likeImage(src);
+      heartIcon.className = "fas fa-heart";
+      likeBtn.classList.add("liked");
+    }
+    getLikeCount(src).then((count) => (likeCount.textContent = count));
+  };
   actions.appendChild(likeBtn);
   // Download button
   const downloadBtn = document.createElement("button");
