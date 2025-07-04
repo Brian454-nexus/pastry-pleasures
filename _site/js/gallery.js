@@ -113,31 +113,40 @@ function showLightboxImage() {
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
   // Heart icon
   const heartIcon = document.createElement("i");
-  if (hasLiked(src)) {
-    heartIcon.className = "fas fa-heart";
-    likeBtn.classList.add("liked");
-  } else {
-    heartIcon.className = "far fa-heart";
-    likeBtn.classList.remove("liked");
-  }
   // Like count
   const likeCount = document.createElement("span");
   likeCount.className = "lightbox-like-count";
-  getLikeCount(src).then((count) => (likeCount.textContent = count));
+  // Set initial state
+  fetchLikeCounts().then((counts) => {
+    let count = counts[src] || 0;
+    let liked = hasLiked(src);
+    heartIcon.className = liked ? "fas fa-heart" : "far fa-heart";
+    likeBtn.classList.toggle("liked", liked);
+    likeCount.textContent = count;
+    likeBtn.disabled = false;
+    // Optimistic UI update on click
+    likeBtn.onclick = () => {
+      // Optimistically update UI
+      liked = !liked;
+      heartIcon.className = liked ? "fas fa-heart" : "far fa-heart";
+      likeBtn.classList.toggle("liked", liked);
+      count = liked ? count + 1 : Math.max(count - 1, 0);
+      likeCount.textContent = count;
+      setLiked(src, liked);
+      // Sync with backend
+      fetchLikeCounts().then((serverCounts) => {
+        serverCounts[src] = count;
+        updateLikeCounts(serverCounts).then(() => {
+          // Optionally, re-sync UI with server
+          getLikeCount(src).then((serverCount) => {
+            likeCount.textContent = serverCount;
+          });
+        });
+      });
+    };
+  });
   likeBtn.appendChild(heartIcon);
   likeBtn.appendChild(likeCount);
-  likeBtn.onclick = async () => {
-    if (hasLiked(src)) {
-      await unlikeImage(src);
-      heartIcon.className = "far fa-heart";
-      likeBtn.classList.remove("liked");
-    } else {
-      await likeImage(src);
-      heartIcon.className = "fas fa-heart";
-      likeBtn.classList.add("liked");
-    }
-    getLikeCount(src).then((count) => (likeCount.textContent = count));
-  };
   actions.appendChild(likeBtn);
   // Download button
   const downloadBtn = document.createElement("button");
@@ -158,7 +167,6 @@ function showLightboxImage() {
   shareBtn.innerHTML = '<i class="fa fa-share-alt"></i> Share';
   shareBtn.onclick = () => shareImage(src);
   actions.appendChild(shareBtn);
-  updateLightboxLikes();
 }
 
 // On page load, update likes from server

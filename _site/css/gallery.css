@@ -252,8 +252,12 @@
   color: #e74c3c !important;
 }
 .lightbox-like-btn i {
-  color: #eaa636;
+  color: var(--primary, #eaa636);
   transition: color 0.2s;
+  font-weight: 400;
+}
+.lightbox-like-btn.liked i {
+  color: #e74c3c !important;
 }
 .lightbox-like-count {
   color: #eaa636;
