@@ -6,6 +6,9 @@ const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6867b7018a456b7966bb3555"; // <
 const JSONBIN_API_KEY =
   "$2a$10$Ua2CufGwTC.FlERqVjPgTesgGhWmViaDyfgZuclYG20J5ruVH0iaS"; // <-- get this from your jsonbin.io dashboard
 
+// === REMOVE ALL LIKE LOGIC BELOW ===
+// (Remove fetchLikeCounts, updateLikeCounts, hasLiked, setLiked, likeImage, unlikeImage, getLikeCount, updateGalleryLikes, updateLightboxLikes, and all like-related code in showLightboxImage)
+
 // === Universal Like Logic using jsonbin.io ===
 // Helper to fetch like counts from jsonbin.io
 async function fetchLikeCounts() {
@@ -96,7 +99,40 @@ async function updateLightboxLikes() {
   likeCount.textContent = counts[src] || 0;
 }
 
-// Update like button click logic in lightbox
+// === New Like Logic for Lightbox ===
+// Helper: fetch like counts from jsonbin.io
+async function fetchLikeCounts() {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      headers: { "X-Master-Key": JSONBIN_API_KEY },
+    });
+    const data = await res.json();
+    return data.record || {};
+  } catch (e) {
+    return {};
+  }
+}
+// Helper: update like counts in jsonbin.io
+async function updateLikeCounts(newCounts) {
+  try {
+    await fetch(JSONBIN_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_API_KEY,
+      },
+      body: JSON.stringify(newCounts),
+    });
+  } catch (e) {}
+}
+// Session like state
+function hasLiked(src) {
+  return sessionStorage.getItem("liked-" + src) === "1";
+}
+function setLiked(src, val) {
+  sessionStorage.setItem("liked-" + src, val ? "1" : "0");
+}
+// Show lightbox image with like button
 function showLightboxImage() {
   const src = imageList[currentIndex];
   lightboxImg.src = `/gallery/${src}`;
@@ -111,37 +147,28 @@ function showLightboxImage() {
   // Like button
   const likeBtn = document.createElement("button");
   likeBtn.className = "lightbox-action-btn lightbox-like-btn";
-  // Heart icon
   const heartIcon = document.createElement("i");
-  // Like count
   const likeCount = document.createElement("span");
   likeCount.className = "lightbox-like-count";
-  // Set initial state
+  // Initial state from server
   fetchLikeCounts().then((counts) => {
     let count = counts[src] || 0;
     let liked = hasLiked(src);
     heartIcon.className = liked ? "fas fa-heart" : "far fa-heart";
     likeBtn.classList.toggle("liked", liked);
     likeCount.textContent = count;
-    likeBtn.disabled = false;
-    // Optimistic UI update on click
+    // Optimistic UI update
     likeBtn.onclick = () => {
-      // Optimistically update UI
       liked = !liked;
+      setLiked(src, liked);
       heartIcon.className = liked ? "fas fa-heart" : "far fa-heart";
       likeBtn.classList.toggle("liked", liked);
       count = liked ? count + 1 : Math.max(count - 1, 0);
       likeCount.textContent = count;
-      setLiked(src, liked);
-      // Sync with backend
+      // Update backend in background
       fetchLikeCounts().then((serverCounts) => {
         serverCounts[src] = count;
-        updateLikeCounts(serverCounts).then(() => {
-          // Optionally, re-sync UI with server
-          getLikeCount(src).then((serverCount) => {
-            likeCount.textContent = serverCount;
-          });
-        });
+        updateLikeCounts(serverCounts);
       });
     };
   });
