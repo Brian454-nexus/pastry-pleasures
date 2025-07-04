@@ -255,9 +255,20 @@ extraHead: |
       let visibleCount = 0;
       blogCards.forEach((card) => {
         const { title, excerpt, category } = getPostData(card);
-        const matchesCategory =
-          activeCategory === "all" ||
-          normalize(category) === normalize(activeCategory);
+        // Robust category matching
+        let matchesCategory = false;
+        if (activeCategory === "all") {
+          matchesCategory = true;
+        } else {
+          const catNorm = normalize(category);
+          if (activeCategory === "stories") {
+            matchesCategory = catNorm.includes("story"); // matches 'stories' or 'sweet stories'
+          } else if (activeCategory === "events") {
+            matchesCategory = catNorm.includes("event"); // matches 'events' or 'event'
+          } else {
+            matchesCategory = catNorm === normalize(activeCategory);
+          }
+        }
         const matchesSearch =
           !searchTerm ||
           normalize(title).includes(searchTerm) ||
