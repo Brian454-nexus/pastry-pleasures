@@ -197,15 +197,15 @@
   font-weight: 700;
   border-radius: 1.2rem;
   box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
-  background: linear-gradient(90deg, #eaa636 0%, #fff3cd 100%);
-  color: #fff;
+  background: var(--primary) !important;
+  color: #fff !important;
   border: none;
   transition: background 0.2s, color 0.2s;
 }
 #surpriseMeBtn:hover,
 #surpriseMeBtn:focus {
-  background: linear-gradient(90deg, #fff3cd 0%, #eaa636 100%);
-  color: #eaa636;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 /* Sprinkle Animation Overlay */
 #sprinkle-animation {
