@@ -5,13 +5,77 @@
     <title>Blog | Pastry Pleasures</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta
-      content="Sweet stories, recipes, and baking tips from Pastry Pleasures"
+      content="Recipes, baking tips and sweet stories from Pastry Pleasures. Cakes, cupcakes, cookies and more. Read our blog for inspiration and how-tos."
       name="description"
     />
-    <meta content="pastry, blog, recipes, baking, sweets" name="keywords" />
+    <meta content="pastry, bakery, cakes, recipes, baking, sweets, Nairobi, Kenya, cupcakes, cookies, Pastry Pleasures" name="keywords" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pastrypleasures.co.ke/blog/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pastrypleasures.co.ke/blog/" />
+    <meta property="og:title" content="Blog | Pastry Pleasures" />
+    <meta property="og:description" content="Recipes, baking tips and sweet stories from Pastry Pleasures. Cakes, cupcakes, cookies and more. Read our blog for inspiration and how-tos." />
+    <meta property="og:locale" content="en_KE" />
+    <meta property="og:site_name" content="Pastry Pleasures" />
+
+    <!-- WebSite + Organization structured data (helps Google show sitelinks) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://pastrypleasures.co.ke/#website",
+          "url": "https://pastrypleasures.co.ke/",
+          "name": "Pastry Pleasures",
+          "description": "Nairobi's beloved bakery: fresh pastries, cakes, cupcakes, and artisan breads. Order online, join baking classes. A little bliss in every bite.",
+          "publisher": { "@id": "https://pastrypleasures.co.ke/#organization" },
+          "inLanguage": "en-KE"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://pastrypleasures.co.ke/#organization",
+          "name": "Pastry Pleasures",
+          "url": "https://pastrypleasures.co.ke/",
+          "logo": "https://pastrypleasures.co.ke/img/favicon.png",
+          "description": "Bakery in Nairobi, Kenya. Cakes, pastries, baking classes, and custom orders. South C.",
+          "address": { "@type": "PostalAddress", "addressLocality": "South C", "addressRegion": "Nairobi", "addressCountry": "KE" },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+254725745988",
+            "contactType": "customer service",
+            "areaServed": "KE",
+            "availableLanguage": "English"
+          },
+          "sameAs": [
+            "https://www.facebook.com/pastrypl/",
+            "https://www.instagram.com/pastrypleasures",
+            "https://x.com/pstrypleasures",
+            "https://www.youtube.com/@PastryPleasures"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "Main navigation",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "url": "https://pastrypleasures.co.ke/" },
+            { "@type": "ListItem", "position": 2, "name": "About Us", "url": "https://pastrypleasures.co.ke/about.html" },
+            { "@type": "ListItem", "position": 3, "name": "Services", "url": "https://pastrypleasures.co.ke/service.html" },
+            { "@type": "ListItem", "position": 4, "name": "Gallery", "url": "https://pastrypleasures.co.ke/product.html" },
+            { "@type": "ListItem", "position": 5, "name": "Shop", "url": "https://pastrypleasures.co.ke/shop.html" },
+            { "@type": "ListItem", "position": 6, "name": "Blog", "url": "https://pastrypleasures.co.ke/blog/" },
+            { "@type": "ListItem", "position": 7, "name": "Contact", "url": "https://pastrypleasures.co.ke/contact.html" }
+          ]
+        }
+      ]
+    }
+    </script>
 
     <!-- Favicon -->
-    <link href="/img/favicon.ico" rel="icon" />
+    <link href="/img/favicon.png" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -756,9 +820,20 @@
       let visibleCount = 0;
       blogCards.forEach((card) => {
         const { title, excerpt, category } = getPostData(card);
-        const matchesCategory =
-          activeCategory === "all" ||
-          normalize(category) === normalize(activeCategory);
+        // Robust category matching
+        let matchesCategory = false;
+        if (activeCategory === "all") {
+          matchesCategory = true;
+        } else {
+          const catNorm = normalize(category);
+          if (activeCategory === "stories") {
+            matchesCategory = catNorm.includes("story"); // matches 'stories' or 'sweet stories'
+          } else if (activeCategory === "events") {
+            matchesCategory = catNorm.includes("event"); // matches 'events' or 'event'
+          } else {
+            matchesCategory = catNorm === normalize(activeCategory);
+          }
+        }
         const matchesSearch =
           !searchTerm ||
           normalize(title).includes(searchTerm) ||
@@ -831,7 +906,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 23, 2018</div>
+              <div class="blog-card-date">23 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -863,7 +938,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 22, 2018</div>
+              <div class="blog-card-date">22 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -895,7 +970,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 21, 2018</div>
+              <div class="blog-card-date">21 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -927,7 +1002,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 21, 2018</div>
+              <div class="blog-card-date">21 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -959,7 +1034,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 18, 2018</div>
+              <div class="blog-card-date">18 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -991,7 +1066,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 17, 2018</div>
+              <div class="blog-card-date">17 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -1023,7 +1098,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 16, 2018</div>
+              <div class="blog-card-date">16 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -1055,7 +1130,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 14, 2018</div>
+              <div class="blog-card-date">14 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -1087,7 +1162,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 13, 2018</div>
+              <div class="blog-card-date">13 Dec 2018</div>
             </div>
           </div>
         </div>
@@ -1119,7 +1194,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">May 17, 2018</div>
+              <div class="blog-card-date">17 May 2018</div>
             </div>
           </div>
         </div>
@@ -1151,7 +1226,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">May 10, 2018</div>
+              <div class="blog-card-date">10 May 2018</div>
             </div>
           </div>
         </div>
@@ -1183,7 +1258,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Apr 26, 2018</div>
+              <div class="blog-card-date">26 Apr 2018</div>
             </div>
           </div>
         </div>
@@ -1215,7 +1290,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Apr 19, 2018</div>
+              <div class="blog-card-date">19 Apr 2018</div>
             </div>
           </div>
         </div>
@@ -1247,7 +1322,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Apr 5, 2018</div>
+              <div class="blog-card-date">5 Apr 2018</div>
             </div>
           </div>
         </div>
@@ -1279,7 +1354,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Apr 1, 2018</div>
+              <div class="blog-card-date">1 Apr 2018</div>
             </div>
           </div>
         </div>
@@ -1311,7 +1386,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 29, 2018</div>
+              <div class="blog-card-date">29 Mar 2018</div>
             </div>
           </div>
         </div>
@@ -1343,7 +1418,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 22, 2018</div>
+              <div class="blog-card-date">22 Mar 2018</div>
             </div>
           </div>
         </div>
@@ -1375,7 +1450,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 15, 2018</div>
+              <div class="blog-card-date">15 Mar 2018</div>
             </div>
           </div>
         </div>
@@ -1407,7 +1482,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 8, 2018</div>
+              <div class="blog-card-date">8 Mar 2018</div>
             </div>
           </div>
         </div>
@@ -1439,7 +1514,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 1, 2018</div>
+              <div class="blog-card-date">1 Mar 2018</div>
             </div>
           </div>
         </div>
@@ -1471,7 +1546,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 22, 2018</div>
+              <div class="blog-card-date">22 Feb 2018</div>
             </div>
           </div>
         </div>
@@ -1503,7 +1578,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 13, 2018</div>
+              <div class="blog-card-date">13 Feb 2018</div>
             </div>
           </div>
         </div>
@@ -1535,7 +1610,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 8, 2018</div>
+              <div class="blog-card-date">8 Feb 2018</div>
             </div>
           </div>
         </div>
@@ -1567,7 +1642,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 1, 2018</div>
+              <div class="blog-card-date">1 Feb 2018</div>
             </div>
           </div>
         </div>
@@ -1599,7 +1674,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Aug 16, 2017</div>
+              <div class="blog-card-date">16 Aug 2017</div>
             </div>
           </div>
         </div>
@@ -1631,7 +1706,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">May 24, 2017</div>
+              <div class="blog-card-date">24 May 2017</div>
             </div>
           </div>
         </div>
@@ -1663,7 +1738,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Apr 11, 2017</div>
+              <div class="blog-card-date">11 Apr 2017</div>
             </div>
           </div>
         </div>
@@ -1695,7 +1770,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 28, 2017</div>
+              <div class="blog-card-date">28 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1727,7 +1802,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 25, 2017</div>
+              <div class="blog-card-date">25 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1759,7 +1834,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 21, 2017</div>
+              <div class="blog-card-date">21 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1791,7 +1866,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 18, 2017</div>
+              <div class="blog-card-date">18 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1823,7 +1898,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 14, 2017</div>
+              <div class="blog-card-date">14 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1855,7 +1930,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Mar 7, 2017</div>
+              <div class="blog-card-date">7 Mar 2017</div>
             </div>
           </div>
         </div>
@@ -1887,7 +1962,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 24, 2017</div>
+              <div class="blog-card-date">24 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -1919,7 +1994,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 19, 2017</div>
+              <div class="blog-card-date">19 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -1951,7 +2026,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 15, 2017</div>
+              <div class="blog-card-date">15 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -1983,7 +2058,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 12, 2017</div>
+              <div class="blog-card-date">12 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -2015,7 +2090,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 8, 2017</div>
+              <div class="blog-card-date">8 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -2047,7 +2122,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 4, 2017</div>
+              <div class="blog-card-date">4 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -2079,7 +2154,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Feb 2, 2017</div>
+              <div class="blog-card-date">2 Feb 2017</div>
             </div>
           </div>
         </div>
@@ -2111,7 +2186,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 31, 2017</div>
+              <div class="blog-card-date">31 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2143,7 +2218,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 27, 2017</div>
+              <div class="blog-card-date">27 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2175,7 +2250,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 18, 2017</div>
+              <div class="blog-card-date">18 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2207,7 +2282,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 17, 2017</div>
+              <div class="blog-card-date">17 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2239,7 +2314,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 14, 2017</div>
+              <div class="blog-card-date">14 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2271,7 +2346,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 7, 2017</div>
+              <div class="blog-card-date">7 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2303,7 +2378,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jan 3, 2017</div>
+              <div class="blog-card-date">3 Jan 2017</div>
             </div>
           </div>
         </div>
@@ -2335,7 +2410,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 31, 2016</div>
+              <div class="blog-card-date">31 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2367,7 +2442,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 26, 2016</div>
+              <div class="blog-card-date">26 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2399,7 +2474,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 20, 2016</div>
+              <div class="blog-card-date">20 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2431,7 +2506,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 17, 2016</div>
+              <div class="blog-card-date">17 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2463,7 +2538,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 14, 2016</div>
+              <div class="blog-card-date">14 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2495,7 +2570,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 13, 2016</div>
+              <div class="blog-card-date">13 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2527,7 +2602,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Dec 10, 2016</div>
+              <div class="blog-card-date">10 Dec 2016</div>
             </div>
           </div>
         </div>
@@ -2559,7 +2634,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 30, 2016</div>
+              <div class="blog-card-date">30 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2591,7 +2666,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 26, 2016</div>
+              <div class="blog-card-date">26 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2623,7 +2698,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 26, 2016</div>
+              <div class="blog-card-date">26 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2655,7 +2730,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 26, 2016</div>
+              <div class="blog-card-date">26 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2687,7 +2762,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 18, 2016</div>
+              <div class="blog-card-date">18 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2719,7 +2794,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 15, 2016</div>
+              <div class="blog-card-date">15 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2751,7 +2826,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 12, 2016</div>
+              <div class="blog-card-date">12 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2783,7 +2858,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 5, 2016</div>
+              <div class="blog-card-date">5 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2815,7 +2890,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Nov 1, 2016</div>
+              <div class="blog-card-date">1 Nov 2016</div>
             </div>
           </div>
         </div>
@@ -2847,7 +2922,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Sep 19, 2016</div>
+              <div class="blog-card-date">19 Sept 2016</div>
             </div>
           </div>
         </div>
@@ -2879,7 +2954,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Sep 4, 2016</div>
+              <div class="blog-card-date">4 Sept 2016</div>
             </div>
           </div>
         </div>
@@ -2911,7 +2986,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Aug 28, 2016</div>
+              <div class="blog-card-date">28 Aug 2016</div>
             </div>
           </div>
         </div>
@@ -2943,7 +3018,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Aug 21, 2016</div>
+              <div class="blog-card-date">21 Aug 2016</div>
             </div>
           </div>
         </div>
@@ -2975,7 +3050,7 @@
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jul 31, 2016</div>
+              <div class="blog-card-date">31 Jul 2016</div>
             </div>
           </div>
         </div>
@@ -3021,7 +3096,7 @@ Happy cooking!</p>
                 />
                 Pastry Pleasures
               </div>
-              <div class="blog-card-date">Jul 24, 2016</div>
+              <div class="blog-card-date">24 Jul 2016</div>
             </div>
           </div>
         </div>
@@ -3059,7 +3134,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jul 17, 2016</div>
+              <div class="blog-card-date">17 Jul 2016</div>
             </div>
           </div>
         </div>
@@ -3091,7 +3166,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jul 10, 2016</div>
+              <div class="blog-card-date">10 Jul 2016</div>
             </div>
           </div>
         </div>
@@ -3123,7 +3198,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">Jul 3, 2016</div>
+              <div class="blog-card-date">3 Jul 2016</div>
             </div>
           </div>
         </div>
@@ -3155,7 +3230,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">May 22, 2016</div>
+              <div class="blog-card-date">22 May 2016</div>
             </div>
           </div>
         </div>
@@ -3187,7 +3262,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
                 />
                 Wangechi Kimata
               </div>
-              <div class="blog-card-date">May 8, 2016</div>
+              <div class="blog-card-date">8 May 2016</div>
             </div>
           </div>
         </div>
@@ -3219,6 +3294,12 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
             <p class="mb-2">
               <i class="fa fa-envelope me-3"></i>pastrypleasures12@gmail.com
             </p>
+            <p class="mb-2">
+              <i class="fa fa-clock me-3"></i><strong>OPEN:</strong> TUESDAY-SATURDAY 9.00 AM TO 5.00 PM
+            </p>
+            <p class="mb-2">
+              <i class="fa fa-times-circle me-3"></i><strong>CLOSED:</strong> SUNDAY, MONDAY & ALL PUBLIC HOLIDAYS
+            </p>
             <div class="d-flex pt-2">
               <a class="btn btn-outline-light btn-social me-2" href="https://www.facebook.com/pastrypl/" target="_blank"><i class="fab fa-facebook-f"></i></a>
               <a class="btn btn-outline-light btn-social me-2" href="https://www.instagram.com/pastrypleasures" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -3231,7 +3312,7 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
             <a class="btn btn-link" href="/about.html">About Us</a>
             <a class="btn btn-link" href="/contact.html">Contact Us</a>
             <a class="btn btn-link" href="/service.html">Our Services</a>
-            <a class="btn btn-link" href="/gallery.html">Gallery</a>
+            <a class="btn btn-link" href="/product.html">Gallery</a>
             <a class="btn btn-link" href="/shop.html">Shop</a>
             <a class="btn btn-link" href="/blog/">Blog</a>
             <a class="btn btn-link" href="/terms.html">Terms & Condition</a>
@@ -3241,32 +3322,32 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
             <h4 class="text-light mb-4">Photo Gallery</h4>
             <div class="row g-2">
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/339675928_744614570706051_3204722530471677933_n..jpg" alt="Image" />
                 </a>
               </div>
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/364285421_994362161759383_3577770414961300791_n..jpg" alt="Image" />
                 </a>
               </div>
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/383316593_363944415961121_5342800522696165598_n..jpg" alt="Image" />
                 </a>
               </div>
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/395634456_1316744205668989_1688707400642687800_n..jpg" alt="Image" />
                 </a>
               </div>
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/418012861_750691306905400_4217419105679482159_n..jpg" alt="Image" />
                 </a>
               </div>
               <div class="col-4">
-                <a href="/gallery.html">
+                <a href="/product.html">
                   <img class="img-fluid bg-light rounded p-1 footer-gallery-img" src="/gallery/480582541_18487415275041423_4113355286877944688_n..jpg" alt="Image" />
                 </a>
               </div>
@@ -3283,11 +3364,13 @@ If you don’t believe me, try it. It will be a whole lot of bliss with every bi
       data-wow-delay="0.1s"
     >
       <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            &copy; <a href="#">Pastry Pleasures</a>, All Right Reserved.
+            &copy; <a href="/">Pastry Pleasures</a>, All Rights Reserved.
+            <span class="d-block small text-white-50 mt-1">Pastry Pleasures official website – pastrypleasures.co.ke (Nairobi, Kenya)</span>
           </div>
-         
+          <div class="col-md-6 text-center text-md-end">
+            <a class="btn btn-link text-light p-0 small" href="/">pastrypleasures.co.ke</a>
           </div>
         </div>
       </div>

@@ -2,13 +2,77 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{{ title }} | Pastry Pleasures</title>
+    <title>{% if titleOverride %}{{ titleOverride }}{% else %}{{ title }} | Pastry Pleasures{% endif %}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta
-      content="Sweet stories, recipes, and baking tips from Pastry Pleasures"
+      content="{% if description %}{{ description }}{% else %}Sweet stories, recipes, and baking tips from Pastry Pleasures{% endif %}"
       name="description"
     />
-    <meta content="pastry, blog, recipes, baking, sweets" name="keywords" />
+    <meta content="pastry, bakery, cakes, recipes, baking, sweets, Nairobi, Kenya, cupcakes, cookies, Pastry Pleasures" name="keywords" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pastrypleasures.co.ke{{ page.url }}" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pastrypleasures.co.ke{{ page.url }}" />
+    <meta property="og:title" content="{% if titleOverride %}{{ titleOverride }}{% else %}{{ title }} | Pastry Pleasures{% endif %}" />
+    <meta property="og:description" content="{% if description %}{{ description }}{% else %}Sweet stories, recipes, and baking tips from Pastry Pleasures{% endif %}" />
+    <meta property="og:locale" content="en_KE" />
+    <meta property="og:site_name" content="Pastry Pleasures" />
+
+    <!-- WebSite + Organization structured data (helps Google show sitelinks) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://pastrypleasures.co.ke/#website",
+          "url": "https://pastrypleasures.co.ke/",
+          "name": "Pastry Pleasures",
+          "description": "Nairobi's beloved bakery: fresh pastries, cakes, cupcakes, and artisan breads. Order online, join baking classes. A little bliss in every bite.",
+          "publisher": { "@id": "https://pastrypleasures.co.ke/#organization" },
+          "inLanguage": "en-KE"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://pastrypleasures.co.ke/#organization",
+          "name": "Pastry Pleasures",
+          "url": "https://pastrypleasures.co.ke/",
+          "logo": "https://pastrypleasures.co.ke/img/favicon.png",
+          "description": "Bakery in Nairobi, Kenya. Cakes, pastries, baking classes, and custom orders. South C.",
+          "address": { "@type": "PostalAddress", "addressLocality": "South C", "addressRegion": "Nairobi", "addressCountry": "KE" },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+254725745988",
+            "contactType": "customer service",
+            "areaServed": "KE",
+            "availableLanguage": "English"
+          },
+          "sameAs": [
+            "https://www.facebook.com/pastrypl/",
+            "https://www.instagram.com/pastrypleasures",
+            "https://x.com/pstrypleasures",
+            "https://www.youtube.com/@PastryPleasures"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "Main navigation",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "url": "https://pastrypleasures.co.ke/" },
+            { "@type": "ListItem", "position": 2, "name": "About Us", "url": "https://pastrypleasures.co.ke/about.html" },
+            { "@type": "ListItem", "position": 3, "name": "Services", "url": "https://pastrypleasures.co.ke/service.html" },
+            { "@type": "ListItem", "position": 4, "name": "Gallery", "url": "https://pastrypleasures.co.ke/product.html" },
+            { "@type": "ListItem", "position": 5, "name": "Shop", "url": "https://pastrypleasures.co.ke/shop.html" },
+            { "@type": "ListItem", "position": 6, "name": "Blog", "url": "https://pastrypleasures.co.ke/blog/" },
+            { "@type": "ListItem", "position": 7, "name": "Contact", "url": "https://pastrypleasures.co.ke/contact.html" }
+          ]
+        }
+      ]
+    }
+    </script>
 
     <!-- Favicon -->
     <link href="{{ '/img/favicon.png' | url }}" rel="icon" />
@@ -596,11 +660,13 @@
       data-wow-delay="0.1s"
     >
       <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            &copy; <a href="#">Pastry Pleasures</a>, All Rights Reserved.
+            &copy; <a href="{{ '/' | url }}">Pastry Pleasures</a>, All Rights Reserved.
+            <span class="d-block small text-white-50 mt-1">Pastry Pleasures official website – pastrypleasures.co.ke (Nairobi, Kenya)</span>
           </div>
-         
+          <div class="col-md-6 text-center text-md-end">
+            <a class="btn btn-link text-light p-0 small" href="{{ '/' | url }}">pastrypleasures.co.ke</a>
           </div>
         </div>
       </div>

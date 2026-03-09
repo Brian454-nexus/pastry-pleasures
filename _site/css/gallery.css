@@ -152,6 +152,37 @@
   background: #fff;
   color: var(--primary, #eaa636);
 }
+.gallery-lightbox .lightbox-like-btn {
+  background: transparent !important;
+  color: inherit;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.7rem;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.gallery-lightbox .lightbox-like-btn.liked {
+  background: transparent !important;
+  color: inherit;
+}
+.gallery-lightbox .lightbox-like-btn i {
+  color: #eaa636;
+  transition: color 0.2s;
+}
+.gallery-lightbox .lightbox-like-btn.liked i {
+  color: #e74c3c !important;
+}
+.gallery-lightbox .lightbox-like-count {
+  color: #eaa636;
+  font-weight: 700;
+  margin-left: 0.3rem;
+  font-size: 1.1rem;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -166,15 +197,15 @@
   font-weight: 700;
   border-radius: 1.2rem;
   box-shadow: 0 2px 8px rgba(234, 166, 54, 0.08);
-  background: linear-gradient(90deg, #eaa636 0%, #fff3cd 100%);
-  color: #fff;
+  background: var(--primary) !important;
+  color: #fff !important;
   border: none;
   transition: background 0.2s, color 0.2s;
 }
 #surpriseMeBtn:hover,
 #surpriseMeBtn:focus {
-  background: linear-gradient(90deg, #fff3cd 0%, #eaa636 100%);
-  color: #eaa636;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 /* Sprinkle Animation Overlay */
 #sprinkle-animation {
@@ -238,26 +269,9 @@
   background: #eaa636;
   color: #fff;
 }
-.lightbox-like-btn.liked {
-  color: #e74c3c;
-  background: #fff3cd;
-}
-.lightbox-like-btn.liked i {
-  color: #e74c3c;
-}
-.lightbox-like-btn.liked:not(:hover):not(:focus) {
-  color: inherit;
-}
-.lightbox-like-btn.liked i {
-  color: #e74c3c !important;
-}
 .lightbox-like-btn i {
-  color: var(--primary, #eaa636);
+  color: #eaa636;
   transition: color 0.2s;
-  font-weight: 400;
-}
-.lightbox-like-btn.liked i {
-  color: #e74c3c !important;
 }
 .lightbox-like-count {
   color: #eaa636;
