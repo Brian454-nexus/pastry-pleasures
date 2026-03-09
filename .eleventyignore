@@ -1,1 +1,5 @@
-netlify/functions/ 
+netlify/functions/
+venv/
+docs/
+README.md
+BLOG_SETUP.md
