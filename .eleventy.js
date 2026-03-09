@@ -8,6 +8,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("lib");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("gallery");
+  eleventyConfig.addPassthroughCopy("sitemap.xml");
 
   // Pre-process blog posts
   eleventyConfig.addCollection("posts", function (collectionApi) {
